@@ -19,7 +19,7 @@ public final class IntoTheSunset extends CardImpl {
 
         // Exile target creature. Its controller gains life equal to its power.
         this.getSpellAbility().addTarget(new TargetCreaturePermanent());
-        this.getSpellAbility().addEffect(new ExileAndGainLifeEqualToughnessTargetEffect());
+        this.getSpellAbility().addEffect(new ExileAndGainLifeEqual());
 
     }
 

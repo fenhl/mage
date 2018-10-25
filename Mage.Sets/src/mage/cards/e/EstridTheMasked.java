@@ -4,17 +4,17 @@ import java.util.UUID;
 import mage.abilities.Ability;
 import mage.abilities.LoyaltyAbility;
 import mage.abilities.common.CanBeYourCommanderAbility;
-import mage.abilities.common.PlanswalkerEntersWithLoyalityCountersAbility;
+import mage.abilities.common.PlaneswalkerEntersWithLoyaltyCountersAbility;
 import mage.abilities.effects.OneShotEffect;
 import mage.abilities.effects.common.CreateTokenEffect;
 import mage.abilities.effects.common.PutTopCardOfLibraryIntoGraveControllerEffect;
 import mage.abilities.effects.common.UntapAllControllerEffect;
-import mage.constants.SubType;
-import mage.constants.SuperType;
 import mage.cards.CardImpl;
 import mage.cards.CardSetInfo;
 import mage.constants.CardType;
 import mage.constants.Outcome;
+import mage.constants.SubType;
+import mage.constants.SuperType;
 import mage.constants.Zone;
 import mage.filter.FilterPermanent;
 import mage.filter.common.FilterEnchantmentCard;
@@ -47,7 +47,7 @@ public final class EstridTheMasked extends CardImpl {
 
         this.addSuperType(SuperType.LEGENDARY);
         this.subtype.add(SubType.ESTRID);
-        this.addAbility(new PlanswalkerEntersWithLoyalityCountersAbility(3));
+        this.addAbility(new PlaneswalkerEntersWithLoyaltyCountersAbility(3));
 
         // +2: Untap each enchanted permanent you control.
         this.addAbility(new LoyaltyAbility(new UntapAllControllerEffect(
@@ -107,7 +107,9 @@ class EstridTheMaskedTokenEffect extends OneShotEffect {
             if (token == null) {
                 continue;
             }
-            token.attachTo(source.getFirstTarget(), game);
+            token.getAbilities().get(0).getTargets().get(0).add(source.getFirstTarget(), game);
+            token.getAbilities().get(0).getEffects().get(0).apply(game, token.getAbilities().get(0));
+            // token.attachTo(source.getFirstTarget(), game);
         }
         return true;
     }

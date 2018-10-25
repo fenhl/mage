@@ -1,41 +1,50 @@
 package mage.cards.u;
 
+import java.util.UUID;
 import mage.MageInt;
 import mage.abilities.Ability;
 import mage.abilities.common.AttacksTriggeredAbility;
 import mage.abilities.effects.common.continuous.GainAbilityTargetEffect;
 import mage.abilities.keyword.SpaceflightAbility;
+import mage.constants.Duration;
+import mage.constants.SubType;
 import mage.cards.CardImpl;
 import mage.cards.CardSetInfo;
 import mage.constants.CardType;
-import mage.constants.Duration;
-import mage.constants.SubType;
+import mage.constants.Zone;
 import mage.target.common.TargetControlledCreaturePermanent;
 
-import java.util.UUID;
+/**
+ *
+ * @author NinthWorld
+ */
+public final class UpsilonClassShuttle extends CardImpl {
 
-public final class UpsilonclassShuttle extends CardImpl {
-
-    public UpsilonclassShuttle(UUID ownerId, CardSetInfo setInfo) {
+    public UpsilonClassShuttle(UUID ownerId, CardSetInfo setInfo) {
         super(ownerId, setInfo, new CardType[]{CardType.ARTIFACT, CardType.CREATURE}, "{5}");
+        
         this.subtype.add(SubType.STARSHIP);
         this.power = new MageInt(2);
-        this.power = new MageInt(3);
+        this.toughness = new MageInt(3);
 
-
-        //Spaceflight
+        // Spaceflight
         this.addAbility(SpaceflightAbility.getInstance());
-        //Whenever Upsilon-class Shuttle attacks, target creature you control gains Spaceflight until end of turn.
-        Ability ability = (new AttacksTriggeredAbility(new GainAbilityTargetEffect(SpaceflightAbility.getInstance(), Duration.EndOfTurn), false));
-        ability.addTarget(new TargetControlledCreaturePermanent(1));
+
+        // Whenever Upsilon-class Shuttle attacks, target creature you control gains spaceflight until end of turn.
+        Ability ability = new AttacksTriggeredAbility(
+                new GainAbilityTargetEffect(SpaceflightAbility.getInstance(), Duration.EndOfTurn)
+                    .setText("target creature you control gains spaceflight until end of turn"),
+                false);
+        ability.addTarget(new TargetControlledCreaturePermanent());
+        this.addAbility(ability);
     }
 
-    public UpsilonclassShuttle(final UpsilonclassShuttle card) {
+    public UpsilonClassShuttle(final UpsilonClassShuttle card) {
         super(card);
     }
 
     @Override
-    public UpsilonclassShuttle copy() {
-        return new UpsilonclassShuttle(this);
+    public UpsilonClassShuttle copy() {
+        return new UpsilonClassShuttle(this);
     }
 }

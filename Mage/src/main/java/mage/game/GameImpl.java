@@ -1022,6 +1022,7 @@ public abstract class GameImpl implements Game, Serializable {
         watchers.add(new CastSpellLastTurnWatcher());
         watchers.add(new CastSpellYourLastTurnWatcher());
         watchers.add(new PlayerLostLifeWatcher());
+        watchers.add(new PlayerLostLifeNonCombatWatcher());
         watchers.add(new BlockedAttackerWatcher());
         watchers.add(new DamageDoneWatcher());
         watchers.add(new PlanarRollWatcher());
@@ -1190,7 +1191,7 @@ public abstract class GameImpl implements Game, Serializable {
         player.shuffleLibrary(null, this);
         int deduction = 1;
         if (freeMulligans > 0) {
-            if (usedFreeMulligans != null && usedFreeMulligans.containsKey(player.getId())) {
+            if (usedFreeMulligans.containsKey(player.getId())) {
                 int used = usedFreeMulligans.get(player.getId());
                 if (used < freeMulligans) {
                     deduction = 0;
@@ -1409,7 +1410,7 @@ public abstract class GameImpl implements Game, Serializable {
             }
         }
     }
-    
+
     @Override
     public void resetControlAfterSpellResolve(UUID topId) {
         // for Word of Command
@@ -1423,7 +1424,7 @@ public abstract class GameImpl implements Game, Serializable {
                 } else {
                     spellControllerId = spell.getControllerId(); // i.e. resolved spell is the target opponent's spell
                 }
-                if (commandedBy != null && spellControllerId != null) {
+                if (spellControllerId != null) {
                     Player turnController = getPlayer(commandedBy);
                     if (turnController != null) {
                         Player targetPlayer = getPlayer(spellControllerId);
@@ -1957,7 +1958,12 @@ public abstract class GameImpl implements Game, Serializable {
                         }
                     }
                 } else {
-                    SpellAbility spellAbility = perm.getSpellAbility();
+                    Ability spellAbility = perm.getSpellAbility();
+                    if (spellAbility == null) {
+                        if (!perm.getAbilities().isEmpty()) {
+                            spellAbility = perm.getAbilities().get(0); // Can happen for created tokens (e.g. Estrid, the Masked)
+                        }
+                    }
                     if (spellAbility.getTargets().isEmpty()) {
                         for (Ability ability : perm.getAbilities(this)) {
                             if ((ability instanceof SpellAbility)
@@ -1981,7 +1987,8 @@ public abstract class GameImpl implements Game, Serializable {
                                 if (card != null && card.isCreature()) {
                                     UUID wasAttachedTo = perm.getAttachedTo();
                                     perm.attachTo(null, this);
-                                    BestowAbility.becomeCreature(perm, this);
+                                    //moved to mage.game.permanent.PermanentImpl::detachAllAttachments
+                                    //BestowAbility.becomeCreature(perm, this);
                                     fireEvent(new GameEvent(GameEvent.EventType.UNATTACHED, wasAttachedTo, perm.getId(), perm.getControllerId()));
                                 } else if (movePermanentToGraveyardWithInfo(perm)) {
                                     somethingHappened = true;

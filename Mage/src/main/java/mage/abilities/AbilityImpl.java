@@ -1,4 +1,3 @@
-
 package mage.abilities;
 
 import java.util.ArrayList;
@@ -16,8 +15,8 @@ import mage.abilities.effects.ContinuousEffect;
 import mage.abilities.effects.Effect;
 import mage.abilities.effects.Effects;
 import mage.abilities.effects.OneShotEffect;
-import mage.abilities.effects.mana.DynamicManaEffect;
 import mage.abilities.effects.common.ManaEffect;
+import mage.abilities.effects.mana.DynamicManaEffect;
 import mage.abilities.mana.ActivatedManaAbilityImpl;
 import mage.cards.Card;
 import mage.cards.SplitCard;
@@ -33,6 +32,7 @@ import mage.game.stack.StackAbility;
 import mage.players.Player;
 import mage.target.Target;
 import mage.target.Targets;
+import mage.target.targetadjustment.TargetAdjuster;
 import mage.util.GameLog;
 import mage.util.ThreadLocalStringBuilder;
 import mage.watchers.Watcher;
@@ -72,7 +72,7 @@ public abstract class AbilityImpl implements Ability {
     protected List<Watcher> watchers = new ArrayList<>();
     protected List<Ability> subAbilities = null;
     protected boolean canFizzle = true;
-    protected TargetAdjustment targetAdjustment = TargetAdjustment.NONE;
+    protected TargetAdjuster targetAdjuster = null;
 
     public AbilityImpl(AbilityType abilityType, Zone zone) {
         this.id = UUID.randomUUID();
@@ -116,10 +116,10 @@ public abstract class AbilityImpl implements Ability {
         this.costModificationActive = ability.costModificationActive;
         this.worksFaceDown = ability.worksFaceDown;
         this.abilityWord = ability.abilityWord;
-        this.sourceObject = ability.sourceObject;
+        this.sourceObject = null; // you may not copy this because otherwise simulation may modify real game object
         this.sourceObjectZoneChangeCounter = ability.sourceObjectZoneChangeCounter;
         this.canFizzle = ability.canFizzle;
-        this.targetAdjustment = ability.targetAdjustment;
+        this.targetAdjuster = ability.targetAdjuster;
     }
 
     @Override
@@ -1225,12 +1225,19 @@ public abstract class AbilityImpl implements Ability {
     }
 
     @Override
-    public void setTargetAdjustment(TargetAdjustment targetAdjustment) {
-        this.targetAdjustment = targetAdjustment;
+    public void setTargetAdjuster(TargetAdjuster targetAdjuster) {
+        this.targetAdjuster = targetAdjuster;
     }
 
     @Override
-    public TargetAdjustment getTargetAdjustment() {
-        return targetAdjustment;
+    public TargetAdjuster getTargetAdjuster() {
+        return targetAdjuster;
+    }
+
+    @Override
+    public void adjustTargets(Game game) {
+        if (targetAdjuster != null) {
+            targetAdjuster.adjustTargets(this, game);
+        }
     }
 }
