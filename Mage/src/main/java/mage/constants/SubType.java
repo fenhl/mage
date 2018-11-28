@@ -135,6 +135,7 @@ public enum SubType {
     EXPANSION_SYMBOL("Expansion-Symbol", SubTypeSet.CreatureType, true), // Unhinged
     // F
     FAERIE("Faerie", SubTypeSet.CreatureType),
+    FARMER("Farmer", SubTypeSet.CreatureType), //Lorado
     FERRET("Ferret", SubTypeSet.CreatureType),
     FISH("Fish", SubTypeSet.CreatureType),
     FLAGBEARER("Flagbearer", SubTypeSet.CreatureType),
@@ -383,6 +384,7 @@ public enum SubType {
     DOVIN("Dovin", SubTypeSet.PlaneswalkerType),
     ELSPETH("Elspeth", SubTypeSet.PlaneswalkerType),
     ESTRID("Estrid", SubTypeSet.PlaneswalkerType),
+    FARAJO("Farajo", SubTypeSet.PlaneswalkerType), //Lorado
     FREYALISE("Freyalise", SubTypeSet.PlaneswalkerType),
     GARRUK("Garruk", SubTypeSet.PlaneswalkerType),
     GIDEON("Gideon", SubTypeSet.PlaneswalkerType),
