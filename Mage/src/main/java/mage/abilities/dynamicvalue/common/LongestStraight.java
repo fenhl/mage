@@ -34,6 +34,7 @@ public class LongestStraight implements DynamicValue {
         ArrayList<Integer> cmcList = new ArrayList<Integer>();
 
         int straight = 0;
+        int savestraight = 0;
         for (Permanent permanent : game.getBattlefield().getAllActivePermanents(noLand, sourceAbility.getControllerId(), game)) {
             int cmc = permanent.getConvertedManaCost();
             cmcList.add(cmc);
@@ -46,10 +47,19 @@ public class LongestStraight implements DynamicValue {
             cmcList.addAll(st);
             straight = 1;
             for (int i = 0; i < cmcList.size(); i++) {
+                if (i == 0 ) continue;
                 if (cmcList.get(i) == cmcList.get(i - 1) + 1) {
                     straight++;
-                } else straight = 1;
+                } else{
+                    if (straight > savestraight){
+                        savestraight = straight;
+                    }
+                    straight = 1;
+                }
             }
+        }
+        if (savestraight > straight){
+            return savestraight;
         }
         return straight;
     }
