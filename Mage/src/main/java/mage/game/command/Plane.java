@@ -1,7 +1,5 @@
-
 package mage.game.command;
 
-import static java.lang.Math.log;
 import java.lang.reflect.Constructor;
 import java.util.EnumSet;
 import java.util.List;
@@ -286,10 +284,10 @@ public class Plane implements CommandObject {
             Class<?> c = Class.forName(planeName);
             Constructor<?> cons = c.getConstructor();
             Object plane = cons.newInstance();
-            if (plane != null && plane instanceof mage.game.command.Plane) {
+            if (plane instanceof Plane) {
                 return (Plane) plane;
             }
-        } catch (Exception ex) {            
+        } catch (Exception ex) {
         }
         return null;
     }

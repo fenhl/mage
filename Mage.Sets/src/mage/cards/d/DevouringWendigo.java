@@ -1,4 +1,4 @@
-package mage.cards.d;
+/**package mage.cards.d;
 
 import mage.MageInt;
 import mage.abilities.Ability;
@@ -28,7 +28,7 @@ import java.util.UUID;
  *
  *
  * @author EikePeace
- */
+ *
 public final class DevouringWendigo extends CardImpl {
 
     private static final FilterLandPermanent filter = new FilterLandPermanent("a land");
@@ -44,7 +44,6 @@ public final class DevouringWendigo extends CardImpl {
         this.toughness = new MageInt(4);
 
        Effect effect = new DiscardCardYouChooseTargetEffect(new FilterCreatureCard());
-       power
     }
 
     public DadgumVermints(final DadgumVermints card) {
@@ -60,3 +59,4 @@ public final class DevouringWendigo extends CardImpl {
 public class DevouringWengdoEffect extends OneShotEffect{
 
 }
+ */

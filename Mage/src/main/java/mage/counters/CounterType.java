@@ -1,4 +1,3 @@
-
 package mage.counters;
 
 /**
@@ -20,6 +19,7 @@ public enum CounterType {
     CAGE("cage"),
     CARRION("carrion"),
     CHARGE("charge"),
+    CHIP("chip"),
     CORPSE("corpse"),
     CREDIT("credit"),
     CRYSTAL("crystal"),
@@ -45,6 +45,7 @@ public enum CounterType {
     FEATHER("feather"),
     FILIBUSTER("filibuster"),
     FLOOD("flood"),
+    FUNK("funk"),
     FURY("fury"),
     FUNGUS("fungus"),
     FUSE("fuse"),
@@ -54,6 +55,7 @@ public enum CounterType {
     GROWTH("growth"),
     HATCHLING("hatchling"),
     HEALING("healing"),
+    HIT("hit"),
     HOOFPRINT("hoofprint"),
     HOUR("hour"),
     HOURGLASS("hourglass"),

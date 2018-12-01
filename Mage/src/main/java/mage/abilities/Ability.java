@@ -1,4 +1,3 @@
-
 package mage.abilities;
 
 import java.io.Serializable;
@@ -14,7 +13,6 @@ import mage.abilities.effects.Effects;
 import mage.constants.AbilityType;
 import mage.constants.AbilityWord;
 import mage.constants.EffectType;
-import mage.constants.TargetAdjustment;
 import mage.constants.Zone;
 import mage.game.Controllable;
 import mage.game.Game;
@@ -23,6 +21,7 @@ import mage.game.permanent.Permanent;
 import mage.players.Player;
 import mage.target.Target;
 import mage.target.Targets;
+import mage.target.targetadjustment.TargetAdjuster;
 import mage.watchers.Watcher;
 
 /**
@@ -480,16 +479,7 @@ public interface Ability extends Controllable, Serializable {
     boolean activateAlternateOrAdditionalCosts(MageObject sourceObject, boolean noMana, Player controller, Game game);
 
     /**
-     * Sets the object that actually existed while a ability triggerd or an
-     * ability was activated.
-     *
-     * @param mageObject
-     * @param game
-     */
-    void setSourceObject(MageObject mageObject, Game game);
-
-    /**
-     * Returns the object that actually existed while a ability triggerd or an
+     * Returns the object that actually existed while a ability triggered or an
      * ability was activated. If not set yet, the current object will be
      * retrieved from the game.
      *
@@ -497,6 +487,8 @@ public interface Ability extends Controllable, Serializable {
      * @return
      */
     MageObject getSourceObject(Game game);
+
+    void setSourceObjectZoneChangeCounter(int zoneChangeCounter);
 
     int getSourceObjectZoneChangeCounter();
 
@@ -521,13 +513,17 @@ public interface Ability extends Controllable, Serializable {
      */
     Permanent getSourcePermanentIfItStillExists(Game game);
 
+    Permanent getSourcePermanentOrLKI(Game game);
+
     String getTargetDescription(Targets targets, Game game);
 
     void setCanFizzle(boolean canFizzle);
 
     boolean canFizzle();
 
-    void setTargetAdjustment(TargetAdjustment targetAdjustment);
+    void setTargetAdjuster(TargetAdjuster targetAdjuster);
 
-    TargetAdjustment getTargetAdjustment();
+    TargetAdjuster getTargetAdjuster();
+
+    void adjustTargets(Game game);
 }

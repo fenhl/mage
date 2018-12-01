@@ -1022,6 +1022,7 @@ public abstract class GameImpl implements Game, Serializable {
         watchers.add(new CastSpellLastTurnWatcher());
         watchers.add(new CastSpellYourLastTurnWatcher());
         watchers.add(new PlayerLostLifeWatcher());
+        watchers.add(new PlayerLostLifeNonCombatWatcher());
         watchers.add(new BlockedAttackerWatcher());
         watchers.add(new DamageDoneWatcher());
         watchers.add(new PlanarRollWatcher());
@@ -1190,7 +1191,7 @@ public abstract class GameImpl implements Game, Serializable {
         player.shuffleLibrary(null, this);
         int deduction = 1;
         if (freeMulligans > 0) {
-            if (usedFreeMulligans != null && usedFreeMulligans.containsKey(player.getId())) {
+            if (usedFreeMulligans.containsKey(player.getId())) {
                 int used = usedFreeMulligans.get(player.getId());
                 if (used < freeMulligans) {
                     deduction = 0;
@@ -1409,7 +1410,7 @@ public abstract class GameImpl implements Game, Serializable {
             }
         }
     }
-    
+
     @Override
     public void resetControlAfterSpellResolve(UUID topId) {
         // for Word of Command
@@ -1423,7 +1424,7 @@ public abstract class GameImpl implements Game, Serializable {
                 } else {
                     spellControllerId = spell.getControllerId(); // i.e. resolved spell is the target opponent's spell
                 }
-                if (commandedBy != null && spellControllerId != null) {
+                if (spellControllerId != null) {
                     Player turnController = getPlayer(commandedBy);
                     if (turnController != null) {
                         Player targetPlayer = getPlayer(spellControllerId);
@@ -1526,7 +1527,7 @@ public abstract class GameImpl implements Game, Serializable {
     @Override
     public void addEffect(ContinuousEffect continuousEffect, Ability source) {
         Ability newAbility = source.copy();
-        newAbility.setSourceObject(null, this); // Update the source object to the currently existing Object
+        newAbility.setSourceObjectZoneChangeCounter(getState().getZoneChangeCounter(source.getSourceId()));
         ContinuousEffect newEffect = continuousEffect.copy();
 
         newEffect.newId();
@@ -1697,11 +1698,17 @@ public abstract class GameImpl implements Game, Serializable {
         if (ability instanceof TriggeredManaAbility || ability instanceof DelayedTriggeredManaAbility) {
             // 20110715 - 605.4
             Ability manaAbiltiy = ability.copy();
+            if (manaAbiltiy.getSourceObjectZoneChangeCounter() == 0) {
+                manaAbiltiy.setSourceObjectZoneChangeCounter(getState().getZoneChangeCounter(ability.getSourceId()));
+            }
             manaAbiltiy.activate(this, false);
             manaAbiltiy.resolve(this);
         } else {
             TriggeredAbility newAbility = ability.copy();
             newAbility.newId();
+            if (newAbility.getSourceObjectZoneChangeCounter() == 0) {
+                newAbility.setSourceObjectZoneChangeCounter(getState().getZoneChangeCounter(ability.getSourceId()));
+            }
             state.addTriggeredAbility(newAbility);
         }
     }
@@ -1710,10 +1717,10 @@ public abstract class GameImpl implements Game, Serializable {
     public UUID addDelayedTriggeredAbility(DelayedTriggeredAbility delayedAbility, Ability source) {
         delayedAbility.setSourceId(source.getSourceId());
         delayedAbility.setControllerId(source.getControllerId());
-        delayedAbility.setSourceObject(source.getSourceObject(this), this);
         // return addDelayedTriggeredAbility(delayedAbility);
         DelayedTriggeredAbility newAbility = delayedAbility.copy();
         newAbility.newId();
+        newAbility.setSourceObjectZoneChangeCounter(getState().getZoneChangeCounter(source.getSourceId()));
         newAbility.initOnAdding(this);
         // ability.init is called as the ability triggeres not now.
         // If a FixedTarget pointer is already set from the effect setting up this delayed ability
@@ -1957,7 +1964,12 @@ public abstract class GameImpl implements Game, Serializable {
                         }
                     }
                 } else {
-                    SpellAbility spellAbility = perm.getSpellAbility();
+                    Ability spellAbility = perm.getSpellAbility();
+                    if (spellAbility == null) {
+                        if (!perm.getAbilities().isEmpty()) {
+                            spellAbility = perm.getAbilities().get(0); // Can happen for created tokens (e.g. Estrid, the Masked)
+                        }
+                    }
                     if (spellAbility.getTargets().isEmpty()) {
                         for (Ability ability : perm.getAbilities(this)) {
                             if ((ability instanceof SpellAbility)
@@ -1981,7 +1993,8 @@ public abstract class GameImpl implements Game, Serializable {
                                 if (card != null && card.isCreature()) {
                                     UUID wasAttachedTo = perm.getAttachedTo();
                                     perm.attachTo(null, this);
-                                    BestowAbility.becomeCreature(perm, this);
+                                    //moved to mage.game.permanent.PermanentImpl::detachAllAttachments
+                                    //BestowAbility.becomeCreature(perm, this);
                                     fireEvent(new GameEvent(GameEvent.EventType.UNATTACHED, wasAttachedTo, perm.getId(), perm.getControllerId()));
                                 } else if (movePermanentToGraveyardWithInfo(perm)) {
                                     somethingHappened = true;

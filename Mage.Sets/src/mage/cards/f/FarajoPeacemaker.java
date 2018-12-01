@@ -3,7 +3,7 @@ package mage.cards.f;
 
 import mage.abilities.Ability;
 import mage.abilities.LoyaltyAbility;
-import mage.abilities.common.PlanswalkerEntersWithLoyalityCountersAbility;
+import mage.abilities.common.PlaneswalkerEntersWithLoyaltyCountersAbility;
 import mage.abilities.costs.Cost;
 import mage.abilities.costs.common.PayVariableLoyaltyCost;
 import mage.abilities.effects.ContinuousRuleModifyingEffectImpl;
@@ -41,7 +41,7 @@ public final class FarajoPeacemaker extends CardImpl {
         this.addSuperType(SuperType.LEGENDARY);
         this.subtype.add(SubType.FARAJO);
 
-        this.addAbility(new PlanswalkerEntersWithLoyalityCountersAbility(3));
+        this.addAbility(new PlaneswalkerEntersWithLoyaltyCountersAbility(3));
 
         // +1: Until your next turn, up to one target creature can't attack and its activated abilities can't be activated.
         Effect effect = new CantAttackAnyPlayerAllEffect(Duration.UntilYourNextTurn, new FilterCreaturePermanent());

@@ -7,13 +7,9 @@ package mage.abilities.dynamicvalue.common;
 import java.util.*;
 
 import mage.abilities.Ability;
-import mage.abilities.costs.mana.ManaCost;
 import mage.abilities.dynamicvalue.DynamicValue;
 import mage.abilities.effects.Effect;
-import mage.constants.ColoredManaSymbol;
-import mage.filter.FilterPermanent;
 import mage.filter.common.FilterNonlandPermanent;
-import mage.filter.predicate.mageobject.ConvertedManaCostPredicate;
 import mage.game.Game;
 import mage.game.permanent.Permanent;
 
@@ -26,8 +22,6 @@ import mage.game.permanent.Permanent;
 public class LongestStraight implements DynamicValue {
 
     private FilterNonlandPermanent noLand = new FilterNonlandPermanent();
-    public LongestStraight(final LongestStraight dynamicValue) {
-    }
 
     @Override
     public int calculate(Game game, Ability sourceAbility, Effect effect) {
@@ -66,7 +60,7 @@ public class LongestStraight implements DynamicValue {
 
     @Override
     public LongestStraight copy() {
-        return new LongestStraight(this);
+        return new LongestStraight();
     }
 
     @Override

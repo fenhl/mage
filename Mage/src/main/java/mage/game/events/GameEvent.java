@@ -1,4 +1,3 @@
-
 package mage.game.events;
 
 import java.io.Serializable;
@@ -73,6 +72,12 @@ public class GameEvent implements Serializable {
         MADNESS_CARD_EXILED,
         INVESTIGATED,
         KICKED,
+        /* CONVOKED
+         targetId    id of the creature that was taped to convoke the sourceId
+         sourceId    sourceId of the convoked spell
+         playerId    controller of the convoked spell
+         */
+        CONVOKED,
         DISCARD_CARD,
         DISCARDED_CARD,
         CYCLE_CARD, CYCLED_CARD,
@@ -199,6 +204,10 @@ public class GameEvent implements Serializable {
          */
         DECLARING_BLOCKERS,
         DECLARED_BLOCKERS,
+        /* DECLARING_BLOCKERS
+         targetId    id of the blocking player
+         sourceId    id of the blocking player
+         */
         DECLARE_BLOCKER, BLOCKER_DECLARED,
         CREATURE_BLOCKED,
         UNBLOCKED_ATTACKER,
@@ -206,7 +215,7 @@ public class GameEvent implements Serializable {
         SHUFFLE_LIBRARY, LIBRARY_SHUFFLED,
         ENCHANT_PLAYER, ENCHANTED_PLAYER,
         CAN_TAKE_MULLIGAN,
-        FLIP_COIN, COIN_FLIPPED, SCRY, FATESEAL,
+        FLIP_COIN, COIN_FLIPPED, SCRY, SURVEIL, SURVEILED, FATESEAL,
         ROLL_DICE, DICE_ROLLED,
         ROLL_PLANAR_DIE, PLANAR_DIE_ROLLED,
         PLANESWALK, PLANESWALKED,

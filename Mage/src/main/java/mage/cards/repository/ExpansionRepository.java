@@ -29,9 +29,11 @@ public enum ExpansionRepository {
     private static final String JDBC_URL = "jdbc:h2:file:./db/cards.h2;AUTO_SERVER=TRUE";
     private static final String VERSION_ENTITY_NAME = "expansion";
     private static final long EXPANSION_DB_VERSION = 5;
-    private static final long EXPANSION_CONTENT_VERSION = 15;
+    private static final long EXPANSION_CONTENT_VERSION = 17;
 
     private Dao<ExpansionInfo, Object> expansionDao;
+
+    public boolean instanceInitialized = false;
 
     ExpansionRepository() {
         File file = new File("db");
@@ -48,9 +50,11 @@ public enum ExpansionRepository {
 
             TableUtils.createTableIfNotExists(connectionSource, ExpansionInfo.class);
             expansionDao = DaoManager.createDao(connectionSource, ExpansionInfo.class);
+            instanceInitialized = true;
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+
     }
 
     public void add(ExpansionInfo expansion) {

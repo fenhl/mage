@@ -1,4 +1,3 @@
-
 package org.mage.plugins.card.dl.sources;
 
 import java.io.BufferedReader;
@@ -18,7 +17,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.prefs.Preferences;
-
 import mage.client.MageFrame;
 import mage.remote.Connection;
 import mage.remote.Connection.ProxyType;
@@ -232,7 +230,10 @@ public enum MythicspoilerComSource implements CardImageSource {
         supportedSets.add("RIX");
         supportedSets.add("DOM");
         supportedSets.add("BBD");
-//        supportedSets.add("CM2");
+        supportedSets.add("M19");
+        supportedSets.add("C18");
+        supportedSets.add("CM2");
+        supportedSets.add("GRN");
 
         sets = new LinkedHashMap<>();
         setsAliases = new HashMap<>();
@@ -329,7 +330,7 @@ public enum MythicspoilerComSource implements CardImageSource {
     }
 
     private Map<String, String> getSetLinksFromPage(String cardSet, Set<String> aliasesStart, Preferences prefs,
-                                                    ProxyType proxyType, String baseUrl, String pageUrl) throws IOException {
+            ProxyType proxyType, String baseUrl, String pageUrl) throws IOException {
         Map<String, String> pageLinks = new HashMap<>();
 
         String urlDocument;

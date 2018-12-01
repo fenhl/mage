@@ -1,22 +1,11 @@
 package mage.players;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import mage.MageItem;
 import mage.MageObject;
 import mage.MageObjectReference;
-import mage.abilities.Abilities;
-import mage.abilities.Ability;
-import mage.abilities.ActivatedAbility;
-import mage.abilities.Mode;
-import mage.abilities.Modes;
-import mage.abilities.SpellAbility;
-import mage.abilities.TriggeredAbility;
+import mage.abilities.*;
 import mage.abilities.costs.AlternativeSourceCosts;
 import mage.abilities.costs.Cost;
 import mage.abilities.costs.Costs;
@@ -28,13 +17,7 @@ import mage.cards.Card;
 import mage.cards.Cards;
 import mage.cards.decks.Deck;
 import mage.choices.Choice;
-import mage.constants.AbilityType;
-import mage.constants.ManaType;
-import mage.constants.Outcome;
-import mage.constants.PlanarDieRoll;
-import mage.constants.PlayerAction;
-import mage.constants.RangeOfInfluence;
-import mage.constants.Zone;
+import mage.constants.*;
 import mage.counters.Counter;
 import mage.counters.Counters;
 import mage.designations.Designation;
@@ -57,7 +40,6 @@ import mage.target.common.TargetCardInLibrary;
 import mage.util.Copyable;
 
 /**
- *
  * @author BetaSteward_at_googlemail.com
  */
 public interface Player extends MageItem, Copyable<Player> {
@@ -91,7 +73,6 @@ public interface Player extends MageItem, Copyable<Player> {
     void setLife(int life, Game game, UUID sourceId);
 
     /**
-     *
      * @param amount amount of life loss
      * @param game
      * @param atCombat was the source combat damage
@@ -289,7 +270,7 @@ public interface Player extends MageItem, Copyable<Player> {
 
     /**
      * Returns false in case player don't control the game.
-     *
+     * <p>
      * Note: For effects like "You control target player during that player's
      * next turn".
      *
@@ -299,7 +280,7 @@ public interface Player extends MageItem, Copyable<Player> {
 
     /**
      * Returns false in case you don't control the game.
-     *
+     * <p>
      * Note: For effects like "You control target player during that player's
      * next turn".
      *
@@ -360,7 +341,6 @@ public interface Player extends MageItem, Copyable<Player> {
     boolean searchLibrary(TargetCardInLibrary target, Game game, UUID targetPlayerId);
 
     /**
-     *
      * @param target
      * @param game
      * @param targetPlayerId player whose library will be searched
@@ -380,17 +360,17 @@ public interface Player extends MageItem, Copyable<Player> {
      * @param ignoreTiming if it's cast during the resolution of another spell
      * no sorcery or play land timing restriction are checked. For a land it has
      * to be the turn of the player playing that card.
+     * @param reference mage object that allows to play the card
      * @return
      */
     boolean playCard(Card card, Game game, boolean noMana, boolean ignoreTiming, MageObjectReference reference);
 
     /**
-     *
      * @param card the land card to play
      * @param game
      * @param ignoreTiming false - it won't be checked if the stack is empty and
      * you are able to play a Sorcery. It's still checked, if you are able to
-     * play a land concerning the numner of lands you already played.
+     * play a land concerning the number of lands you already played.
      * @return
      */
     boolean playLand(Card card, Game game, boolean ignoreTiming);
@@ -544,6 +524,8 @@ public interface Player extends MageItem, Copyable<Player> {
      * @return
      */
     boolean putCardsOnBottomOfLibrary(Cards cards, Game game, Ability source, boolean anyOrder);
+
+    boolean putCardsOnBottomOfLibrary(Card card, Game game, Ability source, boolean anyOrder);
 
     /**
      * Moves the card to the top x position of the library
@@ -759,7 +741,6 @@ public interface Player extends MageItem, Copyable<Player> {
      * @param game
      * @param withName show the card name in the log
      * @return
-     *
      */
     boolean moveCardToHandWithInfo(Card card, UUID sourceId, Game game, boolean withName);
 
@@ -869,6 +850,8 @@ public interface Player extends MageItem, Copyable<Player> {
     MatchPlayer getMatchPlayer();
 
     boolean scry(int value, Ability source, Game game);
+
+    boolean surveil(int value, Ability source, Game game);
 
     /**
      * Only used for test player for pre-setting targets

@@ -4,10 +4,12 @@ import mage.ObjectColor;
 import mage.cards.*;
 import mage.cards.basiclands.BasicLand;
 import mage.constants.CardType;
+import mage.constants.Constants;
 import mage.constants.Rarity;
 import mage.constants.SuperType;
 import mage.game.permanent.token.Token;
 import mage.game.permanent.token.TokenImpl;
+import mage.util.CardUtil;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -42,12 +44,12 @@ public class VerifyCardDataTest {
         skipCheckLists.put(listName, new LinkedHashSet<>());
     }
 
-    private static void skipListAddName(String listName, String name) {
-        skipCheckLists.get(listName).add(name);
+    private static void skipListAddName(String listName, String set, String name) {
+        skipCheckLists.get(listName).add(set + " - " + name);
     }
 
-    private static boolean skipListHaveName(String listName, String name) {
-        return skipCheckLists.get(listName).contains(name);
+    private static boolean skipListHaveName(String listName, String set, String name) {
+        return skipCheckLists.get(listName).contains(set + " - " + name);
     }
 
     static {
@@ -55,8 +57,8 @@ public class VerifyCardDataTest {
 
         // power-toughness
         skipListCreate("PT");
-        skipListAddName("PT", "Garbage Elemental"); // UST
-        skipListAddName("PT", "Infinity Elemental"); // UST
+        skipListAddName("PT", "UST", "Garbage Elemental");
+        skipListAddName("PT", "UST", "Infinity Elemental");
 
         // color
         skipListCreate("COLOR");
@@ -72,16 +74,12 @@ public class VerifyCardDataTest {
 
         // subtype
         skipListCreate("SUBTYPE");
-        skipListAddName("SUBTYPE", "Dragon Egg"); // remove when MTGJSON is updated with M19
-        skipListAddName("SUBTYPE", "Rukh Egg"); // remove when MTGJSON is updated with M19
-        skipListAddName("SUBTYPE", "Roc Egg"); // remove when MTGJSON is updated with M19
-        skipListAddName("SUBTYPE", "Summoner's Egg"); // remove when MTGJSON is updated with M19
-        skipListAddName("SUBTYPE", "Ludevic's Test Subject"); // remove when MTGJSON is updated with M19
-        skipListAddName("SUBTYPE", "Prowling Pangolin"); // remove when MTGJSON is updated with M19
-        skipListAddName("SUBTYPE", "Electryte"); // remove when MTGJSON is updated with M19
 
         // number
         skipListCreate("NUMBER");
+
+        // missing abilities
+        skipListCreate("MISSING_ABILITIES");
     }
 
     public static List<Card> allCards() {
@@ -100,15 +98,16 @@ public class VerifyCardDataTest {
     }
 
     private void warn(Card card, String message) {
-        System.out.println("Warning: " + message + " for " + card.getName() + " (" + card.getExpansionSetCode() + ")");
+        outputMessages.add("Warning: " + message + " for " + card.getExpansionSetCode() + " - " + card.getName() + " - " + card.getCardNumber());
     }
 
     private void fail(Card card, String category, String message) {
         failed++;
-        System.out.println("Error: (" + category + ") " + message + " for " + card.getName() + " (" + card.getExpansionSetCode() + ")");
+        outputMessages.add("Error: (" + category + ") " + message + " for " + card.getExpansionSetCode() + " - " + card.getName() + " - " + card.getCardNumber());
     }
 
     private int failed = 0;
+    private ArrayList<String> outputMessages = new ArrayList<>();
 
     @Test
     public void verifyCards() throws IOException {
@@ -121,8 +120,10 @@ public class VerifyCardDataTest {
                 check(card, tokens);
             }
         }
+
+        printMessages(outputMessages);
         if (failed > 0) {
-            Assert.fail(failed + " Errors");
+            Assert.fail(failed + " errors in verify");
         }
     }
 
@@ -260,13 +261,23 @@ public class VerifyCardDataTest {
         }
     }
 
-    private void printMessages(Collection<String> list) {
-        for (String mes : list) {
+    private void printMessages(Collection<String> list, boolean sorted) {
+
+        ArrayList<String> sortedList = new ArrayList<>(list);
+        if (sorted) {
+            sortedList.sort(String::compareTo);
+        }
+
+        for (String mes : sortedList) {
             System.out.println(mes);
         }
     }
 
-    private String extractShortClass(Class<? extends TokenImpl> tokenClass) {
+    private void printMessages(Collection<String> list) {
+        printMessages(list, true);
+    }
+
+    private String extractShortClass(Class<? extends Object> tokenClass) {
         String origin = tokenClass.getName();
         if (origin.contains("$")) {
             // inner classes, example: mage.cards.f.FigureOfDestiny$FigureOfDestinyToken3
@@ -274,6 +285,114 @@ public class VerifyCardDataTest {
         } else {
             // public classes, example: mage.game.permanent.token.FigureOfDestinyToken
             return origin.replaceAll(".+\\.(.+)", "$1");
+        }
+    }
+
+    @Test
+    public void checkMissingSetData() {
+        Collection<String> errorsList = new ArrayList<>();
+        Collection<String> warningsList = new ArrayList<>();
+
+        Collection<ExpansionSet> sets = Sets.getInstance().values();
+
+        // 1. wrong set class names
+        for (ExpansionSet set : sets) {
+            String className = extractShortClass(set.getClass());
+            String needClassName = set.getName()
+                    //.replaceAll("Duel Decks", "")
+                    .replaceAll("&", "And")
+                    .replaceAll(" vs. ", " Vs ") // for more friendly class name generation in logs TODO: replace to CamelCase transform instead custom words
+                    .replaceAll(" the ", " The ")
+                    .replaceAll(" and ", " And ")
+                    .replaceAll(" of ", " Of ")
+                    .replaceAll(" to ", " To ")
+                    .replaceAll(" for ", " For ")
+                    .replaceAll(" into ", " Into ")
+                    .replaceAll(" over ", " Over ")
+                    .replaceAll("[ .+-/:\"']", "");
+
+            //if (!className.toLowerCase(Locale.ENGLISH).equals(needClassName.toLowerCase(Locale.ENGLISH))) {
+            if (!className.equals(needClassName)) {
+                errorsList.add("error, set's class name must be equal to set name: "
+                        + className + " from " + set.getClass().getName() + ", caption: " + set.getName() + ", need name: " + needClassName);
+            }
+        }
+
+        // 2. wrong basic lands settings (it's for lands search, not booster construct)
+        Map<String, Boolean> skipLandCheck = new HashMap<>();
+        for (ExpansionSet set : sets) {
+            if (skipLandCheck.containsKey(set.getName())) {
+                continue;
+            }
+
+            Boolean needLand = set.hasBasicLands();
+            Boolean foundedLand = false;
+            Map<String, Integer> foundLandsList = new HashMap<>();
+            for (ExpansionSet.SetCardInfo card : set.getSetCardInfo()) {
+                if (isBasicLandName(card.getName())) {
+                    foundedLand = true;
+                    int count = foundLandsList.getOrDefault(card.getName(), 0);
+                    foundLandsList.put(card.getName(), count + 1);
+                }
+            }
+
+            String landNames = foundLandsList.entrySet().stream()
+                    .map(p -> (p.getKey() + " - " + p.getValue().toString()))
+                    .sorted().collect(Collectors.joining(", "));
+
+            if (needLand && !foundedLand) {
+                errorsList.add("error, found set with wrong hasBasicLands - it's true, but haven't land cards: " + set.getCode() + " in " + set.getClass().getName());
+            }
+
+            if (!needLand && foundedLand) {
+                errorsList.add("error, found set with wrong hasBasicLands - it's false, but have land cards: " + set.getCode() + " in " + set.getClass().getName() + ", lands: " + landNames);
+            }
+
+            // TODO: add test to check num cards (hasBasicLands and numLand > 0)
+        }
+
+        // TODO: add test to check num cards for rarity (rarityStats > 0 and numRarity > 0)
+
+        printMessages(warningsList);
+        printMessages(errorsList);
+        if (errorsList.size() > 0) {
+            Assert.fail("Founded set errors: " + errorsList.size());
+        }
+    }
+
+    @Test
+    public void checkMissingCardData() {
+        Collection<String> errorsList = new ArrayList<>();
+        Collection<String> warningsList = new ArrayList<>();
+
+        Collection<ExpansionSet> sets = Sets.getInstance().values();
+
+
+        // 1. wrong UsesVariousArt settings (set have duplicated card name without that setting -- e.g. cards will have same image)
+        for (ExpansionSet set : sets) {
+
+            // double names
+            Map<String, Integer> doubleNames = new HashMap<>();
+            for (ExpansionSet.SetCardInfo card : set.getSetCardInfo()) {
+                int count = doubleNames.getOrDefault(card.getName(), 0);
+                doubleNames.put(card.getName(), count + 1);
+            }
+
+            // check
+            for (ExpansionSet.SetCardInfo card : set.getSetCardInfo()) {
+                boolean cardHaveDoubleName = (doubleNames.getOrDefault(card.getName(), 0) > 1);
+                boolean cardHaveVariousSetting = card.getGraphicInfo() == null ?  false : card.getGraphicInfo().getUsesVariousArt();
+
+                if(cardHaveDoubleName && !cardHaveVariousSetting) {
+                    errorsList.add("error, founded double card names, but UsesVariousArt is not true: " + set.getCode() + " - " + set.getName() + " - " + card.getName() + " - " + card.getCardNumber());
+                }
+            }
+        }
+
+        printMessages(warningsList);
+        printMessages(errorsList);
+        if (errorsList.size() > 0) {
+            Assert.fail("Founded card errors: " + errorsList.size());
         }
     }
 
@@ -440,10 +559,11 @@ public class VerifyCardDataTest {
         checkColors(card, ref);
         //checkNumbers(card, ref); // TODO: load data from allsets.json and check it (allcards.json do not have card numbers)
         checkBasicLands(card, ref);
+        checkMissingAbilities(card, ref);
     }
 
     private void checkColors(Card card, JsonCard ref) {
-        if (skipListHaveName("COLOR", card.getName())) {
+        if (skipListHaveName("COLOR", card.getExpansionSetCode(), card.getName())) {
             return;
         }
 
@@ -463,7 +583,7 @@ public class VerifyCardDataTest {
     }
 
     private void checkSubtypes(Card card, JsonCard ref) {
-        if (skipListHaveName("SUBTYPE", card.getName())) {
+        if (skipListHaveName("SUBTYPE", card.getExpansionSetCode(), card.getName())) {
             return;
         }
 
@@ -472,7 +592,7 @@ public class VerifyCardDataTest {
         // fix names (e.g. Urza’s to Urza's)
         if (expected != null && expected.contains("Urza’s")) {
             expected = new ArrayList<>(expected);
-            for (ListIterator<String> it = ((List<String>) expected).listIterator(); it.hasNext();) {
+            for (ListIterator<String> it = ((List<String>) expected).listIterator(); it.hasNext(); ) {
                 if (it.next().equals("Urza’s")) {
                     it.set("Urza's");
                 }
@@ -485,7 +605,7 @@ public class VerifyCardDataTest {
     }
 
     private void checkSupertypes(Card card, JsonCard ref) {
-        if (skipListHaveName("SUPERTYPE", card.getName())) {
+        if (skipListHaveName("SUPERTYPE", card.getExpansionSetCode(), card.getName())) {
             return;
         }
 
@@ -495,8 +615,34 @@ public class VerifyCardDataTest {
         }
     }
 
+    private void checkMissingAbilities(Card card, JsonCard ref) {
+        if (skipListHaveName("MISSING_ABILITIES", card.getExpansionSetCode(), card.getName())) {
+            return;
+        }
+
+        // search missing abilities from card source
+        if (ref.text == null || ref.text.isEmpty()) {
+            return;
+        }
+
+        // spells have only 1 abilities
+        if (card.isSorcery() || card.isInstant()) {
+            return;
+        }
+
+        // additional cost go to 1 ability
+        if (ref.text.startsWith("As an additional cost to cast")) {
+            return;
+        }
+
+        // always 1 ability (to cast)
+        if (card.getAbilities().toArray().length == 1) { // all cards have 1 inner ability to cast
+            fail(card, "abilities", "card's abilities is empty, but ref have text");
+        }
+    }
+
     private void checkTypes(Card card, JsonCard ref) {
-        if (skipListHaveName("TYPE", card.getName())) {
+        if (skipListHaveName("TYPE", card.getExpansionSetCode(), card.getName())) {
             return;
         }
 
@@ -518,7 +664,7 @@ public class VerifyCardDataTest {
     }
 
     private void checkPT(Card card, JsonCard ref) {
-        if (skipListHaveName("PT", card.getName())) {
+        if (skipListHaveName("PT", card.getExpansionSetCode(), card.getName())) {
             return;
         }
 
@@ -538,7 +684,7 @@ public class VerifyCardDataTest {
     }
 
     private void checkCost(Card card, JsonCard ref) {
-        if (skipListHaveName("COST", card.getName())) {
+        if (skipListHaveName("COST", card.getExpansionSetCode(), card.getName())) {
             return;
         }
 
@@ -556,7 +702,7 @@ public class VerifyCardDataTest {
     }
 
     private void checkNumbers(Card card, JsonCard ref) {
-        if (skipListHaveName("NUMBER", card.getName())) {
+        if (skipListHaveName("NUMBER", card.getExpansionSetCode(), card.getName())) {
             return;
         }
 

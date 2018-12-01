@@ -31,11 +31,6 @@ import mage.cards.SplitCard;
 import mage.cards.decks.Deck;
 import mage.choices.ChoiceImpl;
 import mage.constants.*;
-import static mage.constants.Zone.BATTLEFIELD;
-import static mage.constants.Zone.EXILED;
-import static mage.constants.Zone.GRAVEYARD;
-import static mage.constants.Zone.HAND;
-import static mage.constants.Zone.LIBRARY;
 import mage.counters.Counter;
 import mage.counters.CounterType;
 import mage.counters.Counters;
@@ -879,6 +874,11 @@ public abstract class PlayerImpl implements Player, Serializable {
     }
 
     @Override
+    public boolean putCardsOnBottomOfLibrary(Card card, Game game, Ability source, boolean anyOrder) {
+        return putCardsOnBottomOfLibrary(new CardsImpl(card), game, source, anyOrder);
+    }
+
+    @Override
     public boolean putCardsOnBottomOfLibrary(Cards cardsToLibrary, Game game, Ability source, boolean anyOrder) {
         if (!cardsToLibrary.isEmpty()) {
             Cards cards = new CardsImpl(cardsToLibrary); // prevent possible ConcurrentModificationException
@@ -1041,11 +1041,15 @@ public abstract class PlayerImpl implements Player, Serializable {
     }
 
     @Override
-    public boolean cast(SpellAbility ability, Game game, boolean noMana, MageObjectReference permittingObject) {
-        if (game == null || ability == null) {
+    public boolean cast(SpellAbility originalAbility, Game game, boolean noMana, MageObjectReference permittingObject) {
+        if (game == null || originalAbility == null) {
             return false;
         }
+
+        // Use ability copy to avoid problems with targets and costs on recast (issue https://github.com/magefree/mage/issues/5189).
+        SpellAbility ability = originalAbility.copy();
         ability.setControllerId(getId());
+        ability.setSourceObjectZoneChangeCounter(game.getState().getZoneChangeCounter(ability.getSourceId()));
         if (ability.getSpellAbilityType() != SpellAbilityType.BASE) {
             ability = chooseSpellAbilityForCast(ability, game, noMana);
             if (ability == null) {
@@ -1069,6 +1073,8 @@ public abstract class PlayerImpl implements Player, Serializable {
                     logger.error("Got no spell from stack. ability: " + ability.getRule());
                     return false;
                 }
+                // Update the zcc to the stack
+                ability.setSourceObjectZoneChangeCounter(game.getState().getZoneChangeCounter(ability.getSourceId()));
                 // some effects set sourceId to cast without paying mana costs or other costs
                 if (ability.getSourceId().equals(getCastSourceIdWithAlternateMana())) {
                     Ability spellAbility = spell.getSpellAbility();
@@ -1139,8 +1145,14 @@ public abstract class PlayerImpl implements Player, Serializable {
         }
         //20091005 - 114.2a
         ActivationStatus activationStatus = playLandAbility.canActivate(this.playerId, game);
-        if (!ignoreTiming && !activationStatus.canActivate()) {
-            return false;
+        if (ignoreTiming) {
+            if (!canPlayLand()) {
+                return false; // ignore timing does not mean that more lands than normal can be played
+            }
+        } else {
+            if (!activationStatus.canActivate()) {
+                return false;
+            }
         }
 
         //20091005 - 305.1
@@ -1267,7 +1279,7 @@ public abstract class PlayerImpl implements Player, Serializable {
                     result = playManaAbility((ActivatedManaAbilityImpl) ability.copy(), game);
                     break;
                 case SPELL:
-                    result = cast((SpellAbility) ability.copy(), game, false, activationStatus.getPermittingObject());
+                    result = cast((SpellAbility) ability, game, false, activationStatus.getPermittingObject());
                     break;
                 default:
                     result = playAbility(ability.copy(), game);
@@ -2459,12 +2471,13 @@ public abstract class PlayerImpl implements Player, Serializable {
                     for (UUID targetId : newTarget.getTargets()) {
                         target.add(targetId, game);
                     }
-                    if (triggerEvents) {
-                        game.fireEvent(GameEvent.getEvent(GameEvent.EventType.LIBRARY_SEARCHED, targetPlayerId, playerId));
-                    }
+
                 } else if (targetPlayerId.equals(playerId) && handleLibraryCastableCards(library, game, targetPlayerId)) { // for handling Panglacial Wurm
                     newTarget.clearChosen();
                     continue;
+                }
+                if (triggerEvents) {
+                    game.fireEvent(GameEvent.getEvent(GameEvent.EventType.LIBRARY_SEARCHED, targetPlayerId, playerId));
                 }
                 break;
             } while (true);
@@ -2922,7 +2935,7 @@ public abstract class PlayerImpl implements Player, Serializable {
     }
 
     private void getPlayableFromGraveyardCard(Game game, Card card, Abilities<Ability> candidateAbilities, ManaOptions availableMana, List<Ability> output) {
-        MageObjectReference permittingObject = game.getContinuousEffects().asThough(card.getId(), AsThoughEffectType.PLAY_FROM_NOT_OWN_HAND_ZONE, null, this.getId(), game);
+        MageObjectReference permittingObject = game.getContinuousEffects().asThough(card.getId(), AsThoughEffectType.PLAY_FROM_NOT_OWN_HAND_ZONE, card.getSpellAbility(), this.getId(), game);
         for (ActivatedAbility ability : candidateAbilities.getActivatedAbilities(Zone.ALL)) {
             boolean possible = false;
             if (ability.getZone().match(Zone.GRAVEYARD)) {
@@ -3028,7 +3041,7 @@ public abstract class PlayerImpl implements Player, Serializable {
                 if (player != null) {
                     if (/*player.isTopCardRevealed() &&*/player.getLibrary().hasCards()) {
                         Card card = player.getLibrary().getFromTop(game);
-                        if (null != game.getContinuousEffects().asThough(card.getId(), AsThoughEffectType.PLAY_FROM_NOT_OWN_HAND_ZONE, null, getId(), game)) {
+                        if (null != game.getContinuousEffects().asThough(card.getId(), AsThoughEffectType.PLAY_FROM_NOT_OWN_HAND_ZONE, card.getSpellAbility(), getId(), game)) {
                             for (ActivatedAbility ability : card.getAbilities().getActivatedAbilities(Zone.HAND)) {
                                 if (ability instanceof SpellAbility || ability instanceof PlayLandAbility) {
                                     playable.add(ability);
@@ -3894,7 +3907,7 @@ public abstract class PlayerImpl implements Player, Serializable {
         if (!cards.isEmpty()) {
             String text;
             if (cards.size() == 1) {
-                text = "card if you want to put it to the bottom of your library (Scry)";
+                text = "card if you want to put it on the bottom of your library (Scry)";
             } else {
                 text = "cards you want to put on the bottom of your library (Scry)";
             }
@@ -3905,6 +3918,32 @@ public abstract class PlayerImpl implements Player, Serializable {
             putCardsOnTopOfLibrary(cards, game, source, true);
         }
         game.fireEvent(new GameEvent(GameEvent.EventType.SCRY, getId(), source == null ? null : source.getSourceId(), getId(), value, true));
+        return true;
+    }
+
+    @Override
+    public boolean surveil(int value, Ability source, Game game) {
+        GameEvent event = new GameEvent(GameEvent.EventType.SURVEIL, getId(), source == null ? null : source.getSourceId(), getId(), value, true);
+        if (game.replaceEvent(event)) {
+            return false;
+        }
+        game.informPlayers(getLogName() + " surveils " + event.getAmount());
+        Cards cards = new CardsImpl();
+        cards.addAll(getLibrary().getTopCards(game, event.getAmount()));
+        if (!cards.isEmpty()) {
+            String text;
+            if (cards.size() == 1) {
+                text = "card if you want to put it into your graveyard (Surveil)";
+            } else {
+                text = "cards you want to put into your graveyard (Surveil)";
+            }
+            TargetCard target = new TargetCard(0, cards.size(), Zone.LIBRARY, new FilterCard(text));
+            chooseTarget(Outcome.Benefit, cards, target, source, game);
+            moveCards(new CardsImpl(target.getTargets()), Zone.GRAVEYARD, source, game);
+            cards.removeAll(target.getTargets());
+            putCardsOnTopOfLibrary(cards, game, source, true);
+        }
+        game.fireEvent(new GameEvent(GameEvent.EventType.SURVEILED, getId(), source == null ? null : source.getSourceId(), getId(), event.getAmount(), true));
         return true;
     }
 
