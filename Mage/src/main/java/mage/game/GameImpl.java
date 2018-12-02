@@ -1026,6 +1026,7 @@ public abstract class GameImpl implements Game, Serializable {
         watchers.add(new BlockedAttackerWatcher());
         watchers.add(new DamageDoneWatcher());
         watchers.add(new PlanarRollWatcher());
+        watchers.add(new PlayersAttackedThisTurnWatcher());
 
         //20100716 - 103.5
         for (UUID playerId : state.getPlayerList(startingPlayerId)) {
@@ -2600,7 +2601,7 @@ public abstract class GameImpl implements Game, Serializable {
         boolean addPlaneAgain = false;
         for (Iterator<CommandObject> it = this.getState().getCommand().iterator(); it.hasNext();) {
             CommandObject obj = it.next();
-            if (obj.getControllerId().equals(playerId)) {
+            if (obj.isControlledBy(playerId)) {
                 if (obj instanceof Emblem) {
                     ((Emblem) obj).discardEffects();// This may not be the best fix but it works
                 }
