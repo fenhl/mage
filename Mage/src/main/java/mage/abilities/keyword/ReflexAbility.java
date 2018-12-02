@@ -34,7 +34,6 @@ public class ReflexAbility extends SpellAbility {
 
     public ReflexAbility(Card card, Effect effect, ManaCosts costs) {
         super(costs, card.getName() + " with reflex");
-        this.addEffect(effect);
         this.timing = TimingRule.INSTANT;
     }
 

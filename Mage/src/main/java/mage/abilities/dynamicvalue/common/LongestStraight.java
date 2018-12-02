@@ -32,14 +32,18 @@ public class LongestStraight implements DynamicValue {
             int cmc = permanent.getConvertedManaCost();
             cmcList.add(cmc);
         }
-        if (cmcList.size() > 0) {
+        if (cmcList.size() == 0) {
+            straight = 0;}
+        else if (cmcList.size() == 1) {
+            straight = 1;}
+        else if (cmcList.size() > 1) {
             Collections.sort(cmcList);
             Set st = new HashSet();
             st.addAll(cmcList);
             cmcList.clear();
             cmcList.addAll(st);
             straight = 1;
-            for (int i = 0; i < cmcList.size(); i++) {
+            for (int i = 1; i < cmcList.size(); i++) {
                 if (cmcList.get(i) == cmcList.get(i - 1) + 1) {
                     straight++;
                 } else straight = 1;
@@ -60,7 +64,7 @@ public class LongestStraight implements DynamicValue {
 
     @Override
     public String getMessage() {
-        StringBuilder sb = new StringBuilder("your longest Straight");
+        StringBuilder sb = new StringBuilder("Card your longest Straight");
         return sb.toString();
     }
 }

@@ -18,7 +18,7 @@ public final class EmptyNight extends CardImpl {
 
     public EmptyNight(UUID ownerId, CardSetInfo setInfo){
         super(ownerId, setInfo, new CardType[]{CardType.SORCERY}, "{3}{W}{W}");
-        this.addAbility(new ReflexAbility(this,  new ExileAllEffect(new FilterCreatureOrPlaneswalkerPermanent("creatures and planeswalkers.")),new ManaCostsImpl("{4}{W}{W}{W}")));
+        this.addAbility(new ReflexAbility(this, new ExileAllEffect(new FilterCreatureOrPlaneswalkerPermanent("creatures and planeswalkers.")), new ManaCostsImpl("{4}{W}{W}{W}")));
 
         this.getSpellAbility().addEffect(new ExileAllEffect(new FilterCreatureOrPlaneswalkerPermanent("creatures and planeswalkers.")));
     }

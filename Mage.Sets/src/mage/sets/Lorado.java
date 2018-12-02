@@ -67,6 +67,12 @@ public final class Lorado extends ExpansionSet {
         cards.add(new SetCardInfo("Trinket Peddler", 37, Rarity.COMMON, mage.cards.t.TrinketPeddler.class));
         cards.add(new SetCardInfo("Winged Constable", 38, Rarity.UNCOMMON, mage.cards.w.WingedConstable.class));
 
+
+        //Blue
+        cards.add(new SetCardInfo("Aerial Shootout", 39, Rarity.COMMON, mage.cards.a.AerialShootout.class));
+        cards.add(new SetCardInfo("Aven Dealer", 40, Rarity.COMMON, mage.cards.a.AvenDealer.class));
+        cards.add(new SetCardInfo("Aven Deputy", 41, Rarity.COMMON, mage.cards.a.AvenDeputy.class));
+        cards.add(new SetCardInfo("Bulletproof Barrier", 42, Rarity.COMMON, mage.cards.b.BulletproofBarrier.class));
         //Black
         cards.add(new SetCardInfo("Bad Blood", 77, Rarity.COMMON, mage.cards.b.BadBlood.class));
         cards.add(new SetCardInfo("Blightwing Wildshaper", 78, Rarity.COMMON, mage.cards.b.BlightwingWildshaper.class));
