@@ -3,21 +3,15 @@ package mage.cards.b;
 
 import mage.abilities.Ability;
 import mage.abilities.common.SimpleActivatedAbility;
-import mage.abilities.common.SimpleStaticAbility;
 import mage.abilities.costs.common.SacrificeSourceCost;
-import mage.abilities.costs.mana.ManaCostsImpl;
 import mage.abilities.effects.OneShotEffect;
 import mage.abilities.effects.common.AttachEffect;
-import mage.abilities.effects.common.continuous.BoostEnchantedEffect;
-import mage.abilities.effects.common.continuous.BoostTargetEffect;
 import mage.abilities.effects.common.continuous.GainAbilityAttachedEffect;
-import mage.abilities.effects.common.continuous.GainAbilityTargetEffect;
 import mage.abilities.keyword.EnchantAbility;
 import mage.abilities.keyword.HexproofAbility;
 import mage.abilities.keyword.ReflexAbility;
 import mage.cards.CardImpl;
 import mage.cards.CardSetInfo;
-import mage.cards.p.PhantomWings;
 import mage.constants.*;
 import mage.game.Game;
 import mage.game.permanent.Permanent;
@@ -47,14 +41,12 @@ public final class BulletproofBarrier extends CardImpl {
 
 
         //Reflex
-        this.addAbility(new ReflexAbility(this, new AttachEffect(Outcome.BoostCreature), new ManaCostsImpl("{3}{U}")));
-
+        this.addAbility(new ReflexAbility(this, "{3}{U}"));
         // Enchanted creature gets +1/+2.
-        ability =new SimpleStaticAbility(Zone.BATTLEFIELD, new BoostEnchantedEffect(1, 2, Duration.WhileOnBattlefield));
-        this.addAbility(ability);
 
-        //Sacrifice
-        this.addAbility(new SimpleActivatedAbility( Zone.BATTLEFIELD, new GainAbilityAttachedEffect(HexproofAbility.getInstance(), AttachmentType.AURA, Duration.EndOfTurn), new SacrificeSourceCost()));
+
+        //Sacrifice ~, enchanted Creature gains Hexproof until end of turn
+        this.addAbility(new SimpleActivatedAbility(Zone.BATTLEFIELD, new GainAbilityAttachedEffect(HexproofAbility.getInstance(), AttachmentType.AURA, Duration.EndOfTurn), new SacrificeSourceCost()));
 
     }
 
@@ -67,14 +59,14 @@ public final class BulletproofBarrier extends CardImpl {
         return new BulletproofBarrier(this);
     }
 
-/**    private static class BulletproofBarrierHexproofEffect extends OneShotEffect {
+   private static class BulletproofBarrierHexproofEffect extends OneShotEffect {
 
         public BulletproofBarrierHexproofEffect() {
             super(Outcome.ReturnToHand);
             staticText = "Return enchanted creature to its owner's hand";
         }
 
-/**       public BulletproofBarrierHexproofEffect(final BulletproofBarrierHexproofEffect effect) {
+      public BulletproofBarrierHexproofEffect(final BulletproofBarrierHexproofEffect effect) {
             super(effect);
         }
 
@@ -91,10 +83,10 @@ public final class BulletproofBarrier extends CardImpl {
                 Permanent enchantedCreature = game.getPermanent(permanent.getAttachedTo());
                 if (enchantedCreature != null) {
                     enchantedCreature.addAbility(HexproofAbility.getInstance());
-                    return enchantedCreature.addAbility(HexproofAbility.getInstance());
+                    return true;
                 }
             }
             return false;
         }
-    }*/
+    }
 }

@@ -38,7 +38,7 @@ public final class Lorado extends ExpansionSet {
         cards.add(new SetCardInfo("Farajo Peacemaker", 8, Rarity.MYTHIC, mage.cards.f.FarajoPeacemaker.class));
         cards.add(new SetCardInfo("Farajo's Blessing", 9, Rarity.UNCOMMON, mage.cards.f.FarajosBlessing.class));
         cards.add(new SetCardInfo("Farajo's Shield", 10, Rarity.COMMON, mage.cards.f.FarajosShield.class));
-        cards.add(new SetCardInfo("Feather Swine", 11, Rarity.COMMON, mage.cards.f.FeatherSwine.class));
+        cards.add(new SetCardInfo("Featherswine", 11, Rarity.COMMON, mage.cards.f.FeatherSwine.class));
         cards.add(new SetCardInfo("Firstfeather Elders", 12, Rarity.COMMON, mage.cards.f.FirstfeatherElders.class));
         cards.add(new SetCardInfo("Fort Redemption Ranger", 13, Rarity.MYTHIC, mage.cards.f.FortRedemptionRanger.class));
         cards.add(new SetCardInfo("Goat Herder", 14, Rarity.COMMON, mage.cards.g.GoatHerder.class));
@@ -71,8 +71,14 @@ public final class Lorado extends ExpansionSet {
         //Blue
         cards.add(new SetCardInfo("Aerial Shootout", 39, Rarity.COMMON, mage.cards.a.AerialShootout.class));
         cards.add(new SetCardInfo("Aven Dealer", 40, Rarity.COMMON, mage.cards.a.AvenDealer.class));
-        cards.add(new SetCardInfo("Aven Deputy", 41, Rarity.COMMON, mage.cards.a.AvenDeputy.class));
-        cards.add(new SetCardInfo("Bulletproof Barrier", 42, Rarity.COMMON, mage.cards.b.BulletproofBarrier.class));
+        cards.add(new SetCardInfo("Aven Deputy", 41, Rarity.UNCOMMON, mage.cards.a.AvenDeputy.class));
+        cards.add(new SetCardInfo("Bulletproof Barrier", 42, Rarity.UNCOMMON, mage.cards.b.BulletproofBarrier.class));
+        cards.add(new SetCardInfo("Call your Bluff", 43, Rarity.COMMON, mage.cards.c.CallYourBluff.class));
+        cards.add(new SetCardInfo("Career Criminal", 44, Rarity.UNCOMMON, mage.cards.c.CareerCriminal.class));
+        cards.add(new SetCardInfo("Carnival Illusionist", 45, Rarity.RARE, mage.cards.c.CarnivalIllusionist.class));
+        cards.add(new SetCardInfo("Claim Jumper", 46, Rarity.UNCOMMON, mage.cards.c.ClaimJumper.class));
+        cards.add(new SetCardInfo("Conjure Frost", 47, Rarity.COMMON, mage.cards.c.ConjureFrost.class));
+        cards.add(new SetCardInfo("Cyclone Rider", 48, Rarity.UNCOMMON, mage.cards.c.CycloneRider.class));
         //Black
         cards.add(new SetCardInfo("Bad Blood", 77, Rarity.COMMON, mage.cards.b.BadBlood.class));
         cards.add(new SetCardInfo("Blightwing Wildshaper", 78, Rarity.COMMON, mage.cards.b.BlightwingWildshaper.class));

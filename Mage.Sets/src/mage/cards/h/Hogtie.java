@@ -6,6 +6,7 @@ import mage.abilities.condition.Condition;
 import mage.abilities.decorator.ConditionalRestrictionEffect;
 import mage.abilities.effects.common.AttachEffect;
 import mage.abilities.effects.common.combat.CantAttackAttachedEffect;
+import mage.abilities.effects.common.combat.CantBlockAttachedEffect;
 import mage.abilities.keyword.EnchantAbility;
 import mage.cards.CardImpl;
 import mage.cards.CardSetInfo;
@@ -38,6 +39,7 @@ public final class Hogtie extends CardImpl {
 
         //
         this.addAbility(new SimpleStaticAbility(Zone.BATTLEFIELD, new ConditionalRestrictionEffect(new CantAttackAttachedEffect(AttachmentType.AURA), HogtieCondition.instance)));
+        this.addAbility(new SimpleStaticAbility(Zone.BATTLEFIELD, new ConditionalRestrictionEffect(new CantBlockAttachedEffect(AttachmentType.AURA), HogtieCondition.instance)));
     }
 
     public enum HogtieCondition implements Condition {
