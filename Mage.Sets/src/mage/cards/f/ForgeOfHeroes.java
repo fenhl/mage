@@ -29,7 +29,7 @@ public final class ForgeOfHeroes extends CardImpl {
             = new FilterPermanent("commander that entered the battlefield this turn");
 
     static {
-        filter.add(new CommanderPredicate());
+        filter.add(CommanderPredicate.instance);
         filter.add(new EnteredThisTurnPredicate());
     }
 
@@ -86,11 +86,12 @@ class ForgeOfHeroesEffect extends OneShotEffect {
             new AddCountersTargetEffect(
                     CounterType.P1P1.createInstance()
             ).apply(game, source);
-        }
-        if (permanent.isPlaneswalker()) {
+        } else if (permanent.isPlaneswalker()) {
             new AddCountersTargetEffect(
                     CounterType.LOYALTY.createInstance()
             ).apply(game, source);
+        } else {
+            return false;
         }
         return true;
     }

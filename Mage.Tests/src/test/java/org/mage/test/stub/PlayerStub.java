@@ -1,7 +1,5 @@
 package org.mage.test.stub;
 
-import java.io.Serializable;
-import java.util.*;
 import mage.MageObject;
 import mage.MageObjectReference;
 import mage.abilities.*;
@@ -40,8 +38,10 @@ import mage.target.TargetAmount;
 import mage.target.TargetCard;
 import mage.target.common.TargetCardInLibrary;
 
+import java.io.Serializable;
+import java.util.*;
+
 /**
- *
  * @author Quercitron
  */
 public class PlayerStub implements Player {
@@ -135,6 +135,11 @@ public class PlayerStub implements Player {
 
     @Override
     public int gainLife(int amount, Game game, UUID sourceId) {
+        return 0;
+    }
+
+    @Override
+    public int damage(int damage, UUID sourceId, Game game) {
         return 0;
     }
 
@@ -578,23 +583,27 @@ public class PlayerStub implements Player {
     }
 
     @Override
-    public boolean searchLibrary(TargetCardInLibrary target, Game game) {
+    public boolean searchLibrary(TargetCardInLibrary target, Ability source, Game game) {
         return false;
     }
 
     @Override
-    public boolean searchLibrary(TargetCardInLibrary target, Game game, boolean triggerEvents) {
+    public boolean searchLibrary(TargetCardInLibrary target, Ability source, Game game, boolean triggerEvents) {
         return false;
     }
 
     @Override
-    public boolean searchLibrary(TargetCardInLibrary target, Game game, UUID targetPlayerId) {
+    public boolean searchLibrary(TargetCardInLibrary target, Ability source, Game game, UUID targetPlayerId) {
         return false;
     }
 
     @Override
-    public boolean searchLibrary(TargetCardInLibrary target, Game game, UUID targetPlayerId, boolean triggerEvents) {
+    public boolean searchLibrary(TargetCardInLibrary target, Ability source, Game game, UUID targetPlayerId, boolean triggerEvents) {
         return false;
+    }
+
+    @Override
+    public void lookAtAllLibraries(Ability source, Game game) {
     }
 
     @Override
@@ -633,12 +642,12 @@ public class PlayerStub implements Player {
     }
 
     @Override
-    public boolean flipCoin(Game game) {
+    public boolean flipCoin(Ability source, Game game, boolean winnable) {
         return false;
     }
 
     @Override
-    public boolean flipCoin(Game game, ArrayList<UUID> appliedEffects) {
+    public boolean flipCoin(Ability source, Game game, boolean winnable, ArrayList<UUID> appliedEffects) {
         return false;
     }
 
@@ -883,6 +892,11 @@ public class PlayerStub implements Player {
     }
 
     @Override
+    public boolean putCardsOnBottomOfLibrary(Card card, Game game, Ability source, boolean anyOrder) {
+        return false;
+    }
+
+    @Override
     public boolean putCardsOnBottomOfLibrary(Cards cards, Game game, Ability source, boolean anyOrder) {
         return false;
     }
@@ -898,7 +912,7 @@ public class PlayerStub implements Player {
     }
 
     @Override
-    public int announceXMana(int min, int max, String message, Game game, Ability ability) {
+    public int announceXMana(int min, int max, int multiplier, String message, Game game, Ability ability) {
         return min;
     }
 
@@ -1078,7 +1092,7 @@ public class PlayerStub implements Player {
     }
 
     @Override
-    public boolean lookAtFaceDownCard(Card card, Game game) {
+    public boolean lookAtFaceDownCard(Card card, Game game, int abilitiesToActivate) {
         return false;
     }
 
@@ -1228,8 +1242,13 @@ public class PlayerStub implements Player {
     }
 
     @Override
-    public boolean isRequestToShowHandCardsAllowed() {
+    public boolean isPlayerAllowedToRequestHand(UUID gameId, UUID requesterPlayerId) {
         return false;
+    }
+
+    @Override
+    public void addPlayerToRequestedHandList(UUID gameId, UUID requesterPlayerId) {
+        //
     }
 
     @Override
@@ -1254,6 +1273,11 @@ public class PlayerStub implements Player {
 
     @Override
     public boolean scry(int value, Ability source, Game game) {
+        return false;
+    }
+
+    @Override
+    public boolean surveil(int value, Ability source, Game game) {
         return false;
     }
 

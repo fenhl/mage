@@ -1,26 +1,19 @@
-
 package mage.cards.r;
 
-import java.util.UUID;
 import mage.MageObjectReference;
 import mage.abilities.Ability;
 import mage.abilities.LoyaltyAbility;
 import mage.abilities.common.CanBeYourCommanderAbility;
-import mage.abilities.common.PlanswalkerEntersWithLoyalityCountersAbility;
+import mage.abilities.common.PlaneswalkerEntersWithLoyaltyCountersAbility;
 import mage.abilities.effects.Effect;
 import mage.abilities.effects.OneShotEffect;
 import mage.abilities.effects.RequirementEffect;
 import mage.abilities.effects.common.DamageAllEffect;
 import mage.abilities.effects.common.GetEmblemTargetPlayerEffect;
 import mage.abilities.keyword.PartnerWithAbility;
-import mage.constants.SubType;
-import mage.constants.SuperType;
 import mage.cards.CardImpl;
 import mage.cards.CardSetInfo;
-import mage.constants.CardType;
-import mage.constants.Duration;
-import mage.constants.Outcome;
-import mage.constants.TurnPhase;
+import mage.constants.*;
 import mage.filter.common.FilterCreaturePermanent;
 import mage.filter.predicate.permanent.ControllerIdPredicate;
 import mage.filter.predicate.permanent.TappedPredicate;
@@ -29,8 +22,9 @@ import mage.game.command.emblems.RowanKenrithEmblem;
 import mage.game.permanent.Permanent;
 import mage.target.TargetPlayer;
 
+import java.util.UUID;
+
 /**
- *
  * @author TheElk801
  */
 public final class RowanKenrith extends CardImpl {
@@ -40,7 +34,7 @@ public final class RowanKenrith extends CardImpl {
 
         this.addSuperType(SuperType.LEGENDARY);
         this.subtype.add(SubType.ROWAN);
-        this.addAbility(new PlanswalkerEntersWithLoyalityCountersAbility(4));
+        this.addAbility(new PlaneswalkerEntersWithLoyaltyCountersAbility(4));
 
         // +2: During target player's next turn, each creature that player controls attacks if able.
         LoyaltyAbility ability = new LoyaltyAbility(new RowanKenrithAttackEffect(), 2);
@@ -54,11 +48,6 @@ public final class RowanKenrith extends CardImpl {
 
         // -8: Target player gets an emblem with "Whenever you activate an ability that isn't a mana ability, copy it. You may choose new targets for the copy."
         Effect effect = new GetEmblemTargetPlayerEffect(new RowanKenrithEmblem());
-        effect.setText(
-                "Target player gets an emblem with "
-                + "\"Whenever you activate an ability that isn't a mana ability, "
-                + "copy it. You may choose new targets for the copy.\""
-        );
         ability = new LoyaltyAbility(effect, -8);
         ability.addTarget(new TargetPlayer());
         this.addAbility(ability);
@@ -103,20 +92,21 @@ class RowanKenrithAttackEffect extends RequirementEffect {
     public void init(Ability source, Game game) {
         super.init(source, game);
         creatingPermanent = new MageObjectReference(source.getSourceId(), game);
+        setStartingControllerAndTurnNum(game, source.getFirstTarget(), game.getActivePlayerId()); // setup startingController to calc isYourTurn calls
     }
 
     @Override
     public boolean applies(Permanent permanent, Ability source, Game game) {
-        return permanent.isControlledBy(source.getFirstTarget());
+        return permanent.isControlledBy(source.getFirstTarget()) && this.isYourNextTurn(game);
     }
 
     @Override
     public boolean isInactive(Ability source, Game game) {
-        return (startingTurn != game.getTurnNum()
-                && (game.getPhase().getType() == TurnPhase.END
-                && game.isActivePlayer(source.getFirstTarget())))
-                || // 6/15/2010: If a creature controlled by the affected player can't attack Gideon Jura (because he's no longer on the battlefield, for example), that player may have it attack you, another one of your planeswalkers, or nothing at all.
-                creatingPermanent.getPermanent(game) == null;
+        return (game.getPhase().getType() == TurnPhase.END && this.isYourNextTurn(game))
+                // 6/15/2010: If a creature controlled by the affected player can't attack Gideon Jura
+                // (because he's no longer on the battlefield, for example), that player may have it attack you,
+                // another one of your planeswalkers, or nothing at all.
+                || creatingPermanent.getPermanent(game) == null;
     }
 
     @Override
@@ -149,7 +139,7 @@ class RowanKenrithDamageEffect extends OneShotEffect {
     @Override
     public boolean apply(Game game, Ability source) {
         FilterCreaturePermanent filter = new FilterCreaturePermanent();
-        filter.add(new TappedPredicate());
+        filter.add(TappedPredicate.instance);
         filter.add(new ControllerIdPredicate(source.getFirstTarget()));
         return new DamageAllEffect(3, filter).apply(game, source);
     }

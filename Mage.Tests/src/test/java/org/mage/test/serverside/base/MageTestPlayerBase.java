@@ -1,25 +1,19 @@
 package org.mage.test.serverside.base;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import mage.abilities.Abilities;
+import mage.abilities.AbilitiesImpl;
+import mage.abilities.Ability;
 import mage.cards.Card;
+import mage.cards.CardImpl;
+import mage.cards.CardSetInfo;
+import mage.cards.decks.DeckCardLists;
 import mage.cards.repository.CardInfo;
 import mage.cards.repository.CardRepository;
-import mage.constants.PhaseStep;
-import mage.constants.RangeOfInfluence;
-import mage.constants.Zone;
+import mage.constants.*;
 import mage.game.Game;
 import mage.game.match.MatchType;
 import mage.game.permanent.PermanentCard;
 import mage.game.tournament.TournamentType;
-import mage.player.ai.ComputerPlayer;
 import mage.players.Player;
 import mage.server.game.GameFactory;
 import mage.server.util.ConfigSettings;
@@ -30,12 +24,19 @@ import mage.util.Copier;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.junit.BeforeClass;
+import org.mage.test.player.TestComputerPlayer;
 import org.mage.test.player.TestPlayer;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Base class for all tests.
  *
- * @author ayratn
+ * @author ayratn, JayDi85
  */
 public abstract class MageTestPlayerBase {
 
@@ -51,8 +52,11 @@ public abstract class MageTestPlayerBase {
     protected Map<TestPlayer, List<PermanentCard>> battlefieldCards = new HashMap<>();
     protected Map<TestPlayer, List<Card>> graveyardCards = new HashMap<>();
     protected Map<TestPlayer, List<Card>> libraryCards = new HashMap<>();
+    protected Map<TestPlayer, List<Card>> commandCards = new HashMap<>();
 
     protected Map<TestPlayer, Map<Zone, String>> commands = new HashMap<>();
+
+    protected static Map<String, DeckCardLists> loadedDeckCardLists = new HashMap<>(); // test decks buffer
 
     protected TestPlayer playerA;
     protected TestPlayer playerB;
@@ -208,6 +212,9 @@ public abstract class MageTestPlayerBase {
                 } else if ("library".equalsIgnoreCase(zone)) {
                     gameZone = Zone.LIBRARY;
                     cards = getLibraryCards(getPlayer(nickname));
+                } else if ("command".equalsIgnoreCase(zone)) {
+                    gameZone = Zone.COMMAND;
+                    cards = getCommandCards(getPlayer(nickname));
                 } else if ("player".equalsIgnoreCase(zone)) {
                     String command = m.group(3);
                     if ("life".equals(command)) {
@@ -277,27 +284,36 @@ public abstract class MageTestPlayerBase {
         if (graveyardCards.containsKey(player)) {
             return graveyardCards.get(player);
         }
-        List<Card> grave = new ArrayList<>();
-        graveyardCards.put(player, grave);
-        return grave;
+        List<Card> res = new ArrayList<>();
+        graveyardCards.put(player, res);
+        return res;
     }
 
     protected List<Card> getLibraryCards(TestPlayer player) {
         if (libraryCards.containsKey(player)) {
             return libraryCards.get(player);
         }
-        List<Card> library = new ArrayList<>();
-        libraryCards.put(player, library);
-        return library;
+        List<Card> res = new ArrayList<>();
+        libraryCards.put(player, res);
+        return res;
+    }
+
+    protected List<Card> getCommandCards(TestPlayer player) {
+        if (commandCards.containsKey(player)) {
+            return commandCards.get(player);
+        }
+        List<Card> res = new ArrayList<>();
+        commandCards.put(player, res);
+        return res;
     }
 
     protected List<PermanentCard> getBattlefieldCards(TestPlayer player) {
         if (battlefieldCards.containsKey(player)) {
             return battlefieldCards.get(player);
         }
-        List<PermanentCard> battlefield = new ArrayList<>();
-        battlefieldCards.put(player, battlefield);
-        return battlefield;
+        List<PermanentCard> res = new ArrayList<>();
+        battlefieldCards.put(player, res);
+        return res;
     }
 
     protected Map<Zone, String> getCommands(TestPlayer player) {
@@ -330,7 +346,66 @@ public abstract class MageTestPlayerBase {
     }
 
     protected TestPlayer createPlayer(String name, RangeOfInfluence rangeOfInfluence) {
-        return new TestPlayer(new ComputerPlayer(name, rangeOfInfluence));
+        return new TestPlayer(new TestComputerPlayer(name, rangeOfInfluence));
     }
 
+    protected void setStrictChooseMode(boolean enable) {
+        if (playerA != null) playerA.setChooseStrictMode(enable);
+        if (playerB != null) playerB.setChooseStrictMode(enable);
+        if (playerC != null) playerC.setChooseStrictMode(enable);
+        if (playerD != null) playerD.setChooseStrictMode(enable);
+    }
+
+    protected void addCustomCardWithAbility(String customName, TestPlayer controllerPlayer, Ability ability) {
+        // add custom card with selected ability to battlefield
+        CustomTestCard.clearCustomAbilities(customName);
+        CustomTestCard.addCustomAbility(customName, ability);
+        CardSetInfo testSet = new CardSetInfo(customName, "custom", "123", Rarity.COMMON);
+        PermanentCard card = new PermanentCard(new CustomTestCard(controllerPlayer.getId(), testSet), controllerPlayer.getId(), currentGame);
+        getBattlefieldCards(controllerPlayer).add(card);
+    }
+}
+
+// custom card with global abilities list to init (can contains abilities per card name)
+class CustomTestCard extends CardImpl {
+
+    static private Map<String, Abilities<Ability>> abilitiesList = new HashMap<>(); // card name -> abilities
+
+    static protected void addCustomAbility(String cardName, Ability ability) {
+        if (!abilitiesList.containsKey(cardName)) {
+            abilitiesList.put(cardName, new AbilitiesImpl<>());
+        }
+        Abilities<Ability> oldAbilities = abilitiesList.get(cardName);
+        oldAbilities.add(ability);
+    }
+
+    static protected void clearCustomAbilities(String cardName) {
+        abilitiesList.remove(cardName);
+    }
+
+    static public void clearCustomAbilities() {
+        abilitiesList.clear();
+    }
+
+
+    public CustomTestCard(UUID ownerId, CardSetInfo setInfo) {
+        super(ownerId, setInfo, new CardType[]{CardType.ENCHANTMENT}, "");
+
+        // load dynamic abilities by card name
+        Abilities<Ability> extraAbitilies = abilitiesList.get(setInfo.getName());
+        if (extraAbitilies != null) {
+            for (Ability ability : extraAbitilies) {
+                this.addAbility(ability.copy());
+            }
+        }
+    }
+
+    private CustomTestCard(final CustomTestCard card) {
+        super(card);
+    }
+
+    @Override
+    public CustomTestCard copy() {
+        return new CustomTestCard(this);
+    }
 }

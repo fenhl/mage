@@ -9,17 +9,14 @@ import mage.filter.predicate.ObjectSourcePlayer;
 import mage.game.Game;
 
 /**
- *
  * @author LoneFox
  */
-public class ChosenSubtypePredicate implements ObjectPlayerPredicate<ObjectSourcePlayer<MageObject>> {
-
-    public ChosenSubtypePredicate() {
-    }
+public enum ChosenSubtypePredicate implements ObjectPlayerPredicate<ObjectSourcePlayer<MageObject>> {
+    instance;
 
     @Override
     public boolean apply(ObjectSourcePlayer<MageObject> input, Game game) {
-        SubType subType = ChooseCreatureTypeEffect.getChoosenCreatureType(input.getSourceId(), game);
+        SubType subType = ChooseCreatureTypeEffect.getChosenCreatureType(input.getSourceId(), game);
         return input.getObject().hasSubtype(subType, game);
     }
 

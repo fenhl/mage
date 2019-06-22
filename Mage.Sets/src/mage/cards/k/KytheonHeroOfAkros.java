@@ -2,6 +2,7 @@
 package mage.cards.k;
 
 import java.util.UUID;
+
 import mage.MageInt;
 import mage.MageObjectReference;
 import mage.abilities.Ability;
@@ -17,7 +18,6 @@ import mage.abilities.keyword.IndestructibleAbility;
 import mage.abilities.keyword.TransformAbility;
 import mage.cards.CardImpl;
 import mage.cards.CardSetInfo;
-import mage.cards.g.GideonBattleForged;
 import mage.constants.CardType;
 import mage.constants.SubType;
 import mage.constants.Duration;
@@ -28,7 +28,6 @@ import mage.game.permanent.Permanent;
 import mage.watchers.common.AttackedOrBlockedThisCombatWatcher;
 
 /**
- *
  * @author LevelX2
  */
 public final class KytheonHeroOfAkros extends CardImpl {
@@ -42,7 +41,7 @@ public final class KytheonHeroOfAkros extends CardImpl {
         this.toughness = new MageInt(1);
 
         this.transformable = true;
-        this.secondSideCardClazz = GideonBattleForged.class;
+        this.secondSideCardClazz = mage.cards.g.GideonBattleForged.class;
 
         // At end of combat, if Kytheon, Hero of Akros and at least two other creatures attacked this combat, exile Kytheon,
         // then return him to the battlefield transformed under his owner's control.
@@ -72,7 +71,7 @@ class KytheonHeroOfAkrosCondition implements Condition {
     public boolean apply(Game game, Ability source) {
         Permanent sourceObject = game.getPermanent(source.getSourceId());
         if (sourceObject != null) {
-            AttackedOrBlockedThisCombatWatcher watcher = (AttackedOrBlockedThisCombatWatcher) game.getState().getWatchers().get(AttackedOrBlockedThisCombatWatcher.class.getSimpleName());
+            AttackedOrBlockedThisCombatWatcher watcher = game.getState().getWatcher(AttackedOrBlockedThisCombatWatcher.class);
             if (watcher != null) {
                 boolean sourceFound = false;
                 int number = 0;

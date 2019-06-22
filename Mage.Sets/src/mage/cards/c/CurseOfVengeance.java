@@ -1,4 +1,3 @@
-
 package mage.cards.c;
 
 import java.util.UUID;
@@ -130,7 +129,8 @@ class CurseOfVengeancePlayerLosesTriggeredAbility extends TriggeredAbilityImpl {
 
     @Override
     public String getRule() {
-        return "When enchanted player loses the game, you gain X life and draw X cards, where X is the number of spite counters on {this}";
+        return "When enchanted player loses the game, you gain X life and "
+                + "draw X cards, where X is the number of spite counters on {this}";
     }
 }
 
@@ -138,7 +138,8 @@ class CurseOfVengeanceDrawLifeEffect extends OneShotEffect {
 
     public CurseOfVengeanceDrawLifeEffect() {
         super(Outcome.Benefit);
-        staticText = "you gain X life and draw X cards, where X is the number of spite counters on {this}";
+        staticText = "you gain X life and draw X cards, where X is the "
+                + "number of spite counters on {this}";
     }
 
     public CurseOfVengeanceDrawLifeEffect(final CurseOfVengeanceDrawLifeEffect effect) {
@@ -153,7 +154,7 @@ class CurseOfVengeanceDrawLifeEffect extends OneShotEffect {
     @Override
     public boolean apply(Game game, Ability source) {
         Player controller = game.getPlayer(source.getControllerId());
-        Permanent sourceObject = (Permanent) game.getPermanentOrLKIBattlefield(source.getSourceId());
+        Permanent sourceObject = game.getPermanentOrLKIBattlefield(source.getSourceId());
         if (sourceObject != null && controller != null) {
             if (sourceObject.getCounters(game).containsKey(CounterType.SPITE)) {
                 controller.drawCards(sourceObject.getCounters(game).getCount(CounterType.SPITE), game);

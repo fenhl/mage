@@ -39,6 +39,8 @@ Clash Pack|CLASH|
 Commander Anthology|CMA|
 Commander Anthology 2018|CM2|
 Commander's Arsenal|CM1|
+Commander|CMD|
+Conspiracy|CNS|
 Conspiracy: Take the Crown|CN2|
 Conflux|CON|
 Champs|CP|
@@ -83,6 +85,9 @@ Eldritch Moon|EMN|
 European Land Program|EURO|
 Eventide|EVE|
 Duel Decks: Elves vs. Goblins|EVG|
+Duel Decks: Elves vs. Inventors|DDU|
+Duels of the Planeswalkers Promos|DPAP|
+Pro Tour Promos|PPRO|
 Exodus|EXO|
 Zendikar Expeditions|EXP|
 Fallen Empires|FEM|
@@ -91,6 +96,7 @@ Fate Reforged|FRF|
 Future Sight|FUT|
 Global Series: Jiang Yanggu & Mu Yanling|GS1|
 Guildpact|GPT|
+Guilds of Ravnica|GRN|
 Grand Prix|GPX|
 WPN Gateway|GRC|
 Gatecrash|GTC|
@@ -121,6 +127,7 @@ Magic 2013|M13|
 Magic 2014|M14|
 Magic 2015|M15|
 Core Set 2019|M19|
+Core Set 2020|M20|
 Masters 25|A25|
 Magic: The Gathering-Commander|CMD|
 Magic: The Gathering-Conspiracy|CNS|
@@ -133,6 +140,7 @@ Masters Edition|MED|
 Game Day|MGDC|
 Mirage|MIR|
 Launch Party|MLP|
+Modern Horizons|MH1|
 Modern Masters 2015|MM2|
 Modern Masters 2017|MM3|
 Modern Masters|MMA|
@@ -152,13 +160,14 @@ Portal Second Age|P02|
 Planechase 2012 Edition|PC2|
 Planechase Anthology|PCA|
 Prophecy|PCY|
-Premium Deck Series: Fire & Lightning|PD2|
+Premium Deck Series: Fire and Lightning|PD2|
 Premium Deck Series: Graveborn|PD3|
 Planar Chaos|PLC|
 Planeshift|PLS|
 Portal|POR|
 Prerelease Events|PTC|
 Portal Three Kingdoms|PTK|
+Ravnica Allegiance|RNA|
 Ravnica: City of Guilds|RAV|
 Rivals of Ixalan|RIX|
 Rise of the Eldrazi|ROE|
@@ -202,6 +211,7 @@ Vanguard Set 4|VG4|
 MTGO Vanguard|VGO|
 Visions|VIS|
 Vintage Masters|VMA|
+War of the Spark|WAR|
 Welcome Deck 2016|W16|
 Welcome Deck 2017|W17|
 World Magic Cup Qualifier|WMCQ|

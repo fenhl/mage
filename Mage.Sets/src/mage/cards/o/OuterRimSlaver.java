@@ -1,4 +1,3 @@
-
 package mage.cards.o;
 
 import java.util.UUID;
@@ -12,6 +11,8 @@ import mage.cards.CardSetInfo;
 import mage.constants.CardType;
 import mage.constants.SubType;
 import mage.counters.CounterType;
+import mage.filter.common.FilterCreaturePermanent;
+import mage.filter.predicate.mageobject.AnotherTargetPredicate;
 import mage.target.common.TargetCreaturePermanent;
 
 /**
@@ -28,10 +29,17 @@ public final class OuterRimSlaver extends CardImpl {
         this.toughness = new MageInt(3);
 
         // When Outer Rim Slaver enters the battlefield, you may put a bounty counter on target creature. If you do, another target creature fights that creature
-        Ability ability = new EntersBattlefieldTriggeredAbility(new AddCountersTargetEffect(CounterType.BOUNTY.createInstance()), true);
-        ability.addEffect(new FightTargetsEffect("another target creature fights that creature"));
-        ability.addTarget(new TargetCreaturePermanent());
-        ability.addTarget(new TargetCreaturePermanent());
+        Ability ability = new EntersBattlefieldTriggeredAbility(new AddCountersTargetEffect(CounterType.BOUNTY.createInstance())
+                .setText("you may put a bounty counter on target creature"), true);
+        ability.addEffect(new FightTargetsEffect("If you do, another target creature fights that creature"));
+        TargetCreaturePermanent target = new TargetCreaturePermanent(new FilterCreaturePermanent("creature to put a bounty counter on it"));
+        target.setTargetTag(1);
+        ability.addTarget(target);
+        FilterCreaturePermanent filter = new FilterCreaturePermanent("another creature to fight that creature that gets the bounty counter");
+        filter.add(new AnotherTargetPredicate(2));
+        TargetCreaturePermanent target2 = new TargetCreaturePermanent(filter);
+        target2.setTargetTag(2);
+        ability.addTarget(target2);
         this.addAbility(ability);
     }
 
