@@ -68,17 +68,30 @@ public final class Lorado extends ExpansionSet {
         cards.add(new SetCardInfo("Winged Constable", 38, Rarity.UNCOMMON, mage.cards.w.WingedConstable.class));
 
 
-        //Blue
+        //Blue TODO: Add Gaile Hannidy, Gone Fishin', Hyastee Sphinx
         cards.add(new SetCardInfo("Aerial Shootout", 39, Rarity.COMMON, mage.cards.a.AerialShootout.class));
         cards.add(new SetCardInfo("Aven Dealer", 40, Rarity.COMMON, mage.cards.a.AvenDealer.class));
         cards.add(new SetCardInfo("Aven Deputy", 41, Rarity.UNCOMMON, mage.cards.a.AvenDeputy.class));
-        cards.add(new SetCardInfo("Bulletproof Barrier", 42, Rarity.UNCOMMON, mage.cards.b.BulletproofBarrier.class));
+        cards.add(new SetCardInfo("Bulletproof Barrier", 42, Rarity.UNCOMMON, mage.cards.b.BulletproofBarrier.class)); //TODO Fix Sacrifice Ability
         cards.add(new SetCardInfo("Call your Bluff", 43, Rarity.COMMON, mage.cards.c.CallYourBluff.class));
         cards.add(new SetCardInfo("Career Criminal", 44, Rarity.UNCOMMON, mage.cards.c.CareerCriminal.class));
         cards.add(new SetCardInfo("Carnival Illusionist", 45, Rarity.RARE, mage.cards.c.CarnivalIllusionist.class));
         cards.add(new SetCardInfo("Claim Jumper", 46, Rarity.UNCOMMON, mage.cards.c.ClaimJumper.class));
         cards.add(new SetCardInfo("Conjure Frost", 47, Rarity.COMMON, mage.cards.c.ConjureFrost.class));
         cards.add(new SetCardInfo("Cyclone Rider", 48, Rarity.UNCOMMON, mage.cards.c.CycloneRider.class));
+        cards.add(new SetCardInfo("Dowsing Prospector", 49, Rarity.COMMON, mage.cards.d.DowsingProspector.class));
+        cards.add(new SetCardInfo("Drive Off", 50, Rarity.COMMON, mage.cards.d.DriveOff.class));
+        cards.add(new SetCardInfo("Expel", 51, Rarity.UNCOMMON, mage.cards.e.Expel.class));
+        cards.add(new SetCardInfo("Firstfeather Stormwing", 52, Rarity.COMMON, mage.cards.f.FirstfeatherStormwing.class));
+        cards.add(new SetCardInfo("Foretell", 53, Rarity.COMMON, mage.cards.f.Foretell.class));
+        cards.add(new SetCardInfo("Giant Catfish", 55, Rarity.COMMON, mage.cards.g.GiantCatfish.class));
+        cards.add(new SetCardInfo("Hasty Retreat", 56, Rarity.UNCOMMON, mage.cards.h.HastyRetreat.class));
+        cards.add(new SetCardInfo("Horned Serpent", 57, Rarity.COMMON, mage.cards.h.HornedSerpent.class));
+        cards.add(new SetCardInfo("Hyastee Sigil", 58, Rarity.COMMON, mage.cards.h.HyasteeSigil.class));
+        cards.add(new SetCardInfo("Lost in the Mist", 59, Rarity.COMMON, mage.cards.l.LostInTheMist.class));
+        cards.add(new SetCardInfo("Mana Heist", 60, Rarity.RARE, mage.cards.m.ManaHeist.class));
+        cards.add(new SetCardInfo("Manastorm Twister", 61, Rarity.UNCOMMON, mage.cards.m.ManastormTwister.class));
+        cards.add(new SetCardInfo("Mother Owls Herald", 62, Rarity.MYTHIC, mage.cards.m.MotherOwlsHerald.class));
         //Black
         cards.add(new SetCardInfo("Bad Blood", 77, Rarity.COMMON, mage.cards.b.BadBlood.class));
         cards.add(new SetCardInfo("Blightwing Wildshaper", 78, Rarity.COMMON, mage.cards.b.BlightwingWildshaper.class));
@@ -87,7 +100,7 @@ public final class Lorado extends ExpansionSet {
         cards.add(new SetCardInfo("Coat with Venom", 82, Rarity.COMMON, mage.cards.c.CoatWithVenom.class));
         cards.add(new SetCardInfo("Dadgum Vermints", 83, Rarity.COMMON, mage.cards.d.DadgumVermints.class));
 
-        //TODO Fix Rallyridge Quartermaser & High Noon.
+        //TODO Fix Rallyridge Quartermaser (look at Gift of Immortality) & High Noon.
         //TODO Bloodshot Coachthief, Dead Mans Hand, Deal at the Crossroads, Death Cheater,
         //TODO Fix Chupacabra Ability.
     }

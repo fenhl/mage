@@ -29,7 +29,7 @@ public final class BulletproofBarrier extends CardImpl {
     public BulletproofBarrier(UUID ownerId, CardSetInfo setInfo) {
         super(ownerId, setInfo, new CardType[]{CardType.ENCHANTMENT}, "{2}{U}");
 
-        this.subtype.add(SubType.AURA, SubType.CARTOUCHE);
+        this.subtype.add(SubType.AURA);
 
 
         // Enchant creature you control

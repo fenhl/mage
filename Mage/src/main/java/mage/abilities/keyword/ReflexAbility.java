@@ -18,6 +18,8 @@ import mage.util.CardUtil;
  */
 public class ReflexAbility extends SpellAbility {
 
+    private String rule;
+
     public ReflexAbility(Card card, String reflexCosts) {
         super(new ManaCostsImpl<>(reflexCosts), card.getName() + " with reflex", Zone.HAND, SpellAbilityType.BASE_ALTERNATE);
         this.getCosts().addAll(card.getSpellAbility().getCosts().copy());
@@ -25,6 +27,8 @@ public class ReflexAbility extends SpellAbility {
         this.getTargets().addAll(card.getSpellAbility().getTargets().copy());
         this.spellAbilityType = SpellAbilityType.BASE_ALTERNATE;
         this.timing = TimingRule.INSTANT;
+        rule = "Reflex " + reflexCosts
+                + " <i>(You may cast this spell any time you could cast an instant for its reflex cost.)</i>";
     }
 
     public ReflexAbility(final ReflexAbility ability) {
@@ -39,11 +43,6 @@ public class ReflexAbility extends SpellAbility {
     @Override
     public String getRule(boolean all) {
         return getRule();
-    }
-
-    @Override
-    public String getRule() {
-        return "Reflex " + costs + " <i>(You may cast this spell as an instant for its reflex cost.)</i>";
     }
 
 }

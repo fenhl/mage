@@ -56,7 +56,7 @@ class CarnivalIllusionistEffect extends OneShotEffect {
 
     public CarnivalIllusionistEffect(DynamicValue straight){
         super(Outcome.Benefit);
-        this.staticText = "Put target creature into its owner's library just beneath the top X cards of that library, where X is your longest straight";
+        this.staticText = "put target creature into its owner's library just beneath the top X cards of that library, where X is your longest straight";
 
     }
 
