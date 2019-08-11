@@ -1,7 +1,6 @@
 package mage.cards.s;
 
 import mage.abilities.Ability;
-import mage.abilities.condition.CompoundCondition;
 import mage.abilities.condition.Condition;
 import mage.abilities.condition.OrCondition;
 import mage.abilities.condition.common.EnchantedTargetCondition;
@@ -40,9 +39,9 @@ public final class SignatureStrike extends CardImpl {
 
         Effect secondEffect = new ConditionalOneShotEffect(new UntapTargetEffect(),
                 new OrCondition(EnchantedTargetCondition.instance,
-                                      new EquippedTargetCondition(),
-                                      hasAnyCounterCondition
-                                      ));
+                        EquippedTargetCondition.instance,
+                        hasAnyCounterCondition
+                ));
         this.getSpellAbility().addEffect(secondEffect);
 
 

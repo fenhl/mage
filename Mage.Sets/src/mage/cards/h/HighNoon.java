@@ -3,15 +3,19 @@ package mage.cards.h;
 import mage.MageObjectReference;
 import mage.abilities.Ability;
 import mage.abilities.TriggeredAbilityImpl;
+import mage.abilities.common.PutIntoGraveFromBattlefieldAllTriggeredAbility;
+import mage.abilities.common.SacrificeSourceTriggeredAbility;
 import mage.abilities.common.SimpleStaticAbility;
 import mage.abilities.effects.ContinuousEffect;
 import mage.abilities.effects.RestrictionEffect;
 import mage.abilities.effects.common.SacrificeSourceEffect;
 import mage.cards.CardImpl;
 import mage.cards.CardSetInfo;
+import mage.cards.d.DuelingGrounds;
 import mage.constants.CardType;
 import mage.constants.Duration;
 import mage.constants.Zone;
+import mage.filter.common.FilterAttackingOrBlockingCreature;
 import mage.filter.common.FilterCreaturePermanent;
 import mage.filter.predicate.Predicates;
 import mage.filter.predicate.permanent.AttackingPredicate;
@@ -28,13 +32,8 @@ import java.util.UUID;
 
 public final class HighNoon extends CardImpl {
 
-    private static final FilterCreaturePermanent filter = new FilterCreaturePermanent("an attacking or blocking creature");
+    private static final FilterCreaturePermanent filter = new FilterAttackingOrBlockingCreature("an attacking or blocking creature");
 
-    static {
-        filter.add(Predicates.or(
-                new AttackingPredicate(),
-                new BlockingPredicate()));
-    }
 
     public HighNoon(UUID ownerId, CardSetInfo setInfo) {
         super(ownerId, setInfo, new CardType[]{CardType.ENCHANTMENT}, "{1}{W}");
@@ -49,7 +48,8 @@ public final class HighNoon extends CardImpl {
                 new SimpleStaticAbility(Zone.BATTLEFIELD, new NoMoreThanOneCreatureCanBlockEachTurnEffect()),
                 new BlockedThisTurnWatcher());
         //When an attacking or blocking creature dies, sacrifice High Noon.
-        this.addAbility(new HighNoonTriggeredAbility());
+        //this.addAbility(new HighNoonTriggeredAbility());
+        this.addAbility(new PutIntoGraveFromBattlefieldAllTriggeredAbility(new SacrificeSourceEffect(), false, filter, false, false));
     }
     public HighNoon(final mage.cards.h.HighNoon card) {
         super(card);
@@ -67,14 +67,14 @@ class NoMoreThanOneCreatureCanAttackEachTurnEffect extends RestrictionEffect {
         super(Duration.WhileOnBattlefield);
     }
 
-    public NoMoreThanOneCreatureCanAttackEachTurnEffect(final mage.cards.h.NoMoreThanOneCreatureCanAttackEachTurnEffect effect) {
+    public NoMoreThanOneCreatureCanAttackEachTurnEffect(final NoMoreThanOneCreatureCanAttackEachTurnEffect effect) {
         super(effect);
         this.staticText = "No more than one creature can attack each turn";
     }
 
     @Override
     public ContinuousEffect copy() {
-        return new mage.cards.h.NoMoreThanOneCreatureCanAttackEachTurnEffect(this);
+        return new NoMoreThanOneCreatureCanAttackEachTurnEffect(this);
     }
 
     @Override
@@ -83,11 +83,14 @@ class NoMoreThanOneCreatureCanAttackEachTurnEffect extends RestrictionEffect {
     }
 
     @Override
-    public boolean canAttack(Permanent attacker, UUID defenderId, Ability source, Game game) {
+    public boolean canAttack(Permanent attacker, UUID defenderId, Ability source, Game game, boolean canUseChooseDialogs) {
         if (!game.getCombat().getAttackers().isEmpty()) {
             return false;
         }
-        AttackedThisTurnWatcher watcher = (AttackedThisTurnWatcher) game.getState().getWatchers().get(AttackedThisTurnWatcher.class.getSimpleName());
+        AttackedThisTurnWatcher watcher = game.getState().getWatcher(AttackedThisTurnWatcher.class);
+        if (watcher == null) {
+            return false;
+        }
         Set<MageObjectReference> attackedThisTurnCreatures = watcher.getAttackedThisTurnCreatures();
         return attackedThisTurnCreatures.isEmpty()
                 || (attackedThisTurnCreatures.size() == 1 && attackedThisTurnCreatures.contains(new MageObjectReference(attacker, game)));
@@ -102,13 +105,13 @@ class NoMoreThanOneCreatureCanBlockEachTurnEffect extends RestrictionEffect {
         this.staticText = "No more than one creature can block each turn";
     }
 
-    public NoMoreThanOneCreatureCanBlockEachTurnEffect(final mage.cards.h.NoMoreThanOneCreatureCanBlockEachTurnEffect effect) {
+    public NoMoreThanOneCreatureCanBlockEachTurnEffect(final NoMoreThanOneCreatureCanBlockEachTurnEffect effect) {
         super(effect);
     }
 
     @Override
     public ContinuousEffect copy() {
-        return new mage.cards.h.NoMoreThanOneCreatureCanBlockEachTurnEffect(this);
+        return new NoMoreThanOneCreatureCanBlockEachTurnEffect(this);
     }
 
     @Override
@@ -117,11 +120,14 @@ class NoMoreThanOneCreatureCanBlockEachTurnEffect extends RestrictionEffect {
     }
 
     @Override
-    public boolean canBlock(Permanent attacker, Permanent blocker, Ability source, Game game) {
+    public boolean canBlock(Permanent attacker, Permanent blocker, Ability source, Game game, boolean canUseChooseDialogs) {
         if (!game.getCombat().getBlockers().isEmpty()) {
             return false;
         }
-        BlockedThisTurnWatcher watcher = (BlockedThisTurnWatcher) game.getState().getWatchers().get(BlockedThisTurnWatcher.class.getSimpleName());
+        BlockedThisTurnWatcher watcher = game.getState().getWatcher(BlockedThisTurnWatcher.class);
+        if (watcher == null) {
+            return false;
+        }
         Set<MageObjectReference> blockedThisTurnCreatures = watcher.getBlockedThisTurnCreatures();
         MageObjectReference blockerReference = new MageObjectReference(blocker.getId(), blocker.getZoneChangeCounter(game), game);
         return blockedThisTurnCreatures.isEmpty()
@@ -130,7 +136,7 @@ class NoMoreThanOneCreatureCanBlockEachTurnEffect extends RestrictionEffect {
 
 }
 
-class HighNoonTriggeredAbility extends TriggeredAbilityImpl {
+/*class HighNoonTriggeredAbility extends TriggeredAbilityImpl {
 
     public HighNoonTriggeredAbility() {
         super(Zone.BATTLEFIELD, new SacrificeSourceEffect(), false);
@@ -169,3 +175,4 @@ class HighNoonTriggeredAbility extends TriggeredAbilityImpl {
                 + "sacrifice {this}. ";
     }
 }
+*/

@@ -29,7 +29,7 @@ public final class FortRedemptionRanger extends CardImpl {
 
     static {
         filter.add(new ControllerPredicate(TargetController.YOU));
-        filter.add(new AnotherPredicate());
+        filter.add(AnotherPredicate.instance);
         filter.add(new CounterPredicate(CounterType.P1P1));
     }
 

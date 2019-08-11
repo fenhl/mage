@@ -14,7 +14,7 @@ public final class RepelSiege extends CardImpl {
     private static final FilterCreaturePermanent filter = new FilterCreaturePermanent("blocked creature");
 
     static {
-        filter.add(new BlockedPredicate());
+        filter.add(BlockedPredicate.instance);
     }
 
     public RepelSiege(UUID ownerId, CardSetInfo cardSetInfo) {

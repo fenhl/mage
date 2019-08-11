@@ -19,12 +19,12 @@ import java.util.UUID;
  */
 public final class FarajosShield extends CardImpl {
 
-    private static final FilterCreaturePermanent filter = new FilterCreaturePermanent("except by creatures that are enchanted, equipped or have counters on them");
+    private static final FilterCreaturePermanent filter = new FilterCreaturePermanent("except by creatures that are enchanted, equipped or have counters on them") ;
 
     static {
-        filter.add(Predicates.not(new EnchantedPredicate()));
-        filter.add(Predicates.not(new CounterAnyPredicate()));
-        filter.add(Predicates.not(new EquippedPredicate()));
+        filter.add(Predicates.not(EnchantedPredicate.instance));
+        filter.add(Predicates.not(CounterAnyPredicate.instance));
+        filter.add(Predicates.not(EquippedPredicate.instance));
     }
 
     public FarajosShield(UUID ownerId, CardSetInfo setInfo) {
