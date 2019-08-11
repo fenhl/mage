@@ -8,22 +8,33 @@ import com.j256.ormlite.stmt.SelectArg;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import mage.util.JarVersion;
+import org.apache.log4j.Logger;
 
 import java.sql.SQLException;
 import java.util.List;
 
 /**
- *
- * @author North
+ * @author North, JayDi85
  */
 public final class RepositoryUtil {
+
+    private static final Logger logger = Logger.getLogger(RepositoryUtil.class);
+    public static final boolean CARD_DB_RECREATE_BY_CLIENT_SIDE = true; // re-creates db from client (best performance) or downloads from server on connects (can be slow)
+
+    public static void bootstrapLocalDb() {
+        // call local db to init all sets and cards repository (need for correct updates cycle, not on random request)
+        logger.info("Loading database...");
+        ExpansionRepository.instance.getContentVersionConstant();
+        CardRepository.instance.getContentVersionConstant();
+    }
 
     public static boolean isDatabaseObsolete(ConnectionSource connectionSource, String entityName, long version) throws SQLException {
         TableUtils.createTableIfNotExists(connectionSource, DatabaseVersion.class);
         Dao<DatabaseVersion, Object> dbVersionDao = DaoManager.createDao(connectionSource, DatabaseVersion.class);
 
         QueryBuilder<DatabaseVersion, Object> queryBuilder = dbVersionDao.queryBuilder();
-        queryBuilder.where().eq("entity", new SelectArg(entityName)).and().eq("version", version);
+        queryBuilder.where().eq("entity", new SelectArg(entityName))
+                .and().eq("version", new SelectArg(version));
         List<DatabaseVersion> dbVersions = dbVersionDao.query(queryBuilder.prepare());
 
         if (dbVersions.isEmpty()) {
@@ -37,6 +48,7 @@ public final class RepositoryUtil {
 
     public static boolean isNewBuildRun(ConnectionSource connectionSource, String entityName, Class clazz) throws SQLException {
         // build time checks only for releases, not runtime (e.g. IDE debug)
+        // that's check uses for cards db cleanup on new version/build
         String currentBuild = JarVersion.getBuildTime(clazz);
         if (!JarVersion.isBuildTimeOk(currentBuild)) {
             return false;
@@ -46,7 +58,8 @@ public final class RepositoryUtil {
         Dao<DatabaseBuild, Object> dbBuildDao = DaoManager.createDao(connectionSource, DatabaseBuild.class);
 
         QueryBuilder<DatabaseBuild, Object> queryBuilder = dbBuildDao.queryBuilder();
-        queryBuilder.where().eq("entity", new SelectArg(entityName)).and().eq("last_build", currentBuild);
+        queryBuilder.where().eq("entity", new SelectArg(entityName))
+                .and().eq("last_build", new SelectArg(currentBuild));
         List<DatabaseBuild> dbBuilds = dbBuildDao.query(queryBuilder.prepare());
 
         if (dbBuilds.isEmpty()) {
@@ -89,6 +102,11 @@ public final class RepositoryUtil {
         } else {
             return dbVersions.get(0).getVersion();
         }
+    }
+
+    public static boolean isDatabaseEmpty() {
+        return ExpansionRepository.instance.getSetByCode("GRN") == null
+                || CardRepository.instance.findCard("Island") == null;
     }
 
 }

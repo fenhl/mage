@@ -1,8 +1,5 @@
-
 package mage.abilities;
 
-import java.util.Optional;
-import java.util.UUID;
 import mage.MageObject;
 import mage.MageObjectReference;
 import mage.abilities.costs.Cost;
@@ -12,16 +9,14 @@ import mage.abilities.costs.mana.VariableManaCost;
 import mage.abilities.keyword.FlashAbility;
 import mage.cards.Card;
 import mage.cards.SplitCard;
-import mage.constants.AbilityType;
-import mage.constants.AsThoughEffectType;
-import mage.constants.SpellAbilityCastMode;
-import mage.constants.SpellAbilityType;
-import mage.constants.TimingRule;
-import mage.constants.Zone;
+import mage.constants.*;
 import mage.game.Game;
 import mage.game.events.GameEvent;
 import mage.game.stack.Spell;
 import mage.players.Player;
+
+import java.util.Optional;
+import java.util.UUID;
 
 /**
  * @author BetaSteward_at_googlemail.com
@@ -60,17 +55,23 @@ public class SpellAbility extends ActivatedAbilityImpl {
         this.cardName = ability.cardName;
     }
 
+    /*
+     * 7/5/19 - jgray1206 - Moved null != game.getContinuesEffects()... into this method instead of having it in
+     *                      canActivate. There are abilities that directly use this method that should know when spells
+     *                      can be casted that are affected by the CastAsInstant effect.
+     *                      (i.e. Vizier of the Menagerie and issue #5816)
+     */
     public boolean spellCanBeActivatedRegularlyNow(UUID playerId, Game game) {
         MageObject object = game.getObject(sourceId);
-        return timing == TimingRule.INSTANT
+        return null != game.getContinuousEffects().asThough(sourceId, AsThoughEffectType.CAST_AS_INSTANT, this, playerId, game) // check this first to allow Offering in main phase
+                || timing == TimingRule.INSTANT
                 || object.hasAbility(FlashAbility.getInstance().getId(), game)
                 || game.canPlaySorcery(playerId);
     }
 
     @Override
     public ActivationStatus canActivate(UUID playerId, Game game) {
-        if (null != game.getContinuousEffects().asThough(sourceId, AsThoughEffectType.CAST_AS_INSTANT, this, playerId, game) // check this first to allow Offering in main phase
-                || this.spellCanBeActivatedRegularlyNow(playerId, game)) {
+        if (this.spellCanBeActivatedRegularlyNow(playerId, game)) {
             if (spellAbilityType == SpellAbilityType.SPLIT || spellAbilityType == SpellAbilityType.SPLIT_AFTERMATH) {
                 return ActivationStatus.getFalse();
             }
@@ -167,13 +168,15 @@ public class SpellAbility extends ActivatedAbilityImpl {
             return 0;
         }
 
+        // mana cost instances
         for (ManaCost manaCost : card.getManaCost()) {
             if (manaCost instanceof VariableManaCost) {
-                xMultiplier = ((VariableManaCost) manaCost).getMultiplier();
+                xMultiplier = ((VariableManaCost) manaCost).getXInstancesCount();
                 break;
             }
         }
 
+        // mana cost final X value
         boolean hasNonManaXCost = false;
         for (Cost cost : getCosts()) {
             if (cost instanceof VariableCost) {
@@ -187,6 +190,11 @@ public class SpellAbility extends ActivatedAbilityImpl {
             amount = getManaCostsToPay().getX();
         }
         return amount * xMultiplier;
+    }
+
+    public void setCardName(String cardName) {
+        this.cardName = cardName;
+        setSpellName();
     }
 
     private void setSpellName() {
@@ -224,12 +232,16 @@ public class SpellAbility extends ActivatedAbilityImpl {
         if (event.getType() != GameEvent.EventType.CAST_SPELL) {
             return null;
         }
+
         Card card = game.getCard(event.getSourceId());
-        Optional<Ability> ability = card.getAbilities(game).get(event.getTargetId());
-        if (ability.isPresent() && ability.get() instanceof SpellAbility) {
-            return (SpellAbility) ability.get();
+        if (card != null) {
+            Optional<Ability> ability = card.getAbilities(game).get(event.getTargetId());
+            if (ability.isPresent() && ability.get() instanceof SpellAbility) {
+                return (SpellAbility) ability.get();
+            }
+            return card.getSpellAbility();
         }
-        return card.getSpellAbility();
+        return null;
     }
 
     public void setId(UUID idToUse) {

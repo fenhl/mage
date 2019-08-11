@@ -85,6 +85,12 @@ public final class StaticFilters {
         FILTER_CARD_CREATURE_YOUR_GRAVEYARD.setLockedFilter(true);
     }
 
+    public static final FilterCreatureCard FILTER_CARD_CREATURES_YOUR_GRAVEYARD = new FilterCreatureCard("creature cards from your graveyard");
+
+    static {
+        FILTER_CARD_CREATURES_YOUR_GRAVEYARD.setLockedFilter(true);
+    }
+
     public static final FilterCard FILTER_CARD_FROM_YOUR_GRAVEYARD = new FilterCard("card from your graveyard");
 
     static {
@@ -145,7 +151,13 @@ public final class StaticFilters {
         FILTER_PERMANENTS.setLockedFilter(true);
     }
 
-    public static final FilterPermanent FILTER_PERMANENT_ARTIFACT_AN = new FilterArtifactPermanent("an artifact");
+    public static final FilterArtifactPermanent FILTER_PERMANENT_ARTIFACT = new FilterArtifactPermanent("artifact");
+
+    static {
+        FILTER_PERMANENT_ARTIFACT.setLockedFilter(true);
+    }
+
+    public static final FilterArtifactPermanent FILTER_PERMANENT_ARTIFACT_AN = new FilterArtifactPermanent("an artifact");
 
     static {
         FILTER_PERMANENT_ARTIFACT_AN.setLockedFilter(true);
@@ -297,7 +309,7 @@ public final class StaticFilters {
     public static final FilterControlledCreaturePermanent FILTER_CONTROLLED_ANOTHER_CREATURE = new FilterControlledCreaturePermanent("another creature");
 
     static {
-        FILTER_CONTROLLED_ANOTHER_CREATURE.add(new AnotherPredicate());
+        FILTER_CONTROLLED_ANOTHER_CREATURE.add(AnotherPredicate.instance);
         FILTER_CONTROLLED_ANOTHER_CREATURE.setLockedFilter(true);
     }
 
@@ -405,13 +417,19 @@ public final class StaticFilters {
         FILTER_PERMANENT_PLANESWALKER.setLockedFilter(true);
     }
 
-    public static final FilterPermanent FILTER_PERMANENT_NON_LAND = new FilterNonlandPermanent();
+    public static final FilterPlaneswalkerPermanent FILTER_PERMANENT_PLANESWALKERS = new FilterPlaneswalkerPermanent("planeswalkers");
+
+    static {
+        FILTER_PERMANENT_PLANESWALKERS.setLockedFilter(true);
+    }
+
+    public static final FilterNonlandPermanent FILTER_PERMANENT_NON_LAND = new FilterNonlandPermanent();
 
     static {
         FILTER_PERMANENT_NON_LAND.setLockedFilter(true);
     }
 
-    public static final FilterPermanent FILTER_PERMANENTS_NON_LAND = new FilterNonlandPermanent("nonland permanents");
+    public static final FilterNonlandPermanent FILTER_PERMANENTS_NON_LAND = new FilterNonlandPermanent("nonland permanents");
 
     static {
         FILTER_PERMANENTS_NON_LAND.setLockedFilter(true);
@@ -448,6 +466,12 @@ public final class StaticFilters {
         FILTER_SPELL_NON_CREATURE.setLockedFilter(true);
     }
 
+    public static final FilterSpell FILTER_SPELL_A_NON_CREATURE = (FilterSpell) new FilterSpell("a noncreature spell").add(Predicates.not(new CardTypePredicate(CardType.CREATURE)));
+
+    static {
+        FILTER_SPELL_A_NON_CREATURE.setLockedFilter(true);
+    }
+
     public static final FilterSpell FILTER_SPELL = new FilterSpell();
 
     static {
@@ -463,7 +487,7 @@ public final class StaticFilters {
     public static final FilterSpell FILTER_SPELL_A_MULTICOLORED = new FilterSpell("a multicolored spell");
 
     static {
-        FILTER_SPELL_A_MULTICOLORED.add(new MulticoloredPredicate());
+        FILTER_SPELL_A_MULTICOLORED.add(MulticoloredPredicate.instance);
         FILTER_SPELL_A_MULTICOLORED.setLockedFilter(true);
     }
 
@@ -500,14 +524,14 @@ public final class StaticFilters {
     public static final FilterCreaturePermanent FILTER_CREATURE_TOKENS = new FilterCreaturePermanent("creature tokens");
 
     static {
-        FILTER_CREATURE_TOKENS.add(new TokenPredicate());
+        FILTER_CREATURE_TOKENS.add(TokenPredicate.instance);
         FILTER_CREATURE_TOKENS.setLockedFilter(true);
     }
 
     public static final FilterCreaturePermanent FILTER_ATTACKING_CREATURES = new FilterCreaturePermanent("attacking creatures");
 
     static {
-        FILTER_ATTACKING_CREATURES.add(new AttackingPredicate());
+        FILTER_ATTACKING_CREATURES.add(AttackingPredicate.instance);
         FILTER_ATTACKING_CREATURES.setLockedFilter(true);
     }
 

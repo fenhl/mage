@@ -19,6 +19,7 @@ import mage.game.stack.StackObject;
 import mage.players.Player;
 import mage.target.TargetSpell;
 import mage.target.targetpointer.FixedTarget;
+import mage.util.CardUtil;
 
 import java.util.UUID;
 
@@ -78,10 +79,11 @@ class KheruSpellsnatcherEffect extends OneShotEffect {
         StackObject stackObject = game.getStack().getStackObject(objectId);
         if (stackObject != null
                 && game.getStack().counter(targetPointer.getFirst(game, source), source.getSourceId(), game, Zone.EXILED, false, ZoneDetail.NONE)) {
-            if (!((Spell) stackObject).isCopy()) {
+            if (!stackObject.isCopy()) {
                 MageObject card = game.getObject(stackObject.getSourceId());
                 if (card instanceof Card) {
-                    ((Card) card).moveToZone(Zone.EXILED, sourceId, game, true);
+                    UUID exileId = CardUtil.getCardExileZoneId(game, sourceId);
+                    ((Card) card).moveToExile(exileId, "Kheru Spellsnatcher - cast without mana cost", sourceId, game);
                     ContinuousEffect effect = new KheruSpellsnatcherCastFromExileEffect();
                     effect.setTargetPointer(new FixedTarget(card.getId()));
                     game.addEffect(effect, source);
@@ -126,8 +128,10 @@ class KheruSpellsnatcherCastFromExileEffect extends AsThoughEffectImpl {
                 if (card != null) {
                     if (game.getState().getZone(sourceId) == Zone.EXILED) {
                         Player player = game.getPlayer(affectedControllerId);
-                        player.setCastSourceIdWithAlternateMana(sourceId, null, card.getSpellAbility().getCosts());
-                        return true;
+                        if(player != null) {
+                            player.setCastSourceIdWithAlternateMana(sourceId, null, card.getSpellAbility().getCosts());
+                            return true;
+                        }
                     } else {
                         this.discard();
                     }

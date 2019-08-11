@@ -1,28 +1,26 @@
-
-
 package mage.game.permanent.token;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import mage.MageInt;
 import mage.constants.CardType;
 import mage.constants.SubType;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
- *
  * @author BetaSteward_at_googlemail.com
  */
 public final class ElephantToken extends TokenImpl {
 
-    final static private List<String> tokenImageSets = new ArrayList<>();
+    static final private List<String> tokenImageSets = new ArrayList<>();
 
     static {
-        tokenImageSets.addAll(Arrays.asList("C14", "CNS", "DDD", "MM2", "WWK", "OGW", "C15", "DD3GVL", "MM3", "CMA"));
+        tokenImageSets.addAll(Arrays.asList("C14", "CNS", "DDD", "MM2", "WWK", "OGW", "C15", "DD3GVL", "MM3", "CMA", "MH1"));
     }
 
     public ElephantToken() {
-        this((String)null);
+        this((String) null);
     }
 
     public ElephantToken(String setCode) {

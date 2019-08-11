@@ -1,7 +1,7 @@
 
 
 /*
- * CombatDialog.java
+ * COMBAT.java
  *
  * Created on Feb 10, 2010, 3:35:02 PM
  */
@@ -33,11 +33,13 @@ public class CombatDialog extends MageDialog {
     private int lastX = 500;
     private int lastY = 300;
 
-    /** Creates new form CombatDialog */
+    /** Creates new form COMBAT */
     public CombatDialog() {
 
         JPanel contentPane = new JPanel() {
             private static final long serialVersionUID = -8283955788355547309L;
+
+            @Override
             public void paintComponent(Graphics g) {
                 g.setColor(new Color(50, 50, 50, 100));
                 g.fillRect(0, 0, getWidth(), getHeight());

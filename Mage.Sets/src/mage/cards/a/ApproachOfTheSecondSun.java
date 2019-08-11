@@ -65,7 +65,7 @@ class ApproachOfTheSecondSunEffect extends OneShotEffect {
         Spell spell = game.getStack().getSpell(source.getSourceId());
         if (controller != null && spell != null) {
             ApproachOfTheSecondSunWatcher watcher
-                    = (ApproachOfTheSecondSunWatcher) game.getState().getWatchers().get(ApproachOfTheSecondSunWatcher.class.getSimpleName());
+                    = game.getState().getWatcher(ApproachOfTheSecondSunWatcher.class);
             if (watcher != null
                     && !spell.isCopy()
                     && watcher.getApproachesCast(controller.getId()) > 1
@@ -96,7 +96,7 @@ class ApproachOfTheSecondSunWatcher extends Watcher {
     private Map<UUID, Integer> approachesCast = new HashMap<>();
 
     public ApproachOfTheSecondSunWatcher() {
-        super(ApproachOfTheSecondSunWatcher.class.getSimpleName(), WatcherScope.GAME);
+        super(WatcherScope.GAME);
     }
 
     public ApproachOfTheSecondSunWatcher(final ApproachOfTheSecondSunWatcher watcher) {

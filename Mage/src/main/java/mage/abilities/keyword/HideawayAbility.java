@@ -1,7 +1,6 @@
 
 package mage.abilities.keyword;
 
-import java.util.UUID;
 import mage.abilities.Ability;
 import mage.abilities.StaticAbility;
 import mage.abilities.common.EntersBattlefieldTriggeredAbility;
@@ -25,9 +24,11 @@ import mage.players.Player;
 import mage.target.TargetCard;
 import mage.util.CardUtil;
 
+import java.util.UUID;
+
 /**
  * @author LevelX2
- *
+ * <p>
  * 702.74. Hideaway 702.74a Hideaway represents a static ability and a triggered
  * ability. "Hideaway" means "This permanent enters the battlefield tapped" and
  * "When this permanent enters the battlefield, look at the top four cards of
@@ -39,6 +40,10 @@ import mage.util.CardUtil;
 public class HideawayAbility extends StaticAbility {
 
     public HideawayAbility() {
+        this("land");
+    }
+
+    public HideawayAbility(String name) {
         super(Zone.ALL, new EntersBattlefieldEffect(new TapSourceEffect(true)));
         Ability ability = new EntersBattlefieldTriggeredAbility(new HideawayExileEffect(), false);
         ability.setRuleVisible(false);
@@ -47,15 +52,17 @@ public class HideawayAbility extends StaticAbility {
         ability = new SimpleStaticAbility(Zone.BATTLEFIELD, new HideawayLookAtFaceDownCardEffect());
         ability.setRuleVisible(false);
         addSubAbility(ability);
+        this.name = name;
     }
 
-    public HideawayAbility(final HideawayAbility ability) {
+    private HideawayAbility(final HideawayAbility ability) {
         super(ability);
+        this.name = ability.name;
     }
 
     @Override
     public String getRule() {
-        return "Hideaway <i>(This land enters the battlefield tapped. When it does, look at the top four cards of your library, exile one face down, then put the rest on the bottom of your library.)</i>";
+        return "Hideaway <i>(This " + this.name + " enters the battlefield tapped. When it does, look at the top four cards of your library, exile one face down, then put the rest on the bottom of your library.)</i>";
     }
 
     @Override
@@ -117,7 +124,7 @@ class HideawayLookAtFaceDownCardEffect extends AsThoughEffectImpl {
         staticText = "You may look at cards exiled with {this}";
     }
 
-    public HideawayLookAtFaceDownCardEffect(final HideawayLookAtFaceDownCardEffect effect) {
+    private HideawayLookAtFaceDownCardEffect(final HideawayLookAtFaceDownCardEffect effect) {
         super(effect);
     }
 

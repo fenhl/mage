@@ -1,16 +1,13 @@
-
 package mage.deck;
-
-import java.util.Date;
-import java.util.GregorianCalendar;
 
 import mage.cards.ExpansionSet;
 import mage.cards.Sets;
 import mage.cards.decks.Constructed;
-import mage.constants.SetType;
+
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
- *
  * @author LevelX2
  */
 public class Modern extends Constructed {
@@ -20,8 +17,7 @@ public class Modern extends Constructed {
 
         Date cutoff = new GregorianCalendar(2003, 6, 28).getTime(); // Eight edition release date
         for (ExpansionSet set : Sets.getInstance().values()) {
-            if ((set.getReleaseDate().after(cutoff) || set.getReleaseDate().equals(cutoff))
-                    && (set.getSetType() == SetType.CORE || set.getSetType() == SetType.EXPANSION)) {
+            if (set.getSetType().isModernLegal() && (set.getReleaseDate().after(cutoff) || set.getReleaseDate().equals(cutoff))) {
                 setCodes.add(set.getCode());
             }
         }
@@ -29,6 +25,7 @@ public class Modern extends Constructed {
         banned.add("Ancient Den");
         banned.add("Birthing Pod");
         banned.add("Blazing Shoal");
+        banned.add("Bridge from Below");
         banned.add("Chrome Mox");
         banned.add("Cloudpost");
         banned.add("Dark Depths");
@@ -42,6 +39,7 @@ public class Modern extends Constructed {
         banned.add("Great Furnace");
         banned.add("Green Sun's Zenith");
         banned.add("Hypergenesis");
+        banned.add("Krark-Clan Ironworks");
         banned.add("Mental Misstep");
         banned.add("Ponder");
         banned.add("Preordain");

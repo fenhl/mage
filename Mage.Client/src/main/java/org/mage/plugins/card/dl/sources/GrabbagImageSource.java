@@ -1,16 +1,13 @@
-
 package org.mage.plugins.card.dl.sources;
 
+import org.apache.log4j.Logger;
+import org.mage.plugins.card.dl.DownloadServiceInfo;
+import org.mage.plugins.card.images.CardDownloadData;
+
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
-
-import org.apache.log4j.Logger;
-import org.mage.plugins.card.images.CardDownloadData;
 
 /**
  * @author spjspj
@@ -48,7 +45,12 @@ public enum GrabbagImageSource implements CardImageSource {
     }
 
     @Override
-    public CardImageUrls generateURL(CardDownloadData card) throws Exception {
+    public boolean prepareDownloadList(DownloadServiceInfo downloadServiceInfo, List<CardDownloadData> downloadList) {
+        return true;
+    }
+
+    @Override
+    public CardImageUrls generateCardUrl(CardDownloadData card) throws Exception {
         if (singleLinks == null) {
             setupLinks();
         }
@@ -291,7 +293,7 @@ public enum GrabbagImageSource implements CardImageSource {
         singleLinks.put("SWS/Senator Bail Organa", "BRkUuYU.jpg");
         singleLinks.put("SWS/Senator Lott Dod", "yYQtXZo.jpg");
         singleLinks.put("SWS/Senator Onaconda Farr", "oPez77z.png");
-        singleLinks.put("SWS/Senator Padmé Amidala", "287deD9.jpg");
+        singleLinks.put("SWS/Senator Padme Amidala", "287deD9.jpg");
         singleLinks.put("SWS/Senator Passel Argente", "51qpnaE.jpg");
         singleLinks.put("SWS/Shaak Herd", "PtnZD0I.jpg");
         singleLinks.put("SWS/Shadow Trooper", "09NAiGa.jpg");
@@ -450,7 +452,7 @@ public enum GrabbagImageSource implements CardImageSource {
     @Override
     public CardImageUrls generateTokenUrl(CardDownloadData card) throws IOException {
         try {
-            return generateURL(card);
+            return generateCardUrl(card);
         } catch (Exception ex) {
             java.util.logging.Logger.getLogger(GrabbagImageSource.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -501,7 +503,7 @@ public enum GrabbagImageSource implements CardImageSource {
     }
 
     @Override
-    public boolean isImageProvided(String setCode, String cardName) {
+    public boolean isCardImageProvided(String setCode, String cardName) {
         if (singleLinks == null) {
             setupLinks();
         }

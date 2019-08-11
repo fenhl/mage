@@ -1,26 +1,13 @@
-
 package mage.cards.k;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
 import mage.MageObject;
 import mage.abilities.Ability;
 import mage.abilities.LoyaltyAbility;
 import mage.abilities.common.PlaneswalkerEntersWithLoyaltyCountersAbility;
 import mage.abilities.effects.OneShotEffect;
 import mage.abilities.effects.common.CreateTokenEffect;
-import mage.cards.Card;
-import mage.cards.CardImpl;
-import mage.cards.CardSetInfo;
-import mage.cards.Cards;
-import mage.cards.CardsImpl;
-import mage.constants.CardType;
-import mage.constants.Outcome;
-import mage.constants.SubType;
-import mage.constants.SuperType;
-import mage.constants.Zone;
+import mage.cards.*;
+import mage.constants.*;
 import mage.counters.CounterType;
 import mage.filter.FilterCard;
 import mage.filter.predicate.other.CounterCardPredicate;
@@ -32,8 +19,12 @@ import mage.target.Target;
 import mage.target.TargetCard;
 import mage.target.common.TargetOpponent;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
+
 /**
- *
  * @author spjspj
  */
 public final class KarnScionOfUrza extends CardImpl {
@@ -89,8 +80,7 @@ class KarnPlus1Effect extends OneShotEffect {
         Player controller = game.getPlayer(source.getControllerId());
         MageObject sourceObject = game.getObject(source.getSourceId());
         if (sourceObject != null && controller != null) {
-            Cards cards = new CardsImpl();
-            cards.addAll(controller.getLibrary().getTopCards(game, 2));
+            Cards cards = new CardsImpl(controller.getLibrary().getTopCards(game, 2));
 
             if (!cards.isEmpty()) {
                 controller.revealCards(staticText, cards, game);
@@ -116,7 +106,7 @@ class KarnPlus1Effect extends OneShotEffect {
                     cards.remove(cardToHand);
                 }
 
-                if (cards.size() > 0) {
+                if (!cards.isEmpty()) {
                     controller.moveCards(cards, Zone.EXILED, source, game);
                     for (Card c : cards.getCards(game)) {
                         c.addCounters(CounterType.SILVER.createInstance(1), source, game);
@@ -166,7 +156,6 @@ class KarnMinus1Effect extends OneShotEffect {
                     return true;
                 }
 
-                Set<Card> filtered = new HashSet<Card>();
                 Cards filteredCards = new CardsImpl();
 
                 for (Card exileCard : exile) {
@@ -216,7 +205,7 @@ class KarnConstructEffect extends OneShotEffect {
     public boolean apply(Game game, Ability source) {
         Player controller = game.getPlayer(source.getControllerId());
         if (controller != null) {
-            CreateTokenEffect effect = new CreateTokenEffect(new KarnConstructToken("DOM"), 1);
+            CreateTokenEffect effect = new CreateTokenEffect(new KarnConstructToken(), 1);
             effect.apply(game, source);
             return true;
         }

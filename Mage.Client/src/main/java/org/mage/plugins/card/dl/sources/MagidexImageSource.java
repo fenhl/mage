@@ -1,15 +1,10 @@
-
 package org.mage.plugins.card.dl.sources;
 
-import java.net.URI;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashSet;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
-
+import org.mage.plugins.card.dl.DownloadServiceInfo;
 import org.mage.plugins.card.images.CardDownloadData;
+
+import java.net.URI;
+import java.util.*;
 
 /**
  * @author Pete Rossi
@@ -234,7 +229,12 @@ public enum MagidexImageSource implements CardImageSource {
     }
 
     @Override
-    public CardImageUrls generateURL(CardDownloadData card) throws Exception {
+    public boolean prepareDownloadList(DownloadServiceInfo downloadServiceInfo, List<CardDownloadData> downloadList) {
+        return true;
+    }
+
+    @Override
+    public CardImageUrls generateCardUrl(CardDownloadData card) throws Exception {
         String cardDownloadName = card.getDownloadName().toLowerCase(Locale.ENGLISH);
         String cardSet = card.getSet();
 

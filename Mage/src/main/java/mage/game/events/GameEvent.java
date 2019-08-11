@@ -1,14 +1,14 @@
 package mage.game.events;
 
+import mage.MageObjectReference;
+import mage.constants.Zone;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import mage.MageObjectReference;
-import mage.constants.Zone;
 
 /**
- *
  * @author BetaSteward_at_googlemail.com
  */
 public class GameEvent implements Serializable {
@@ -18,6 +18,10 @@ public class GameEvent implements Serializable {
     protected UUID sourceId;
     protected UUID playerId;
     protected int amount;
+    // flags:
+    // for counters: event is result of effect (+1 from planeswalkers is cost, not effect)
+    // for combat damage: event is preventable damage
+    // for discard: event is result of effect (1) or result of cost (0)
     protected boolean flag;
     protected String data;
     protected Zone zone;
@@ -121,6 +125,13 @@ public class GameEvent implements Serializable {
          sourceId    sourceId of the vehicle
          playerId    the id of the controlling player
          */
+        X_MANA_ANNOUNCE,
+        /* X_MANA_ANNOUNCE
+         mana x-costs announced by players (X value can be changed by replace events like Unbound Flourishing)
+         targetId    id of the spell that's cast
+         playerId    player that casts the spell or ability
+         amount      X multiplier to change X value, default 1
+        */
         CAST_SPELL,
         /* SPELL_CAST
          x-Costs are already defined
@@ -221,6 +232,7 @@ public class GameEvent implements Serializable {
         PLANESWALK, PLANESWALKED,
         PAID_CUMULATIVE_UPKEEP,
         DIDNT_PAY_CUMULATIVE_UPKEEP,
+        LIFE_PAID,
         //permanent events
         ENTERS_THE_BATTLEFIELD_SELF, /* 616.1a If any of the replacement and/or prevention effects are self-replacement effects (see rule 614.15),
                                         one of them must be chosen. If not, proceed to rule 616.1b. */
@@ -232,6 +244,7 @@ public class GameEvent implements Serializable {
         FLIP, FLIPPED,
         UNFLIP, UNFLIPPED,
         TRANSFORM, TRANSFORMED,
+        ADAPT,
         BECOMES_MONSTROUS,
         BECOMES_EXERTED,
         /* BECOMES_EXERTED
@@ -290,7 +303,7 @@ public class GameEvent implements Serializable {
         UNATTACH, UNATTACHED,
         ADD_COUNTER, COUNTER_ADDED,
         ADD_COUNTERS, COUNTERS_ADDED,
-        COUNTER_REMOVED,
+        COUNTER_REMOVED, COUNTERS_REMOVED,
         LOSE_CONTROL,
         /* LOST_CONTROL
          targetId    id of the creature that lost control
@@ -383,12 +396,12 @@ public class GameEvent implements Serializable {
     }
 
     private GameEvent(EventType type, UUID customEventType,
-            UUID targetId, UUID sourceId, UUID playerId, int amount, boolean flag) {
+                      UUID targetId, UUID sourceId, UUID playerId, int amount, boolean flag) {
         this(type, customEventType, targetId, sourceId, playerId, amount, flag, null);
     }
 
     private GameEvent(EventType type, UUID customEventType,
-            UUID targetId, UUID sourceId, UUID playerId, int amount, boolean flag, MageObjectReference reference) {
+                      UUID targetId, UUID sourceId, UUID playerId, int amount, boolean flag, MageObjectReference reference) {
         this.type = type;
         this.customEventType = customEventType;
         this.targetId = targetId;
@@ -431,6 +444,17 @@ public class GameEvent implements Serializable {
         this.amount = amount;
     }
 
+    public void setAmountForCounters(int amount, boolean isEffect) {
+        this.amount = amount;
+
+        // cost event must be "transformed" to effect event, as example:
+        // planeswalker's +1 cost will be affected by Pir, Imaginative Rascal (1 + 1) and applied as effect by Doubling Season (2 * 2)
+        // https://github.com/magefree/mage/issues/5802
+        if (isEffect) {
+            setFlag(true);
+        }
+    }
+
     public boolean getFlag() {
         return flag;
     }
@@ -466,7 +490,7 @@ public class GameEvent implements Serializable {
     /**
      * used to store which replacement effects were already applied to an event
      * or or any modified events that may replace it
-     *
+     * <p>
      * 614.5. A replacement effect doesn't invoke itself repeatedly; it gets
      * only one opportunity to affect an event or any modified events that may
      * replace it. Example: A player controls two permanents, each with an

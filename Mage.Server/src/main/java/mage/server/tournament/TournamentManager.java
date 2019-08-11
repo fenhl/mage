@@ -4,6 +4,8 @@ package mage.server.tournament;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+
 import mage.cards.decks.Deck;
 import mage.game.tournament.Tournament;
 import mage.view.TournamentView;
@@ -14,10 +16,10 @@ import org.apache.log4j.Logger;
  */
 public enum TournamentManager {
     instance;
-    private final ConcurrentHashMap<UUID, TournamentController> controllers = new ConcurrentHashMap<>();
+    private final ConcurrentMap<UUID, TournamentController> controllers = new ConcurrentHashMap<>();
 
-    public TournamentController getTournamentController(UUID tournamentId) {
-        return controllers.get(tournamentId);
+    public Optional<TournamentController> getTournamentController(UUID tournamentId) {
+        return Optional.ofNullable(controllers.get(tournamentId));
     }
 
     public void createTournamentSession(Tournament tournament, ConcurrentHashMap<UUID, UUID> userPlayerMap, UUID tableId) {

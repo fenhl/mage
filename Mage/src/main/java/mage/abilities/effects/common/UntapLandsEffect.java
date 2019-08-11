@@ -20,7 +20,7 @@ public class UntapLandsEffect extends OneShotEffect {
     private static final FilterLandPermanent filter = new FilterLandPermanent("untapped lands");
 
     static {
-        filter.add(new TappedPredicate());
+        filter.add(TappedPredicate.instance);
     }
     private final int amount;
     private final boolean upTo;
@@ -64,8 +64,8 @@ public class UntapLandsEffect extends OneShotEffect {
                     }
                 }
                 if (target.choose(Outcome.Untap, source.getControllerId(), source.getSourceId(), game)) {
-                    for (Object targetId : target.getTargets()) {
-                        Permanent p = game.getPermanent((UUID) targetId);
+                    for (UUID targetId : target.getTargets()) {
+                        Permanent p = game.getPermanent(targetId);
                         if (p != null) {
                             p.untap(game);
                         }

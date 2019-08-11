@@ -19,6 +19,7 @@ import mage.game.events.ZoneChangeEvent;
 import mage.game.events.ZoneChangeGroupEvent;
 import mage.game.permanent.Battlefield;
 import mage.game.permanent.Permanent;
+import mage.game.permanent.PermanentToken;
 import mage.game.stack.SpellStack;
 import mage.game.stack.StackObject;
 import mage.game.turn.Turn;
@@ -531,8 +532,16 @@ public class GameState implements Serializable, Copyable<GameState> {
         return this.turnMods;
     }
 
-    public Watchers getWatchers() {
-        return this.watchers;
+    public <T extends Watcher> T getWatcher(Class<T> watcherClass) {
+        return watcherClass.cast(watchers.get(watcherClass.getSimpleName()));
+    }
+
+    public <T extends Watcher> T getWatcher(Class<T> watcherClass, UUID uuid) {
+        return watcherClass.cast(watchers.get(watcherClass.getSimpleName(), uuid.toString()));
+    }
+
+    public <T extends Watcher> T getWatcher(Class<T> watcherClass, String prefix) {
+        return watcherClass.cast(watchers.get(watcherClass.getSimpleName(), prefix));
     }
 
     public SpecialActions getSpecialActions() {
@@ -561,17 +570,20 @@ public class GameState implements Serializable, Copyable<GameState> {
         combat.checkForRemoveFromCombat(game);
     }
 
-    // Remove End of Combat effects
+    // remove end of combat effects
     public void removeEocEffects(Game game) {
         effects.removeEndOfCombatEffects();
         delayed.removeEndOfCombatAbilities();
         game.applyEffects();
     }
 
+    // remove end of turn effects
     public void removeEotEffects(Game game) {
-        effects.removeEndOfTurnEffects();
-        delayed.removeEndOfTurnAbilities();
+        effects.removeEndOfTurnEffects(game);
+        delayed.removeEndOfTurnAbilities(game);
+        exile.cleanupEndOfTurnZones(game);
         game.applyEffects();
+        effects.incYourTurnNumPlayed(game);
     }
 
     public void addEffect(ContinuousEffect effect, Ability source) {
@@ -758,16 +770,21 @@ public class GameState implements Serializable, Copyable<GameState> {
         }
         for (Map.Entry<ZoneChangeData, List<GameEvent>> entry : eventsByKey.entrySet()) {
             Set<Card> movedCards = new LinkedHashSet<>();
+            Set<PermanentToken> movedTokens = new LinkedHashSet<>();
             for (Iterator<GameEvent> it = entry.getValue().iterator(); it.hasNext(); ) {
                 GameEvent event = it.next();
                 ZoneChangeEvent castEvent = (ZoneChangeEvent) event;
                 UUID targetId = castEvent.getTargetId();
-                Card card = game.getCard(targetId);
-                movedCards.add(card);
+                Card card = ZonesHandler.getTargetCard(game, targetId);
+                if (card instanceof PermanentToken) {
+                    movedTokens.add((PermanentToken) card);
+                } else if (card != null) {
+                    movedCards.add(card);
+                }
             }
             ZoneChangeData eventData = entry.getKey();
-            if (!movedCards.isEmpty()) {
-                ZoneChangeGroupEvent event = new ZoneChangeGroupEvent(movedCards, eventData.sourceId, eventData.playerId, eventData.fromZone, eventData.toZone);
+            if (!movedCards.isEmpty() || !movedTokens.isEmpty()) {
+                ZoneChangeGroupEvent event = new ZoneChangeGroupEvent(movedCards, movedTokens, eventData.sourceId, eventData.playerId, eventData.fromZone, eventData.toZone);
                 groupEvents.add(event);
             }
         }
@@ -777,7 +794,7 @@ public class GameState implements Serializable, Copyable<GameState> {
     public void addCard(Card card) {
         setZone(card.getId(), Zone.OUTSIDE);
         for (Ability ability : card.getAbilities()) {
-            addAbility(ability, card);
+            addAbility(ability, null, card);
         }
     }
 
@@ -1102,6 +1119,10 @@ public class GameState implements Serializable, Copyable<GameState> {
 
     public void addWatcher(Watcher watcher) {
         this.watchers.add(watcher);
+    }
+
+    public void resetWatchers() {
+        this.watchers.reset();
     }
 
     public int getZoneChangeCounter(UUID objectId) {

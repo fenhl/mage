@@ -62,7 +62,7 @@ class CreepingDreadEffect extends OneShotEffect {
     each player selects a card from their hand without revealing it,
     sets it aside, and then all of those cards are revealed and discarded at once.
     
-    http://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=409851
+    https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=409851
     */
     @Override
     public boolean apply(Game game, Ability source) {
@@ -89,7 +89,7 @@ class CreepingDreadEffect extends OneShotEffect {
             for (UUID playerId : game.getOpponents(source.getControllerId())) {
                 Player opponent = game.getPlayer(playerId);
                 // opponent discards a card - if it is same card type as controller, add to opponentsAffected
-                if(!opponent.getHand().isEmpty()) {
+                if(opponent != null && !opponent.getHand().isEmpty()) {
                     TargetCard target = new TargetCard(Zone.HAND, new FilterCard());
                     if(opponent.choose(Outcome.Discard, opponent.getHand(), target, game)) {
                         Card card = opponent.getHand().get(target.getFirstTarget(), game);
@@ -116,7 +116,7 @@ class CreepingDreadEffect extends OneShotEffect {
                 for (Map.Entry<Player, Card> entry : cardsChosen.entrySet()) {
                     Player player = entry.getKey();
                     Card cardChosen = entry.getValue();
-                    if (player != null && cardChosen != null) {
+                    if (player != null) {
                         player.discard(cardChosen, source, game);
                     }
                 }

@@ -1,25 +1,24 @@
-
 package mage.game.permanent.token;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import mage.MageInt;
 import mage.constants.CardType;
 import mage.constants.SubType;
 import mage.util.RandomUtil;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
- *
  * @author BetaSteward_at_googlemail.com
  */
 public final class SoldierToken extends TokenImpl {
 
-    final static private List<String> tokenImageSets = new ArrayList<>();
+    static final private List<String> tokenImageSets = new ArrayList<>();
 
     static {
         tokenImageSets.addAll(Arrays.asList("10E", "M15", "C14", "ORI", "ALA", "DDF", "THS", "M12", "M13", "MM2", "MMA", "RTR",
-                "SOM", "DDO", "M10", "ORI", "EMN", "EMA", "CN2", "C16", "MM3", "E01", "DOM"));
+                "SOM", "DDO", "M10", "ORI", "EMN", "EMA", "CN2", "C16", "MM3", "E01", "DOM", "MH1", "M20"));
     }
 
     public SoldierToken() {

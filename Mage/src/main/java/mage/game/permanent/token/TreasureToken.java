@@ -1,9 +1,5 @@
-
 package mage.game.permanent.token;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import mage.abilities.Ability;
 import mage.abilities.costs.common.SacrificeSourceCost;
 import mage.abilities.costs.common.TapSourceCost;
@@ -13,16 +9,19 @@ import mage.constants.CardType;
 import mage.constants.SubType;
 import mage.constants.Zone;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
- *
  * @author TheElk801
  */
 public final class TreasureToken extends TokenImpl {
 
-    final static private List<String> tokenImageSets = new ArrayList<>();
+    static final private List<String> tokenImageSets = new ArrayList<>();
 
     static {
-        tokenImageSets.addAll(Arrays.asList("XLN"));
+        tokenImageSets.addAll(Arrays.asList("XLN", "RNA", "M20"));
     }
 
     public TreasureToken() {
@@ -34,7 +33,7 @@ public final class TreasureToken extends TokenImpl {
     }
 
     public TreasureToken(String setCode, int tokenType) {
-        super("Treasure", "colorless Treasure artifact token with \"{T}, Sacrifice this artifact: Add one mana of any color.\"");
+        super("Treasure", "Treasure token");
         availableImageSetCodes = tokenImageSets;
         setOriginalExpansionSetCode(setCode);
         cardType.add(CardType.ARTIFACT);

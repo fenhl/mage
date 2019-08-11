@@ -1,6 +1,5 @@
 package mage.cards.w;
 
-import java.util.UUID;
 import mage.MageObject;
 import mage.MageObjectReference;
 import mage.abilities.Ability;
@@ -13,11 +12,7 @@ import mage.abilities.effects.RestrictionEffect;
 import mage.cards.Card;
 import mage.cards.CardImpl;
 import mage.cards.CardSetInfo;
-import mage.constants.AsThoughEffectType;
-import mage.constants.CardType;
-import mage.constants.Duration;
-import mage.constants.Outcome;
-import mage.constants.Zone;
+import mage.constants.*;
 import mage.filter.FilterCard;
 import mage.game.Game;
 import mage.game.events.GameEvent;
@@ -29,8 +24,9 @@ import mage.target.TargetCard;
 import mage.target.common.TargetOpponent;
 import mage.target.targetpointer.FixedTarget;
 
+import java.util.UUID;
+
 /**
- *
  * @author L_J
  */
 public final class WordOfCommand extends CardImpl {
@@ -38,7 +34,10 @@ public final class WordOfCommand extends CardImpl {
     public WordOfCommand(UUID ownerId, CardSetInfo setInfo) {
         super(ownerId, setInfo, new CardType[]{CardType.INSTANT}, "{B}{B}");
 
-        // Look at target opponent's hand and choose a card from it. You control that player until Word of Command finishes resolving. The player plays that card if able. While doing so, the player can activate mana abilities only if they're from lands that player controls and only if mana they produce is spent to activate other mana abilities of lands the player controls and/or to play that card. If the chosen card is cast as a spell, you control the player while that spell is resolving.
+        // Look at target opponent's hand and choose a card from it. You control that player until Word of Command finishes resolving.
+        // The player plays that card if able. While doing so, the player can activate mana abilities only if they're from lands that player controls
+        // and only if mana they produce is spent to activate other mana abilities of lands the player controls and/or to play that card.
+        // If the chosen card is cast as a spell, you control the player while that spell is resolving.
         this.getSpellAbility().addEffect(new WordOfCommandEffect());
         this.getSpellAbility().addTarget(new TargetOpponent());
     }
@@ -170,7 +169,7 @@ class WordOfCommandEffect extends OneShotEffect {
     private boolean checkPlayability(Card card, Player targetPlayer, Game game, Ability source) {
         // check for card playability
         boolean canPlay = false;
-        if (card.isLand()) { // we can't use getPlayableInHand(game) in here because it disallows playing lands outside the main step
+        if (card.isLand()) { // we can't use getPlayableObjects(game) in here because it disallows playing lands outside the main step // TODO: replace to getPlayable() checks with disable step condition?
             if (targetPlayer.canPlayLand()
                     && game.getActivePlayerId().equals(targetPlayer.getId())) {
                 canPlay = true;
@@ -183,7 +182,7 @@ class WordOfCommandEffect extends OneShotEffect {
         } else { // Word of Command allows the chosen card to be played "as if it had flash" so we need to invoke such effect to bypass the check
             AsThoughEffectImpl effect2 = new WordOfCommandTestFlashEffect();
             game.addEffect(effect2, source);
-            if (targetPlayer.getPlayableInHand(game).contains(card.getId())) {
+            if (targetPlayer.getPlayableObjects(game, Zone.HAND).contains(card.getId())) {
                 canPlay = true;
             }
             for (AsThoughEffect eff : game.getContinuousEffects().getApplicableAsThoughEffects(AsThoughEffectType.CAST_AS_INSTANT, game)) {
@@ -218,7 +217,7 @@ class WordOfCommandCantActivateEffect extends RestrictionEffect {
     }
 
     @Override
-    public boolean canUseActivatedAbilities(Permanent permanent, Ability source, Game game) {
+    public boolean canUseActivatedAbilities(Permanent permanent, Ability source, Game game, boolean canUseChooseDialogs) {
         return false;
     }
 }

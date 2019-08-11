@@ -32,6 +32,7 @@ Commander's Arsenal|CommandersArsenal|
 Conflux|Conflux|
 Conspiracy: Take the Crown|ConspiracyTakeTheCrown|
 Core Set 2019|CoreSet2019|
+Core Set 2020|CoreSet2020|
 Dark Ascension|DarkAscension|
 Darksteel|Darksteel|
 Dissension|Dissension|
@@ -137,6 +138,7 @@ Mercadian Masques|MercadianMasques|
 Mirage|Mirage|
 Mirrodin|Mirrodin|
 Mirrodin Besieged|MirrodinBesieged|
+Modern Horizons|ModernHorizons|
 Modern Masters|ModernMasters|
 Modern Masters 2015|ModernMasters2015|
 Modern Masters 2017|ModernMasters2017|
@@ -196,6 +198,7 @@ Urza's Legacy|UrzasLegacy|
 Urza's Saga|UrzasSaga|
 Vintage Masters|VintageMasters|
 Visions|Visions|
+War of the Spark|WarOfTheSpark|
 Weatherlight|Weatherlight|
 Welcome Deck 2016|WelcomeDeck2016|
 Welcome Deck 2017|WelcomeDeck2017|
