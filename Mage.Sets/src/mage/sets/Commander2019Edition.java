@@ -26,6 +26,7 @@ public final class Commander2019Edition extends ExpansionSet {
         cards.add(new SetCardInfo("Anje Falkenrath", 37, Rarity.MYTHIC, mage.cards.a.AnjeFalkenrath.class));
         cards.add(new SetCardInfo("Anje's Ravager", 22, Rarity.RARE, mage.cards.a.AnjesRavager.class));
         cards.add(new SetCardInfo("Apex Altisaur", 31, Rarity.RARE, mage.cards.a.ApexAltisaur.class));
+        cards.add(new SetCardInfo("Archfiend of Spite", 14, Rarity.RARE, mage.cards.a.ArchfiendOfSpite.class));
         cards.add(new SetCardInfo("Armillary Sphere", 209, Rarity.COMMON, mage.cards.a.ArmillarySphere.class));
         cards.add(new SetCardInfo("Ash Barrens", 227, Rarity.COMMON, mage.cards.a.AshBarrens.class));
         cards.add(new SetCardInfo("Asylum Visitor", 103, Rarity.RARE, mage.cards.a.AsylumVisitor.class));
@@ -42,6 +43,7 @@ public final class Commander2019Edition extends ExpansionSet {
         cards.add(new SetCardInfo("Biomass Mutation", 187, Rarity.RARE, mage.cards.b.BiomassMutation.class));
         cards.add(new SetCardInfo("Bloodfell Caves", 230, Rarity.COMMON, mage.cards.b.BloodfellCaves.class));
         cards.add(new SetCardInfo("Bloodhall Priest", 188, Rarity.RARE, mage.cards.b.BloodhallPriest.class));
+        cards.add(new SetCardInfo("Bloodthirsty Blade", 53, Rarity.UNCOMMON, mage.cards.b.BloodthirstyBlade.class));
         cards.add(new SetCardInfo("Blossoming Sands", 231, Rarity.COMMON, mage.cards.b.BlossomingSands.class));
         cards.add(new SetCardInfo("Bojuka Bog", 232, Rarity.COMMON, mage.cards.b.BojukaBog.class));
         cards.add(new SetCardInfo("Bone Miser", 15, Rarity.RARE, mage.cards.b.BoneMiser.class));
@@ -133,6 +135,7 @@ public final class Commander2019Edition extends ExpansionSet {
         cards.add(new SetCardInfo("Gruul Turf", 250, Rarity.UNCOMMON, mage.cards.g.GruulTurf.class));
         cards.add(new SetCardInfo("Guttersnipe", 145, Rarity.UNCOMMON, mage.cards.g.Guttersnipe.class));
         cards.add(new SetCardInfo("Harmonize", 171, Rarity.UNCOMMON, mage.cards.h.Harmonize.class));
+        cards.add(new SetCardInfo("Hate Mirage", 26, Rarity.UNCOMMON, mage.cards.h.HateMirage.class));
         cards.add(new SetCardInfo("Heart-Piercer Manticore", 146, Rarity.RARE, mage.cards.h.HeartPiercerManticore.class));
         cards.add(new SetCardInfo("Hedonist's Trove", 119, Rarity.RARE, mage.cards.h.HedonistsTrove.class));
         cards.add(new SetCardInfo("Hedron Archive", 214, Rarity.UNCOMMON, mage.cards.h.HedronArchive.class));
@@ -167,6 +170,7 @@ public final class Commander2019Edition extends ExpansionSet {
         cards.add(new SetCardInfo("Magmaquake", 148, Rarity.RARE, mage.cards.m.Magmaquake.class));
         cards.add(new SetCardInfo("Magus of the Wheel", 149, Rarity.RARE, mage.cards.m.MagusOfTheWheel.class));
         cards.add(new SetCardInfo("Malevolent Whispers", 150, Rarity.UNCOMMON, mage.cards.m.MalevolentWhispers.class));
+        cards.add(new SetCardInfo("Marisi, Breaker of the Coil", 46, Rarity.MYTHIC, mage.cards.m.MarisiBreakerOfTheCoil.class));
         cards.add(new SetCardInfo("Mass Diminish", 10, Rarity.RARE, mage.cards.m.MassDiminish.class));
         cards.add(new SetCardInfo("Memorial to Folly", 259, Rarity.UNCOMMON, mage.cards.m.MemorialToFolly.class));
         cards.add(new SetCardInfo("Meteor Golem", 218, Rarity.UNCOMMON, mage.cards.m.MeteorGolem.class));
@@ -271,6 +275,7 @@ public final class Commander2019Edition extends ExpansionSet {
         cards.add(new SetCardInfo("The Eldest Reborn", 131, Rarity.UNCOMMON, mage.cards.t.TheEldestReborn.class));
         cards.add(new SetCardInfo("Thelonite Hermit", 184, Rarity.RARE, mage.cards.t.TheloniteHermit.class));
         cards.add(new SetCardInfo("Thespian's Stage", 282, Rarity.RARE, mage.cards.t.ThespiansStage.class));
+        cards.add(new SetCardInfo("Thieving Amalgam", 21, Rarity.RARE, mage.cards.t.ThievingAmalgam.class));
         cards.add(new SetCardInfo("Think Twice", 99, Rarity.COMMON, mage.cards.t.ThinkTwice.class));
         cards.add(new SetCardInfo("Thornwood Falls", 283, Rarity.COMMON, mage.cards.t.ThornwoodFalls.class));
         cards.add(new SetCardInfo("Thought Sponge", 12, Rarity.RARE, mage.cards.t.ThoughtSponge.class));
