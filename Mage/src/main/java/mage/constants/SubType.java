@@ -37,6 +37,7 @@ public enum SubType {
     CLUE("Clue", SubTypeSet.ArtifactType),
     CONTRAPTION("Contraption", SubTypeSet.ArtifactType),
     EQUIPMENT("Equipment", SubTypeSet.ArtifactType),
+    FOOD("Food", SubTypeSet.ArtifactType),
     FORTIFICATION("Fortification", SubTypeSet.ArtifactType),
     TREASURE("Treasure", SubTypeSet.ArtifactType),
     VEHICLE("Vehicle", SubTypeSet.ArtifactType),
@@ -228,6 +229,7 @@ public enum SubType {
     MONK("Monk", SubTypeSet.CreatureType),
     MONKEY("Monkey", SubTypeSet.CreatureType),
     MOONFOLK("Moonfolk", SubTypeSet.CreatureType),
+    MOUSE("Mouse", SubTypeSet.CreatureType),
     MUTANT("Mutant", SubTypeSet.CreatureType),
     MYR("Myr", SubTypeSet.CreatureType),
     MYSTIC("Mystic", SubTypeSet.CreatureType),
@@ -240,6 +242,7 @@ public enum SubType {
     NIGHTMARE("Nightmare", SubTypeSet.CreatureType),
     NIGHTSTALKER("Nightstalker", SubTypeSet.CreatureType),
     NINJA("Ninja", SubTypeSet.CreatureType),
+    NOBLE("Noble", SubTypeSet.CreatureType),
     NOGGLE("Noggle", SubTypeSet.CreatureType),
     NOMAD("Nomad", SubTypeSet.CreatureType),
     NYMPH("Nymph", SubTypeSet.CreatureType),
@@ -256,6 +259,7 @@ public enum SubType {
     OYSTER("Oyster", SubTypeSet.CreatureType),
     // P
     PANGOLIN("Pangolin", SubTypeSet.CreatureType),
+    PEASANT("Peasant", SubTypeSet.CreatureType),
     PEGASUS("Pegasus", SubTypeSet.CreatureType),
     PENTAVITE("Pentavite", SubTypeSet.CreatureType),
     PEST("Pest", SubTypeSet.CreatureType),
@@ -353,6 +357,7 @@ public enum SubType {
     VOLVER("Volver", SubTypeSet.CreatureType),
     // W
     WALL("Wall", SubTypeSet.CreatureType),
+    WARLOCK("Warlock", SubTypeSet.CreatureType),
     WARRIOR("Warrior", SubTypeSet.CreatureType),
     WEEQUAY("Weequay", SubTypeSet.CreatureType, true),
     WEIRD("Weird", SubTypeSet.CreatureType),
@@ -407,6 +412,7 @@ public enum SubType {
     NISSA("Nissa", SubTypeSet.PlaneswalkerType),
     NIXILIS("Nixilis", SubTypeSet.PlaneswalkerType),
     OBI_WAN("Obi-Wan", SubTypeSet.PlaneswalkerType, true), // Star Wars
+    OKO("Oko", SubTypeSet.PlaneswalkerType),
     RAL("Ral", SubTypeSet.PlaneswalkerType),
     ROWAN("Rowan", SubTypeSet.PlaneswalkerType),
     SAHEELI("Saheeli", SubTypeSet.PlaneswalkerType),
