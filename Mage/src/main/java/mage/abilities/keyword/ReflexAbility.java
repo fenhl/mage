@@ -40,9 +40,4 @@ public class ReflexAbility extends SpellAbility {
         return new ReflexAbility(this);
     }
 
-    @Override
-    public String getRule(boolean all) {
-        return getRule();
-    }
-
 }

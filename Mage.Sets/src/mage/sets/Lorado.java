@@ -85,13 +85,14 @@ public final class Lorado extends ExpansionSet {
         cards.add(new SetCardInfo("Firstfeather Stormwing", 52, Rarity.COMMON, mage.cards.f.FirstfeatherStormwing.class));
         cards.add(new SetCardInfo("Foretell", 53, Rarity.COMMON, mage.cards.f.Foretell.class));
         cards.add(new SetCardInfo("Giant Catfish", 55, Rarity.COMMON, mage.cards.g.GiantCatfish.class));
-        cards.add(new SetCardInfo("Hasty Retreat", 56, Rarity.UNCOMMON, mage.cards.h.HastyRetreat.class));
-        cards.add(new SetCardInfo("Horned Serpent", 57, Rarity.COMMON, mage.cards.h.HornedSerpent.class));
-        cards.add(new SetCardInfo("Hyastee Sigil", 58, Rarity.COMMON, mage.cards.h.HyasteeSigil.class));
-        cards.add(new SetCardInfo("Lost in the Mist", 59, Rarity.COMMON, mage.cards.l.LostInTheMist.class));
-        cards.add(new SetCardInfo("Mana Heist", 60, Rarity.RARE, mage.cards.m.ManaHeist.class));
-        cards.add(new SetCardInfo("Manastorm Twister", 61, Rarity.UNCOMMON, mage.cards.m.ManastormTwister.class));
-        cards.add(new SetCardInfo("Mother Owls Herald", 62, Rarity.MYTHIC, mage.cards.m.MotherOwlsHerald.class));
+        cards.add(new SetCardInfo("Gone Fishin", 56, Rarity.COMMON, mage.cards.g.GoneFishin.class));
+        cards.add(new SetCardInfo("Hasty Retreat", 57, Rarity.UNCOMMON, mage.cards.h.HastyRetreat.class));
+        cards.add(new SetCardInfo("Horned Serpent", 58, Rarity.COMMON, mage.cards.h.HornedSerpent.class));
+        cards.add(new SetCardInfo("Hyastee Sigil", 59, Rarity.COMMON, mage.cards.h.HyasteeSigil.class));
+        cards.add(new SetCardInfo("Lost in the Mist", 61, Rarity.COMMON, mage.cards.l.LostInTheMist.class));
+        cards.add(new SetCardInfo("Mana Heist", 62, Rarity.RARE, mage.cards.m.ManaHeist.class));
+        cards.add(new SetCardInfo("Manastorm Twister", 63, Rarity.UNCOMMON, mage.cards.m.ManastormTwister.class));
+        cards.add(new SetCardInfo("Mother Owls Herald", 64, Rarity.MYTHIC, mage.cards.m.MotherOwlsHerald.class));
         //Black
         cards.add(new SetCardInfo("Bad Blood", 77, Rarity.COMMON, mage.cards.b.BadBlood.class));
         cards.add(new SetCardInfo("Blightwing Wildshaper", 78, Rarity.COMMON, mage.cards.b.BlightwingWildshaper.class));
@@ -100,7 +101,7 @@ public final class Lorado extends ExpansionSet {
         cards.add(new SetCardInfo("Coat with Venom", 82, Rarity.COMMON, mage.cards.c.CoatWithVenom.class));
         cards.add(new SetCardInfo("Dadgum Vermints", 83, Rarity.COMMON, mage.cards.d.DadgumVermints.class));
 
-        //TODO Fix Rallyridge Quartermaser (look at Gift of Immortality) & High Noon.
+        //TODO Fix Rallyridge Quartermaster (look at Gift of Immortality) & High Noon.
         //TODO Bloodshot Coachthief, Dead Mans Hand, Deal at the Crossroads, Death Cheater,
         //TODO Fix Chupacabra Ability.
     }
