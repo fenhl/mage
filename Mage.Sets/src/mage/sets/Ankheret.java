@@ -14,7 +14,7 @@ public final class Ankheret extends ExpansionSet {
     }
 
     private Ankheret() {
-        super("Core Set 2020", "ANK", ExpansionSet.buildDate(2017, 6, 23), SetType.CUSTOM_SET);
+        super("Ankheret", "ANK", ExpansionSet.buildDate(2016, 12, 8), SetType.CUSTOM_SET);
         this.hasBoosters = true;
         this.hasBasicLands = true;
         this.numBoosterSpecial = 0;

@@ -18,8 +18,7 @@ public final class Lorado extends ExpansionSet {
     }
 
     private Lorado() {
-        super("Lorado", "LDO", ExpansionSet.buildDate(2018, 4, 16), SetType.CUSTOM_SET);
-        this.blockName = "Lorado";
+        super("Lorado", "LDO", ExpansionSet.buildDate(2016, 12, 15), SetType.CUSTOM_SET);
         this.hasBoosters = true;
         this.hasBasicLands = true;
         this.numBoosterLands = 1;
