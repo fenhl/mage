@@ -6,6 +6,8 @@ import mage.abilities.common.SimpleStaticAbility;
 import mage.abilities.condition.common.SourceHasCounterCondition;
 import mage.abilities.effects.common.combat.CantAttackBlockUnlessConditionSourceEffect;
 import mage.abilities.effects.common.continuous.UntapAllDuringEachOtherPlayersUntapStepEffect;
+import mage.abilities.keyword.IndestructibleAbility;
+import mage.abilities.keyword.VigilanceAbility;
 import mage.cards.CardImpl;
 import mage.cards.CardSetInfo;
 import mage.constants.CardType;
@@ -38,6 +40,8 @@ public final class MaatGodOfHarmony extends CardImpl {
         this.power = new MageInt(5);
         this.toughness = new MageInt(7);
 
+        this.addAbility(IndestructibleAbility.getInstance());
+        this.addAbility(VigilanceAbility.getInstance());
         //can't attack or block unless she has a +1/+1 Counter
         this.addAbility(new SimpleStaticAbility(new CantAttackBlockUnlessConditionSourceEffect(new SourceHasCounterCondition(CounterType.P1P1))));
         // Untap all permanents you control during each other player's untap step.
