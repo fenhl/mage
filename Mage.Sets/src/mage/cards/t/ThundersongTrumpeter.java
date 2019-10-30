@@ -25,6 +25,7 @@ public final class ThundersongTrumpeter extends CardImpl {
         super(ownerId,setInfo,new CardType[]{CardType.CREATURE},"{R}{W}");
         this.subtype.add(SubType.HUMAN);
         this.subtype.add(SubType.SOLDIER);
+        this.subtype.add(SubType.BARD);
         this.power = new MageInt(2);
         this.toughness = new MageInt(1);
 

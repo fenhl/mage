@@ -27,6 +27,18 @@ public final class Dreamscape extends ExpansionSet {
         this.numBoosterRare = 1;
         this.ratioBoosterMythic = 8;
 
-        //TODO cards
+        cards.add(new SetCardInfo("Abundant Growth", 162, Rarity.COMMON, mage.cards.a.AbundantGrowth.class));
+        cards.add(new SetCardInfo("Dissipate", 47, Rarity.UNCOMMON, mage.cards.d.Dissipate.class));
+        cards.add(new SetCardInfo("Forest", 255, Rarity.LAND, mage.cards.basiclands.Forest.class));
+        cards.add(new SetCardInfo("Fortress Crab", 54, Rarity.COMMON, mage.cards.f.FortressCrab.class));
+        cards.add(new SetCardInfo("Island", 252, Rarity.LAND, mage.cards.basiclands.Island.class));
+        cards.add(new SetCardInfo("Mountain", 254, Rarity.LAND, mage.cards.basiclands.Mountain.class));
+        cards.add(new SetCardInfo("Pestermite", 68, Rarity.COMMON, mage.cards.p.Pestermite.class));
+        cards.add(new SetCardInfo("Plains", 251, Rarity.LAND, mage.cards.basiclands.Plains.class));
+        cards.add(new SetCardInfo("Recumbent Bliss", 27, Rarity.UNCOMMON, mage.cards.r.RecumbentBliss.class));
+        cards.add(new SetCardInfo("Shambling Ghoul", 114, Rarity.COMMON, mage.cards.s.ShamblingGhoul.class));
+        cards.add(new SetCardInfo("Sleep", 74, Rarity.UNCOMMON, mage.cards.s.Sleep.class));
+        cards.add(new SetCardInfo("Swamp", 253, Rarity.LAND, mage.cards.basiclands.Swamp.class));
+        cards.add(new SetCardInfo("Think Twice", 78, Rarity.COMMON, mage.cards.t.ThinkTwice.class));
     }
 }
