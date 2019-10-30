@@ -42,7 +42,7 @@ public final class Lorado extends ExpansionSet {
         cards.add(new SetCardInfo("Fort Redemption Ranger", 13, Rarity.MYTHIC, mage.cards.f.FortRedemptionRanger.class));
         cards.add(new SetCardInfo("Goat Herder", 14, Rarity.COMMON, mage.cards.g.GoatHerder.class));
         cards.add(new SetCardInfo("Grit", 15, Rarity.UNCOMMON, mage.cards.g.Grit.class));
-        cards.add(new SetCardInfo("Guardian of the Dead", 15, Rarity.UNCOMMON, mage.cards.g.GuardianOfTheDead.class));
+        cards.add(new SetCardInfo("Guardian of the Dead", 16, Rarity.UNCOMMON, mage.cards.g.GuardianOfTheDead.class));
         cards.add(new SetCardInfo("Guthram Deputy", 17, Rarity.UNCOMMON, mage.cards.g.GuthramDeputy.class));
         cards.add(new SetCardInfo("High Noon", 18, Rarity.RARE, mage.cards.h.HighNoon.class));
         cards.add(new SetCardInfo("Hogtie", 19, Rarity.COMMON, mage.cards.h.Hogtie.class));
