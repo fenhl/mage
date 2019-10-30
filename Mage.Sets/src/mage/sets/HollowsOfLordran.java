@@ -28,5 +28,6 @@ public final class HollowsOfLordran extends ExpansionSet {
         this.ratioBoosterMythic = 8;
 
         //TODO cards
+        cards.add(new SetCardInfo("Queelag, Chaos Witch", 155, Rarity.RARE, mage.cards.q.QueelagChaosWitch.class));
     }
 }

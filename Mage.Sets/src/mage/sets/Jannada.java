@@ -28,5 +28,6 @@ public final class Jannada extends ExpansionSet {
         this.ratioBoosterMythic = 8;
 
         //TODO cards
+        cards.add(new SetCardInfo("The Circle of Life", 157, Rarity.MYTHIC, mage.cards.t.TheCircleOfLife.class));
     }
 }
