@@ -39,6 +39,7 @@ public final class Tesla extends ExpansionSet {
         cards.add(new SetCardInfo("Hungry Hippo", 50, Rarity.COMMON, mage.cards.h.HungryHippo.class));
         cards.add(new SetCardInfo("Island", 251, Rarity.LAND, mage.cards.basiclands.Island.class));
         cards.add(new SetCardInfo("Make Obsolete", 88, Rarity.UNCOMMON, mage.cards.m.MakeObsolete.class));
+        cards.add(new SetCardInfo("Mana Drone", 220, Rarity.UNCOMMON, mage.cards.m.ManaDrone.class));
         cards.add(new SetCardInfo("Meandering River", 243, Rarity.UNCOMMON, mage.cards.m.MeanderingRiver.class));
         cards.add(new SetCardInfo("Mountain", 253, Rarity.LAND, mage.cards.basiclands.Mountain.class));
         cards.add(new SetCardInfo("Mutated Gaur", 165, Rarity.COMMON, mage.cards.m.MutatedGaur.class));
