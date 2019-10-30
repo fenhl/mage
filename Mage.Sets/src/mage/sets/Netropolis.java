@@ -28,5 +28,6 @@ public final class Netropolis extends ExpansionSet {
         this.ratioBoosterMythic = 8;
 
         //TODO cards
+        cards.add(new SetCardInfo("The Network", 237, Rarity.MYTHIC, mage.cards.t.TheNetwork.class));
     }
 }

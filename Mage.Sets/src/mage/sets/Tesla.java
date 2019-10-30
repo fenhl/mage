@@ -28,5 +28,6 @@ public final class Tesla extends ExpansionSet {
         this.ratioBoosterMythic = 8;
 
         //TODO cards
+        cards.add(new SetCardInfo("Suljet, the Cog Mind", 199, Rarity.MYTHIC, mage.cards.s.SuljetTheCogMind.class));
     }
 }
