@@ -76,7 +76,8 @@ public class DownloadPicturesService extends DefaultBoundedRangeModel implements
         GRAB_BAG("5. GrabBag - STAR WARS cards and tokens", GrabbagImageSource.instance),
         MYTHICSPOILER("6. mythicspoiler.com", MythicspoilerComSource.instance),
         ALTERNATIVE("7. alternative.mtg.onl", AltMtgOnlTokensImageSource.instance),
-        COPYPASTE("8. Copy and Paste Image URLs", CopyPasteImageSource.instance);
+        COPYPASTE("8. Copy and Paste Image URLs", CopyPasteImageSource.instance),
+        LORESEEKER("9. Lore Seeker - custom CARDS", LoreSeekerImageSource.instance);
         // MTG_ONL("mtg.onl", MtgOnlTokensImageSource.instance), Not working correctly yet
 
         private final String text;
