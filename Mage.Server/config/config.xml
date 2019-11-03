@@ -146,6 +146,12 @@
         <draftCube name="Cube From Deck" jar="mage-tournament-booster-draft.jar" className="mage.tournament.cubes.CubeFromDeck"/>
     </draftCubes>
     <deckTypes>
+        <deckType name="Elder Cockatrice Highlander" jar="mage-deck-constructed.jar" className="mage.deck.ElderCockatriceHighlander"/>
+        <deckType name="Custom Standard" jar="mage-deck-constructed.jar" className="mage.deck.CustomStandard"/>
+        <deckType name="Custom Brawl" jar="mage-deck-constructed.jar" className="mage.deck.CustomBrawl"/>
+        <deckType name="Custom Modern" jar="mage-deck-constructed.jar" className="mage.deck.CustomModern"/>
+        <deckType name="Custom Eternal" jar="mage-deck-constructed.jar" className="mage.deck.CustomEternal"/>
+        <deckType name="Custom Pauper" jar="mage-deck-constructed.jar" className="mage.deck.CustomPauper"/>
         <deckType name="Constructed - Standard" jar="mage-deck-constructed.jar" className="mage.deck.Standard"/>
         <deckType name="Constructed - Extended" jar="mage-deck-constructed.jar" className="mage.deck.Extended"/>
         <deckType name="Constructed - Frontier" jar="mage-deck-constructed.jar" className="mage.deck.Frontier"/>

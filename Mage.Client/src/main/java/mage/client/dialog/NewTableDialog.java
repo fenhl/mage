@@ -639,6 +639,7 @@ public class NewTableDialog extends MageDialog {
             case "Variant Magic - MTGO 1v1 Commander":
             case "Variant Magic - Centurion Commander":
             case "Variant Magic - Penny Dreadful Commander":
+            case "Elder Cockatrice Highlander":
                 if (!options.getGameType().startsWith("Commander")) {
                     JOptionPane.showMessageDialog(MageFrame.getDesktop(), "Deck type Commander needs also a Commander game type", "Error", JOptionPane.ERROR_MESSAGE);
                     return false;
@@ -652,6 +653,7 @@ public class NewTableDialog extends MageDialog {
                 break;
             case "Variant Magic - Brawl":
             case "Variant Magic - Duel Brawl":
+            case "Custom Brawl":
                 if (!options.getGameType().startsWith("Brawl")) {
                     JOptionPane.showMessageDialog(MageFrame.getDesktop(), "Deck type Brawl needs also a Brawl game type", "Error", JOptionPane.ERROR_MESSAGE);
                     return false;
@@ -686,7 +688,8 @@ public class NewTableDialog extends MageDialog {
                         && !options.getDeckType().equals("Variant Magic - MTGO 1v1 Commander")
                         && !options.getDeckType().equals("Variant Magic - Centurion Commander")
                         && !options.getDeckType().equals("Variant Magic - Freeform Commander")
-                        && !options.getDeckType().equals("Variant Magic - Penny Dreadful Commander")) {
+                        && !options.getDeckType().equals("Variant Magic - Penny Dreadful Commander")
+                        && !options.getDeckType().equals("Elder Cockatrice Highlander")) {
                     JOptionPane.showMessageDialog(MageFrame.getDesktop(), "Deck type Commander needs also a Commander game type", "Error", JOptionPane.ERROR_MESSAGE);
                     return false;
                 }
@@ -701,7 +704,8 @@ public class NewTableDialog extends MageDialog {
             case "Brawl Two Player Duel":
             case "Brawl Free For All":
                 if (!options.getDeckType().equals("Variant Magic - Brawl")
-                        && !options.getDeckType().equals("Variant Magic - Duel Brawl")) {
+                        && !options.getDeckType().equals("Variant Magic - Duel Brawl")
+                        && !options.getDeckType().equals("Custom Brawl")) {
                     JOptionPane.showMessageDialog(MageFrame.getDesktop(), "Deck type Brawl needs also a Brawl game type", "Error", JOptionPane.ERROR_MESSAGE);
                     return false;
                 }
