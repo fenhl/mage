@@ -32,7 +32,7 @@ public final class ManaDrone extends CardImpl {
                 .withType(CardType.ARTIFACT)
                 .withAbility(FlyingAbility.getInstance()),
                 "", Duration.EndOfTurn);
-        this.addAbility(new SimpleActivatedAbility(effect, new ManaCostsImpl("{B}")));
+        this.addAbility(new SimpleActivatedAbility(effect, new ManaCostsImpl("{1}")));
     }
 
     public ManaDrone(final ManaDrone card) { super(card); }
