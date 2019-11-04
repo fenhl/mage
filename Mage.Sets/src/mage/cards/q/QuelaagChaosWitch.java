@@ -19,7 +19,7 @@ import mage.target.targetpointer.FixedTarget;
 
 import java.util.UUID;
 
-public final class QueelagChaosWitch extends CardImpl {
+public final class QuelaagChaosWitch extends CardImpl {
 
     private static final FilterPermanent filter
             = new FilterCreatureOrPlaneswalkerPermanent("creature or planeswalker an opponent controls");
@@ -28,7 +28,7 @@ public final class QueelagChaosWitch extends CardImpl {
         filter.add(new ControllerPredicate(TargetController.OPPONENT));
     }
 
-    public QueelagChaosWitch(UUID ownerId, CardSetInfo setInfo){
+    public QuelaagChaosWitch(UUID ownerId, CardSetInfo setInfo){
         super(ownerId, setInfo, new CardType[]{CardType.CREATURE},"{1}{R}{R}");
 
         this.addSuperType(SuperType.LEGENDARY);
@@ -36,35 +36,35 @@ public final class QueelagChaosWitch extends CardImpl {
         this.power = new MageInt(2);
         this.toughness = new MageInt(3);
 
-        this.addAbility(new QueelagAttackAbility());
+        this.addAbility(new QuelaagAttackAbility());
         Ability ability = new DiesTriggeredAbility(new DamageTargetEffect(2));
         ability.addTarget(new TargetPermanent(filter));
         this.addAbility(ability);
     }
 
-    private QueelagChaosWitch(final QueelagChaosWitch card) {
+    private QuelaagChaosWitch(final QuelaagChaosWitch card) {
         super(card);
     }
 
     @Override
-    public QueelagChaosWitch copy() {
-        return new QueelagChaosWitch(this);
+    public QuelaagChaosWitch copy() {
+        return new QuelaagChaosWitch(this);
     }
 }
 
-class QueelagAttackAbility extends TriggeredAbilityImpl {
+class QuelaagAttackAbility extends TriggeredAbilityImpl {
 
-    QueelagAttackAbility() {
+    QuelaagAttackAbility() {
         super(Zone.BATTLEFIELD, null);
     }
 
-    private QueelagAttackAbility(final QueelagAttackAbility ability) {
+    private QuelaagAttackAbility(final QuelaagAttackAbility ability) {
         super(ability);
     }
 
     @Override
-    public QueelagAttackAbility copy() {
-        return new QueelagAttackAbility(this);
+    public QuelaagAttackAbility copy() {
+        return new QuelaagAttackAbility(this);
     }
 
     @Override
