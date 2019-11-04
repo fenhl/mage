@@ -36,6 +36,7 @@ public final class Tesla extends ExpansionSet {
         cards.add(new SetCardInfo("Forest", 254, Rarity.LAND, mage.cards.basiclands.Forest.class));
         cards.add(new SetCardInfo("Freedom Fighter", 122, Rarity.COMMON, mage.cards.f.FreedomFighter.class));
         cards.add(new SetCardInfo("Ghirapur Gearcrafter", 123, Rarity.COMMON, mage.cards.g.GhirapurGearcrafter.class));
+        cards.add(new SetCardInfo("Good as New", 158, Rarity.UNCOMMON, mage.cards.g.GoodAsNew.class));
         cards.add(new SetCardInfo("Hungry Hippo", 50, Rarity.COMMON, mage.cards.h.HungryHippo.class));
         cards.add(new SetCardInfo("Island", 251, Rarity.LAND, mage.cards.basiclands.Island.class));
         cards.add(new SetCardInfo("Make Obsolete", 88, Rarity.UNCOMMON, mage.cards.m.MakeObsolete.class));
@@ -45,6 +46,7 @@ public final class Tesla extends ExpansionSet {
         cards.add(new SetCardInfo("Mutated Gaur", 165, Rarity.COMMON, mage.cards.m.MutatedGaur.class));
         cards.add(new SetCardInfo("Negate", 59, Rarity.COMMON, mage.cards.n.Negate.class));
         cards.add(new SetCardInfo("Plains", 250, Rarity.LAND, mage.cards.basiclands.Plains.class));
+        cards.add(new SetCardInfo("Prepare a Hideout", 171, Rarity.COMMON, mage.cards.p.PrepareAHideout.class));
         cards.add(new SetCardInfo("Scouring Sands", 136, Rarity.COMMON, mage.cards.s.ScouringSands.class));
         cards.add(new SetCardInfo("Submerged Boneyard", 245, Rarity.UNCOMMON, mage.cards.s.SubmergedBoneyard.class));
         cards.add(new SetCardInfo("Suljet, the Cog Mind", 199, Rarity.MYTHIC, mage.cards.s.SuljetTheCogMind.class));

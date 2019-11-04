@@ -87,6 +87,7 @@ public enum SubType {
     CALAMARI("Calamari", SubTypeSet.CreatureType, true), // Star Wars
     CAMARID("Camarid", SubTypeSet.CreatureType),
     CAMEL("Camel", SubTypeSet.CreatureType),
+    CANISTER("Canister", SubTypeSet.ArtifactType), // Tesla
     CARIBOU("Caribou", SubTypeSet.CreatureType),
     CARRIER("Carrier", SubTypeSet.CreatureType),
     CAT("Cat", SubTypeSet.CreatureType),
