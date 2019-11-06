@@ -32,6 +32,7 @@ public final class Aenyr extends ExpansionSet {
         cards.add(new SetCardInfo("Hand of Skiv", 206, Rarity.COMMON, mage.cards.h.HandOfSkiv.class));
         cards.add(new SetCardInfo("Hulking Creation", 228, Rarity.COMMON, mage.cards.h.HulkingCreation.class));
         cards.add(new SetCardInfo("Island", 251, Rarity.LAND, mage.cards.basiclands.Island.class));
+        cards.add(new SetCardInfo("Lyss, Duskwood Seer", 151, Rarity.RARE, mage.cards.l.LyssDuskwoodSeer.class));
         cards.add(new SetCardInfo("Mountain", 253, Rarity.LAND, mage.cards.basiclands.Mountain.class));
         cards.add(new SetCardInfo("Opera Ghost", 210, Rarity.COMMON, mage.cards.o.OperaGhost.class));
         cards.add(new SetCardInfo("Painter's Servant", 230, Rarity.RARE, mage.cards.p.PaintersServant.class));
