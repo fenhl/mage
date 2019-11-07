@@ -25,6 +25,7 @@ public final class Ankheret extends ExpansionSet {
         this.ratioBoosterMythic = 8;
 
         cards.add(new SetCardInfo("Annex", 39, Rarity.UNCOMMON, mage.cards.a.Annex.class));
+        cards.add(new SetCardInfo("Archive of Kariro", 228, Rarity.MYTHIC, mage.cards.a.ArchiveOfKariro.class));
         cards.add(new SetCardInfo("Bonds of Faith", 4, Rarity.COMMON, mage.cards.b.BondsOfFaith.class));
         cards.add(new SetCardInfo("Champion of Ainorek", 6, Rarity.COMMON, mage.cards.c.ChampionOfAinorek.class));
         cards.add(new SetCardInfo("Cobra Trap", 150, Rarity.UNCOMMON, mage.cards.c.CobraTrap.class));
