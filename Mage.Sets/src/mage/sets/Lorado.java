@@ -101,6 +101,7 @@ public final class Lorado extends ExpansionSet {
         cards.add(new SetCardInfo("Repel Siege", 30, Rarity.RARE, mage.cards.r.RepelSiege.class));
         cards.add(new SetCardInfo("Roaming Buffalo", 31, Rarity.COMMON, mage.cards.r.RoamingBuffalo.class));
         cards.add(new SetCardInfo("Sacredhoof Wildshaper", 32, Rarity.COMMON, mage.cards.s.SacredhoofWildshaper.class));
+        cards.add(new SetCardInfo("Settle", 180, Rarity.UNCOMMON, mage.cards.s.Settle.class));
         cards.add(new SetCardInfo("Shellback Deputy", 67, Rarity.COMMON, mage.cards.s.ShellbackDeputy.class));
         cards.add(new SetCardInfo("Sheriff's Steed", 33, Rarity.COMMON, mage.cards.s.SheriffsSteed.class));
         cards.add(new SetCardInfo("Signature Strike", 34, Rarity.COMMON, mage.cards.s.SignatureStrike.class));
