@@ -62,5 +62,6 @@ public final class MagicVillains extends ExpansionSet {
         cards.add(new SetCardInfo("Swamp", 260, Rarity.LAND, mage.cards.basiclands.Swamp.class));
         cards.add(new SetCardInfo("Swamp", 261, Rarity.LAND, mage.cards.basiclands.Swamp.class));
         cards.add(new SetCardInfo("Tezzeret's Ambition", 72, Rarity.COMMON, mage.cards.t.TezzeretsAmbition.class));
+        cards.add(new SetCardInfo("Woodharrow Offering", 194, Rarity.COMMON, mage.cards.w.WoodharrowOffering.class));
     }
 }
