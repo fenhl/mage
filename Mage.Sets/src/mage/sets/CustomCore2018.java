@@ -44,6 +44,7 @@ public final class CustomCore2018 extends ExpansionSet {
         cards.add(new SetCardInfo("Knight Watch", 21, Rarity.COMMON, mage.cards.k.KnightWatch.class));
         cards.add(new SetCardInfo("Leonin Snarecaster", 23, Rarity.COMMON, mage.cards.l.LeoninSnarecaster.class));
         cards.add(new SetCardInfo("Marked by Honor", 24, Rarity.COMMON, mage.cards.m.MarkedByHonor.class));
+        cards.add(new SetCardInfo("Niala, Guide of Lost Souls", 25, Rarity.RARE, mage.cards.n.NialaGuideOfLostSouls.class));
         cards.add(new SetCardInfo("Pacifism", 26, Rarity.COMMON, mage.cards.p.Pacifism.class));
         cards.add(new SetCardInfo("Raise the Alarm", 28, Rarity.COMMON, mage.cards.r.RaiseTheAlarm.class));
         cards.add(new SetCardInfo("Repel the Darkness", 29, Rarity.COMMON, mage.cards.r.RepelTheDarkness.class));
