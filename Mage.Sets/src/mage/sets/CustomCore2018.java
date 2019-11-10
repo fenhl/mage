@@ -70,6 +70,7 @@ public final class CustomCore2018 extends ExpansionSet {
         cards.add(new SetCardInfo("Sleep Paralysis", 66, Rarity.COMMON, mage.cards.s.SleepParalysis.class));
         cards.add(new SetCardInfo("Spectral Flight", 67, Rarity.COMMON, mage.cards.s.SpectralFlight.class));
         cards.add(new SetCardInfo("Tamiyo, the Moon Sage", 68, Rarity.MYTHIC, mage.cards.t.TamiyoTheMoonSage.class));
+        cards.add(new SetCardInfo("Tigal, Grandmaster", 70, Rarity.RARE, mage.cards.t.TigalGrandmaster.class));
         cards.add(new SetCardInfo("Turn to Frog", 71, Rarity.UNCOMMON, mage.cards.t.TurnToFrog.class));
         cards.add(new SetCardInfo("Wall of Frost", 72, Rarity.UNCOMMON, mage.cards.w.WallOfFrost.class));
         cards.add(new SetCardInfo("Water Servant", 74, Rarity.UNCOMMON, mage.cards.w.WaterServant.class));

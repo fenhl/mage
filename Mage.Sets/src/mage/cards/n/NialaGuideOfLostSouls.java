@@ -61,9 +61,9 @@ public class NialaGuideOfLostSouls extends CardImpl {
                 Zone.BATTLEFIELD,
                 new ReturnFromGraveyardToBattlefieldTargetEffect(),
                 new TapSourceCost());
+        resurrectAbility.addCost(new ManaCostsImpl("{2}{W}"));
         resurrectAbility.addCost(new SacrificeTargetCost(new TargetControlledPermanent(3, 3, filterSpirit, true)));
         resurrectAbility.addTarget(new TargetCardInYourGraveyard(StaticFilters.FILTER_CARD_CREATURE_YOUR_GRAVEYARD));
-        resurrectAbility.addCost(new ManaCostsImpl("{2}{W}"));
         this.addAbility(resurrectAbility);
     }
 
