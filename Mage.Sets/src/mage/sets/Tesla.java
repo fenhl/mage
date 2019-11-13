@@ -29,6 +29,7 @@ public final class Tesla extends ExpansionSet {
 
         cards.add(new SetCardInfo("Cinder Barrens", 238, Rarity.UNCOMMON, mage.cards.c.CinderBarrens.class));
         cards.add(new SetCardInfo("City Sentinel", 208, Rarity.COMMON, mage.cards.c.CitySentinel.class));
+        cards.add(new SetCardInfo("Claim of the Wastes", 187, Rarity.RARE, mage.cards.c.ClaimOfTheWastes.class));
         cards.add(new SetCardInfo("Cog Mind Sentry", 210, Rarity.COMMON, mage.cards.c.CogMindSentry.class));
         cards.add(new SetCardInfo("Courtroom Custodians", 13, Rarity.COMMON, mage.cards.c.CourtroomCustodians.class));
         cards.add(new SetCardInfo("Explosive Apparatus", 216, Rarity.COMMON, mage.cards.e.ExplosiveApparatus.class));
