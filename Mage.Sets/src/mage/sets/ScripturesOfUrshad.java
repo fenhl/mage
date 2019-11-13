@@ -29,5 +29,7 @@ public final class ScripturesOfUrshad extends ExpansionSet {
 
         //TODO cards
         cards.add(new SetCardInfo("Golden Age", 59, Rarity.RARE, mage.cards.g.GoldenAge.class));
+        cards.add(new SetCardInfo("Imperator Namuzzar", 204, Rarity.RARE, mage.cards.i.ImperatorNamuzzar.class));
+        cards.add(new SetCardInfo("Sunblessed Orator", 220, Rarity.UNCOMMON, mage.cards.s.SunblessedOrator.class));
     }
 }
