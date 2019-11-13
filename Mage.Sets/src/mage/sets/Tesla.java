@@ -48,6 +48,7 @@ public final class Tesla extends ExpansionSet {
         cards.add(new SetCardInfo("Plains", 250, Rarity.LAND, mage.cards.basiclands.Plains.class));
         cards.add(new SetCardInfo("Prepare a Hideout", 172, Rarity.COMMON, mage.cards.p.PrepareAHideout.class));
         cards.add(new SetCardInfo("Scouring Sands", 136, Rarity.COMMON, mage.cards.s.ScouringSands.class));
+        cards.add(new SetCardInfo("Siv Katari, Rebel Technician", 197, Rarity.RARE, mage.cards.s.SivKatariRebelTechnician.class));
         cards.add(new SetCardInfo("Submerged Boneyard", 245, Rarity.UNCOMMON, mage.cards.s.SubmergedBoneyard.class));
         cards.add(new SetCardInfo("Suljet, the Cog Mind", 199, Rarity.MYTHIC, mage.cards.s.SuljetTheCogMind.class));
         cards.add(new SetCardInfo("Swamp", 252, Rarity.LAND, mage.cards.basiclands.Swamp.class));
