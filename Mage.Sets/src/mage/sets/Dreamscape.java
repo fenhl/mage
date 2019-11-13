@@ -45,5 +45,6 @@ public final class Dreamscape extends ExpansionSet {
         cards.add(new SetCardInfo("Sleep", 74, Rarity.UNCOMMON, mage.cards.s.Sleep.class));
         cards.add(new SetCardInfo("Swamp", 253, Rarity.LAND, mage.cards.basiclands.Swamp.class));
         cards.add(new SetCardInfo("Think Twice", 78, Rarity.COMMON, mage.cards.t.ThinkTwice.class));
+        cards.add(new SetCardInfo("Yemma's Mandate", 201, Rarity.RARE, mage.cards.y.YemmasMandate.class));
     }
 }
