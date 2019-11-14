@@ -27,6 +27,7 @@ public final class Tesla extends ExpansionSet {
         this.numBoosterRare = 1;
         this.ratioBoosterMythic = 8;
 
+        cards.add(new SetCardInfo("Aether Animist", 182, Rarity.RARE, mage.cards.a.AetherAnimist.class));
         cards.add(new SetCardInfo("Cinder Barrens", 238, Rarity.UNCOMMON, mage.cards.c.CinderBarrens.class));
         cards.add(new SetCardInfo("City Sentinel", 208, Rarity.COMMON, mage.cards.c.CitySentinel.class));
         cards.add(new SetCardInfo("Claim of the Wastes", 187, Rarity.RARE, mage.cards.c.ClaimOfTheWastes.class));
