@@ -22,6 +22,11 @@ import mage.players.Player;
 
 import java.util.UUID;
 
+/**
+ *
+ * @author jbfitz
+ */
+
 public final class AetherAnimist extends CardImpl {
     public AetherAnimist(UUID ownerId, CardSetInfo setInfo){
         super(ownerId, setInfo, new CardType[]{CardType.CREATURE}, "{2}{G}{U}");
