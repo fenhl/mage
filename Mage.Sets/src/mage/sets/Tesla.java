@@ -30,6 +30,7 @@ public final class Tesla extends ExpansionSet {
         this.ratioBoosterMythic = 8;
 
         cards.add(new SetCardInfo("Aether Animist", 182, Rarity.RARE, mage.cards.a.AetherAnimist.class));
+        cards.add(new SetCardInfo("Aether Plantation", 237, Rarity.RARE, mage.cards.a.AetherPlantation.class));
         cards.add(new SetCardInfo("Bio-Research", 153, Rarity.RARE, mage.cards.b.BioResearch.class));
         cards.add(new SetCardInfo("Canister Courier", 39, Rarity.COMMON, mage.cards.c.CanisterCourier.class));
         cards.add(new SetCardInfo("Cinder Barrens", 238, Rarity.UNCOMMON, mage.cards.c.CinderBarrens.class));
@@ -37,13 +38,17 @@ public final class Tesla extends ExpansionSet {
         cards.add(new SetCardInfo("Claim of the Wastes", 187, Rarity.RARE, mage.cards.c.ClaimOfTheWastes.class));
         cards.add(new SetCardInfo("Cog Mind Sentry", 210, Rarity.COMMON, mage.cards.c.CogMindSentry.class));
         cards.add(new SetCardInfo("Controversial Experiment", 77, Rarity.COMMON, mage.cards.c.ControversialExperiment.class));
+        cards.add(new SetCardInfo("Corrupt Courtroom", 239, Rarity.RARE, mage.cards.c.CorruptCourtroom.class));
         cards.add(new SetCardInfo("Courtroom Custodians", 13, Rarity.COMMON, mage.cards.c.CourtroomCustodians.class));
         cards.add(new SetCardInfo("Delivery Automaton", 214, Rarity.COMMON, mage.cards.d.DeliveryAutomaton.class));
+        cards.add(new SetCardInfo("District Slums", 240, Rarity.RARE, mage.cards.d.DistrictSlums.class));
         cards.add(new SetCardInfo("Explosive Apparatus", 216, Rarity.COMMON, mage.cards.e.ExplosiveApparatus.class));
         cards.add(new SetCardInfo("Extract Essence", 80, Rarity.UNCOMMON, mage.cards.e.ExtractEssence.class));
+        cards.add(new SetCardInfo("Factory Reactor", 241, Rarity.RARE, mage.cards.f.FactoryReactor.class));
         cards.add(new SetCardInfo("Favorable Winds", 44, Rarity.UNCOMMON, mage.cards.f.FavorableWinds.class));
         cards.add(new SetCardInfo("Forest", 254, Rarity.LAND, mage.cards.basiclands.Forest.class));
         cards.add(new SetCardInfo("Freedom Fighter", 122, Rarity.COMMON, mage.cards.f.FreedomFighter.class));
+        cards.add(new SetCardInfo("Frontier Outpost", 242, Rarity.COMMON, mage.cards.f.FrontierOutpost.class));
         cards.add(new SetCardInfo("Ghirapur Gearcrafter", 123, Rarity.COMMON, mage.cards.g.GhirapurGearcrafter.class));
         cards.add(new SetCardInfo("Good as New", 159, Rarity.UNCOMMON, mage.cards.g.GoodAsNew.class));
         cards.add(new SetCardInfo("Hungry Hippo", 50, Rarity.COMMON, mage.cards.h.HungryHippo.class));
@@ -69,5 +74,7 @@ public final class Tesla extends ExpansionSet {
         cards.add(new SetCardInfo("Timber Gorge", 246, Rarity.UNCOMMON, mage.cards.t.TimberGorge.class));
         cards.add(new SetCardInfo("Tranquil Expanse", 247, Rarity.UNCOMMON, mage.cards.t.TranquilExpanse.class));
         cards.add(new SetCardInfo("Unwilling Recruit", 141, Rarity.UNCOMMON, mage.cards.u.UnwillingRecruit.class));
+        cards.add(new SetCardInfo("Utopian District", 248, Rarity.COMMON, mage.cards.u.UtopianDistrict.class));
+        cards.add(new SetCardInfo("Weapons Cache", 249, Rarity.RARE, mage.cards.w.WeaponsCache.class));
     }
 }
