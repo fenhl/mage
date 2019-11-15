@@ -151,6 +151,7 @@ public final class CustomCore2018 extends ExpansionSet {
         cards.add(new SetCardInfo("Lumbering Colossus", 222, Rarity.UNCOMMON, mage.cards.l.LumberingColossus.class));
         cards.add(new SetCardInfo("Pithing Needle", 225, Rarity.RARE, mage.cards.p.PithingNeedle.class));
         cards.add(new SetCardInfo("Prophetic Prism", 226, Rarity.COMMON, mage.cards.p.PropheticPrism.class));
+        cards.add(new SetCardInfo("Rod of Seasons", 227, Rarity.RARE, mage.cards.r.RodOfSeasons.class));
         cards.add(new SetCardInfo("Solemn Simulacrum", 230, Rarity.RARE, mage.cards.s.SolemnSimulacrum.class));
         cards.add(new SetCardInfo("Tormod's Crypt", 231, Rarity.UNCOMMON, mage.cards.t.TormodsCrypt.class));
         cards.add(new SetCardInfo("Cinder Barrens", 233, Rarity.UNCOMMON, mage.cards.c.CinderBarrens.class));
