@@ -31,7 +31,7 @@ public final class Aenyr extends ExpansionSet {
         cards.add(new SetCardInfo("Blood Artist", 49, Rarity.UNCOMMON, mage.cards.b.BloodArtist.class));
         cards.add(new SetCardInfo("City of Wonders", 237, Rarity.COMMON, mage.cards.c.CityOfWonders.class));
         cards.add(new SetCardInfo("Deserted Fairgrounds", 238, Rarity.COMMON, mage.cards.d.DesertedFairgrounds.class));
-        cards.add(new SetCardInfo("Enlighted Valley", 239, Rarity.COMMON, mage.cards.e.EnlightenedValley.class));
+        cards.add(new SetCardInfo("Enlightened Valley", 239, Rarity.COMMON, mage.cards.e.EnlightenedValley.class));
         cards.add(new SetCardInfo("Ethereal Gardens", 240, Rarity.COMMON, mage.cards.e.EtherealGardens.class));
         cards.add(new SetCardInfo("Forest", 254, Rarity.LAND, mage.cards.basiclands.Forest.class));
         cards.add(new SetCardInfo("Glamor District", 241, Rarity.COMMON, mage.cards.g.GlamorDistrict.class));
