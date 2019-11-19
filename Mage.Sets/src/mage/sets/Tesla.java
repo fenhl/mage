@@ -31,6 +31,8 @@ public final class Tesla extends ExpansionSet {
 
         cards.add(new SetCardInfo("Aether Animist", 182, Rarity.RARE, mage.cards.a.AetherAnimist.class));
         cards.add(new SetCardInfo("Aether Plantation", 237, Rarity.RARE, mage.cards.a.AetherPlantation.class));
+        cards.add(new SetCardInfo("Aetherguard Armor", "148b", Rarity.UNCOMMON, mage.cards.a.AetherguardArmor.class));
+        cards.add(new SetCardInfo("Aetherguard Rhino", "148a", Rarity.UNCOMMON, mage.cards.a.AetherguardRhino.class));
         cards.add(new SetCardInfo("Bio-Research", 153, Rarity.RARE, mage.cards.b.BioResearch.class));
         cards.add(new SetCardInfo("Canister Courier", 39, Rarity.COMMON, mage.cards.c.CanisterCourier.class));
         cards.add(new SetCardInfo("Cinder Barrens", 238, Rarity.UNCOMMON, mage.cards.c.CinderBarrens.class));
