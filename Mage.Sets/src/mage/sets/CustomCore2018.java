@@ -76,6 +76,7 @@ public final class CustomCore2018 extends ExpansionSet {
         cards.add(new SetCardInfo("Water Servant", 74, Rarity.UNCOMMON, mage.cards.w.WaterServant.class));
         cards.add(new SetCardInfo("Welkin Tern", 76, Rarity.COMMON, mage.cards.w.WelkinTern.class));
         cards.add(new SetCardInfo("Altar's Reap", 77, Rarity.COMMON, mage.cards.a.AltarsReap.class));
+        cards.add(new SetCardInfo("Bal'anak, Dreadlord", 80, Rarity.RARE, mage.cards.b.BalanakDreadlord.class));
         cards.add(new SetCardInfo("Blood Bairn", 82, Rarity.COMMON, mage.cards.b.BloodBairn.class));
         cards.add(new SetCardInfo("Carrion Crow", 84, Rarity.COMMON, mage.cards.c.CarrionCrow.class));
         cards.add(new SetCardInfo("Child of Night", 85, Rarity.COMMON, mage.cards.c.ChildOfNight.class));
