@@ -148,11 +148,16 @@ public final class CustomCore2018 extends ExpansionSet {
         cards.add(new SetCardInfo("Burnished Heart", 216, Rarity.UNCOMMON, mage.cards.b.BurnishedHart.class));
         cards.add(new SetCardInfo("Cobbled Wings", 217, Rarity.COMMON, mage.cards.c.CobbledWings.class));
         cards.add(new SetCardInfo("Demonmail Hauberk", 218, Rarity.UNCOMMON, mage.cards.d.DemonmailHauberk.class));
+        cards.add(new SetCardInfo("Emerald Soulstone", 219,  Rarity.UNCOMMON, mage.cards.e.EmeraldSoulstone.class));
         cards.add(new SetCardInfo("Guardian Automaton", 220, Rarity.COMMON, mage.cards.g.GuardianAutomaton.class));
+        cards.add(new SetCardInfo("Jet Soulstone", 221, Rarity.UNCOMMON, mage.cards.j.JetSoulstone.class));
         cards.add(new SetCardInfo("Lumbering Colossus", 222, Rarity.UNCOMMON, mage.cards.l.LumberingColossus.class));
+        cards.add(new SetCardInfo("Pearl Soulstone", 224, Rarity.UNCOMMON, mage.cards.p.PearlSoulstone.class));
         cards.add(new SetCardInfo("Pithing Needle", 225, Rarity.RARE, mage.cards.p.PithingNeedle.class));
         cards.add(new SetCardInfo("Prophetic Prism", 226, Rarity.COMMON, mage.cards.p.PropheticPrism.class));
         cards.add(new SetCardInfo("Rod of Seasons", 227, Rarity.RARE, mage.cards.r.RodOfSeasons.class));
+        cards.add(new SetCardInfo("Ruby Soulstone", 228, Rarity.UNCOMMON, mage.cards.r.RubySoulstone.class));
+        cards.add(new SetCardInfo("Sapphire Soulstone", 229, Rarity.UNCOMMON, mage.cards.s.SapphireSoulstone.class));
         cards.add(new SetCardInfo("Solemn Simulacrum", 230, Rarity.RARE, mage.cards.s.SolemnSimulacrum.class));
         cards.add(new SetCardInfo("Tormod's Crypt", 231, Rarity.UNCOMMON, mage.cards.t.TormodsCrypt.class));
         cards.add(new SetCardInfo("Cinder Barrens", 233, Rarity.UNCOMMON, mage.cards.c.CinderBarrens.class));
