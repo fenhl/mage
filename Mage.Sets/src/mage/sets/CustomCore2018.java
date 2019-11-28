@@ -77,6 +77,7 @@ public final class CustomCore2018 extends ExpansionSet {
         cards.add(new SetCardInfo("Welkin Tern", 76, Rarity.COMMON, mage.cards.w.WelkinTern.class));
         cards.add(new SetCardInfo("Altar's Reap", 77, Rarity.COMMON, mage.cards.a.AltarsReap.class));
         cards.add(new SetCardInfo("Bal'anak, Dreadlord", 80, Rarity.RARE, mage.cards.b.BalanakDreadlord.class));
+        cards.add(new SetCardInfo("Beckon the Horde", 81, Rarity.COMMON, mage.cards.b.BeckonTheHorde.class));
         cards.add(new SetCardInfo("Blood Bairn", 82, Rarity.COMMON, mage.cards.b.BloodBairn.class));
         cards.add(new SetCardInfo("Carrion Crow", 84, Rarity.COMMON, mage.cards.c.CarrionCrow.class));
         cards.add(new SetCardInfo("Child of Night", 85, Rarity.COMMON, mage.cards.c.ChildOfNight.class));
@@ -118,6 +119,7 @@ public final class CustomCore2018 extends ExpansionSet {
         cards.add(new SetCardInfo("Trumpet Blast", 149, Rarity.COMMON, mage.cards.t.TrumpetBlast.class));
         cards.add(new SetCardInfo("Volcanic Dragon", 150, Rarity.UNCOMMON, mage.cards.v.VolcanicDragon.class));
         cards.add(new SetCardInfo("Acidic Slime", 153, Rarity.UNCOMMON, mage.cards.a.AcidicSlime.class));
+        cards.add(new SetCardInfo("Barkskin", 155, Rarity.COMMON, mage.cards.b.Barkskin.class));
         cards.add(new SetCardInfo("Bond Beetle", 156, Rarity.COMMON, mage.cards.b.BondBeetle.class));
         cards.add(new SetCardInfo("Borderland Ranger", 157, Rarity.COMMON, mage.cards.b.BorderlandRanger.class));
         cards.add(new SetCardInfo("Briarpack Alpha", 158, Rarity.UNCOMMON, mage.cards.b.BriarpackAlpha.class));
