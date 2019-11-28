@@ -140,9 +140,16 @@ public final class CustomCore2018 extends ExpansionSet {
         cards.add(new SetCardInfo("Stalking Spider", 184, Rarity.UNCOMMON, mage.cards.s.StalkingSpider.class));
         cards.add(new SetCardInfo("Titanic Growth", 187, Rarity.COMMON, mage.cards.t.TitanicGrowth.class));
         cards.add(new SetCardInfo("Wrathvine", 189, Rarity.UNCOMMON, mage.cards.w.Wrathvine.class));
+        cards.add(new SetCardInfo("Arcane Discharge", 192, Rarity.UNCOMMON, mage.cards.a.ArcaneDischarge.class));
+        cards.add(new SetCardInfo("Consuming Horde", 194, Rarity.UNCOMMON, mage.cards.c.ConsumingHorde.class));
+        cards.add(new SetCardInfo("Cunning Nightblade", 195, Rarity.UNCOMMON, mage.cards.c.CunningNightblade.class));
         cards.add(new SetCardInfo("Deathreap Ritual", 196, Rarity.UNCOMMON, mage.cards.d.DeathreapRitual.class));
+        cards.add(new SetCardInfo("Divert Aggression", 197, Rarity.UNCOMMON, mage.cards.d.DivertAggression.class));
+        cards.add(new SetCardInfo("Elvish Spiritcaller", 200, Rarity.UNCOMMON, mage.cards.e.ElvishSpiritcaller.class));
         cards.add(new SetCardInfo("Notion Thief", 202, Rarity.RARE, mage.cards.n.NotionThief.class));
+        cards.add(new SetCardInfo("Preserve Harmony", 203, Rarity.UNCOMMON, mage.cards.p.PreserveHarmony.class));
         cards.add(new SetCardInfo("Ragefire Shaman", 205, Rarity.UNCOMMON, mage.cards.r.RagefireShaman.class));
+        cards.add(new SetCardInfo("Twilight Paladin", 214, Rarity.UNCOMMON, mage.cards.t.TwilightPaladin.class));
         cards.add(new SetCardInfo("Triumphant Battleseraph", 213, Rarity.RARE, mage.cards.t.TriumphantBattleseraph.class));
         cards.add(new SetCardInfo("Warleader's Helix", 215, Rarity.UNCOMMON, mage.cards.w.WarleadersHelix.class));
         cards.add(new SetCardInfo("Burnished Heart", 216, Rarity.UNCOMMON, mage.cards.b.BurnishedHart.class));
