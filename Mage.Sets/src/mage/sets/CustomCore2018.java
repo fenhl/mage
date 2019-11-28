@@ -98,6 +98,7 @@ public final class CustomCore2018 extends ExpansionSet {
         cards.add(new SetCardInfo("Zof Shade", 114, Rarity.COMMON, mage.cards.z.ZofShade.class));
         cards.add(new SetCardInfo("Act of Treason", 115, Rarity.COMMON, mage.cards.a.ActOfTreason.class));
         cards.add(new SetCardInfo("Battlehardened Minotaur", 116, Rarity.COMMON, mage.cards.b.BattlehardenedMinotaur.class));
+        cards.add(new SetCardInfo("Boomkeg Runner", 117, Rarity.COMMON, mage.cards.b.BoomkegRunner.class));
         cards.add(new SetCardInfo("Borderland Marauder", 118, Rarity.COMMON, mage.cards.b.BorderlandMarauder.class));
         cards.add(new SetCardInfo("Brimstone Volley", 119, Rarity.COMMON, mage.cards.b.BrimstoneVolley.class));
         cards.add(new SetCardInfo("Flameblast", 123, Rarity.COMMON, mage.cards.f.Flameblast.class));
