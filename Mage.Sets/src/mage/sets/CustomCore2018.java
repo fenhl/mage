@@ -149,6 +149,7 @@ public final class CustomCore2018 extends ExpansionSet {
         cards.add(new SetCardInfo("Notion Thief", 202, Rarity.RARE, mage.cards.n.NotionThief.class));
         cards.add(new SetCardInfo("Preserve Harmony", 203, Rarity.UNCOMMON, mage.cards.p.PreserveHarmony.class));
         cards.add(new SetCardInfo("Ragefire Shaman", 205, Rarity.UNCOMMON, mage.cards.r.RagefireShaman.class));
+        cards.add(new SetCardInfo("Soul of Jannada", 208, Rarity.MYTHIC, mage.cards.s.SoulOfJannada.class));
         cards.add(new SetCardInfo("Twilight Paladin", 214, Rarity.UNCOMMON, mage.cards.t.TwilightPaladin.class));
         cards.add(new SetCardInfo("Triumphant Battleseraph", 213, Rarity.RARE, mage.cards.t.TriumphantBattleseraph.class));
         cards.add(new SetCardInfo("Warleader's Helix", 215, Rarity.UNCOMMON, mage.cards.w.WarleadersHelix.class));
