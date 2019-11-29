@@ -62,6 +62,7 @@ public final class CustomCore2018 extends ExpansionSet {
         cards.add(new SetCardInfo("Disperse", 49, Rarity.COMMON, mage.cards.d.Disperse.class));
         cards.add(new SetCardInfo("Dissipate", 50, Rarity.UNCOMMON, mage.cards.d.Dissipate.class));
         cards.add(new SetCardInfo("Divination", 51, Rarity.COMMON, mage.cards.d.Divination.class));
+        cards.add(new SetCardInfo("Inquisitive Vedalken", 53, Rarity.COMMON, mage.cards.i.InquisitiveVedalken.class));
         cards.add(new SetCardInfo("Jeskai Preserver", 54, Rarity.UNCOMMON, mage.cards.j.JeskaiPreserver.class));
         cards.add(new SetCardInfo("Jeskai Wanderer", 55, Rarity.COMMON, mage.cards.j.JeskaiWanderer.class));
         cards.add(new SetCardInfo("Kraken Hatchling", 56, Rarity.COMMON, mage.cards.k.KrakenHatchling.class));
@@ -89,12 +90,14 @@ public final class CustomCore2018 extends ExpansionSet {
         cards.add(new SetCardInfo("Diabolic Tutor", 90, Rarity.UNCOMMON, mage.cards.d.DiabolicTutor.class));
         cards.add(new SetCardInfo("Duress", 91, Rarity.COMMON, mage.cards.d.Duress.class));
         cards.add(new SetCardInfo("Falkenrath Noble", 92, Rarity.UNCOMMON, mage.cards.f.FalkenrathNoble.class));
+        cards.add(new SetCardInfo("Fallen Aristocrat", 93, Rarity.COMMON, mage.cards.f.FallenAristocrat.class));
         cards.add(new SetCardInfo("Gravedigger", 94, Rarity.UNCOMMON, mage.cards.g.Gravedigger.class));
         cards.add(new SetCardInfo("Looming Husk", 98, Rarity.COMMON, mage.cards.l.LoomingHusk.class));
         cards.add(new SetCardInfo("Marsh Snake", 99, Rarity.COMMON, mage.cards.m.MarshSnake.class));
         cards.add(new SetCardInfo("Memoricide", 100, Rarity.RARE, mage.cards.m.Memoricide.class));
         cards.add(new SetCardInfo("Mind Rot", 101, Rarity.COMMON, mage.cards.m.MindRot.class));
         cards.add(new SetCardInfo("Murder", 102, Rarity.UNCOMMON, mage.cards.m.Murder.class));
+        cards.add(new SetCardInfo("Prospective Host", 103, Rarity.COMMON, mage.cards.p.ProspectiveHost.class));
         cards.add(new SetCardInfo("Raise Dead", 104, Rarity.COMMON, mage.cards.r.RaiseDead.class));
         cards.add(new SetCardInfo("Sengir Vampire", 105, Rarity.UNCOMMON, mage.cards.s.SengirVampire.class));
         cards.add(new SetCardInfo("Shadowcloak Vampire", 106, Rarity.COMMON, mage.cards.s.ShadowcloakVampire.class));
@@ -106,6 +109,7 @@ public final class CustomCore2018 extends ExpansionSet {
         cards.add(new SetCardInfo("Borderland Marauder", 118, Rarity.COMMON, mage.cards.b.BorderlandMarauder.class));
         cards.add(new SetCardInfo("Brimstone Volley", 119, Rarity.COMMON, mage.cards.b.BrimstoneVolley.class));
         cards.add(new SetCardInfo("Flameblast", 123, Rarity.COMMON, mage.cards.f.Flameblast.class));
+        cards.add(new SetCardInfo("Goblin Pyromaniac", 124, Rarity.COMMON, mage.cards.g.GoblinPyromaniac.class));
         cards.add(new SetCardInfo("Goblin War Paint", 126, Rarity.COMMON, mage.cards.g.GoblinWarPaint.class));
         cards.add(new SetCardInfo("Innerflame Initiate", 129, Rarity.COMMON, mage.cards.i.InnerflameInitiate.class));
         cards.add(new SetCardInfo("Ironhide Disciple", 131, Rarity.UNCOMMON, mage.cards.i.IronhideDisciple.class));
@@ -114,6 +118,7 @@ public final class CustomCore2018 extends ExpansionSet {
         cards.add(new SetCardInfo("Minotaur Skullcleaver", 137, Rarity.COMMON, mage.cards.m.MinotaurSkullcleaver.class));
         cards.add(new SetCardInfo("Orcish Marauder", 139, Rarity.UNCOMMON, mage.cards.o.OrcishMarauder.class));
         cards.add(new SetCardInfo("Pinnacle of Rage", 140, Rarity.UNCOMMON, mage.cards.p.PinnacleOfRage.class));
+        cards.add(new SetCardInfo("Rabid Wargs", 141, Rarity.COMMON, mage.cards.r.RabidWargs.class));
         cards.add(new SetCardInfo("Riot Devils", 142, Rarity.COMMON, mage.cards.r.RiotDevils.class));
         cards.add(new SetCardInfo("Ruinbringer", 143, Rarity.UNCOMMON, mage.cards.r.Ruinbringer.class));
         cards.add(new SetCardInfo("Savage Swordsman", 144, Rarity.UNCOMMON, mage.cards.s.SavageSwordsman.class));
@@ -132,11 +137,13 @@ public final class CustomCore2018 extends ExpansionSet {
         cards.add(new SetCardInfo("Colossal Wurm", 162, Rarity.COMMON, mage.cards.c.ColossalWurm.class));
         cards.add(new SetCardInfo("Cultivate", 163, Rarity.COMMON, mage.cards.c.Cultivate.class));
         cards.add(new SetCardInfo("Elvish Visionary", 164, Rarity.COMMON, mage.cards.e.ElvishVisionary.class));
-        cards.add(new SetCardInfo("Garruk Wildspeaker", 165, Rarity.MYTHIC, mage.cards.g.GarrukWildspeaker.class));
-        cards.add(new SetCardInfo("Giant Spider", 166, Rarity.COMMON, mage.cards.g.GiantSpider.class));
-        cards.add(new SetCardInfo("Gravetiller Wurm", 167, Rarity.UNCOMMON, mage.cards.g.GravetillerWurm.class));
-        cards.add(new SetCardInfo("Greater Basilisk", 168, Rarity.COMMON, mage.cards.g.GreaterBasilisk.class));
+        cards.add(new SetCardInfo("Feral Bear", 165, Rarity.COMMON, mage.cards.f.FeralBear.class));
+        cards.add(new SetCardInfo("Garruk Wildspeaker", 166, Rarity.MYTHIC, mage.cards.g.GarrukWildspeaker.class));
+        cards.add(new SetCardInfo("Giant Spider", 167, Rarity.COMMON, mage.cards.g.GiantSpider.class));
+        cards.add(new SetCardInfo("Gravetiller Wurm", 168, Rarity.UNCOMMON, mage.cards.g.GravetillerWurm.class));
+        cards.add(new SetCardInfo("Greater Basilisk", 169, Rarity.COMMON, mage.cards.g.GreaterBasilisk.class));
         cards.add(new SetCardInfo("Kalonian Tusker", 171, Rarity.UNCOMMON, mage.cards.k.KalonianTusker.class));
+        cards.add(new SetCardInfo("Mosshide Baloth", 172, Rarity.COMMON, mage.cards.m.MosshideBaloth.class));
         cards.add(new SetCardInfo("Naturalize", 173, Rarity.COMMON, mage.cards.n.Naturalize.class));
         cards.add(new SetCardInfo("Obstinate Baloth", 175, Rarity.RARE, mage.cards.o.ObstinateBaloth.class));
         cards.add(new SetCardInfo("Plummet", 176, Rarity.COMMON, mage.cards.p.Plummet.class));
@@ -170,6 +177,7 @@ public final class CustomCore2018 extends ExpansionSet {
         cards.add(new SetCardInfo("Guardian Automaton", 220, Rarity.COMMON, mage.cards.g.GuardianAutomaton.class));
         cards.add(new SetCardInfo("Jet Soulstone", 221, Rarity.UNCOMMON, mage.cards.j.JetSoulstone.class));
         cards.add(new SetCardInfo("Lumbering Colossus", 222, Rarity.UNCOMMON, mage.cards.l.LumberingColossus.class));
+        cards.add(new SetCardInfo("Ornate Battle-Mace", 223, Rarity.COMMON, mage.cards.o.OrnateBattleMace.class));
         cards.add(new SetCardInfo("Pearl Soulstone", 224, Rarity.UNCOMMON, mage.cards.p.PearlSoulstone.class));
         cards.add(new SetCardInfo("Pithing Needle", 225, Rarity.RARE, mage.cards.p.PithingNeedle.class));
         cards.add(new SetCardInfo("Prophetic Prism", 226, Rarity.COMMON, mage.cards.p.PropheticPrism.class));

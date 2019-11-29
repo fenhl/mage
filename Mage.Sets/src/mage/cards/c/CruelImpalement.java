@@ -15,7 +15,7 @@ import java.util.UUID;
  */
 public final class CruelImpalement extends CardImpl {
     public CruelImpalement(UUID ownerId, CardSetInfo setInfo){
-        super(ownerId, setInfo, new CardType[]{CardType.SORCERY}, "{2}{B}{B}");
+        super(ownerId, setInfo, new CardType[]{CardType.SORCERY}, "{3}{B}");
 
         // Target creature gets -4/-4 until end of turn.
         this.getSpellAbility().addEffect(new BoostTargetEffect(-4, -4, Duration.EndOfTurn));
