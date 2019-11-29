@@ -58,6 +58,7 @@ public final class CustomCore2018 extends ExpansionSet {
         cards.add(new SetCardInfo("Convolute", 44, Rarity.COMMON, mage.cards.c.Convolute.class));
         cards.add(new SetCardInfo("Covert Agent", 45, Rarity.COMMON, mage.cards.c.CovertAgent.class));
         cards.add(new SetCardInfo("Crippling Chill", 46, Rarity.COMMON, mage.cards.c.CripplingChill.class));
+        cards.add(new SetCardInfo("Deepwater Serpent", 48, Rarity.COMMON, mage.cards.d.DeepwaterSerpent.class));
         cards.add(new SetCardInfo("Disperse", 49, Rarity.COMMON, mage.cards.d.Disperse.class));
         cards.add(new SetCardInfo("Dissipate", 50, Rarity.UNCOMMON, mage.cards.d.Dissipate.class));
         cards.add(new SetCardInfo("Divination", 51, Rarity.COMMON, mage.cards.d.Divination.class));
