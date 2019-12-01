@@ -82,6 +82,7 @@ public final class CustomCore2018 extends ExpansionSet {
         cards.add(new SetCardInfo("Mnemonic Wall", 61, Rarity.COMMON, mage.cards.m.MnemonicWall.class));
         cards.add(new SetCardInfo("Negate", 62, Rarity.COMMON, mage.cards.n.Negate.class));
         cards.add(new SetCardInfo("Overwhelming Portents", 63, Rarity.UNCOMMON, mage.cards.o.OverwhelmingPortents.class));
+        cards.add(new SetCardInfo("Seize Tomorrow", 64, Rarity.MYTHIC, mage.cards.s.SeizeTomorrow.class));
         cards.add(new SetCardInfo("Sensory Deprivation", 65, Rarity.COMMON, mage.cards.s.SensoryDeprivation.class));
         cards.add(new SetCardInfo("Sleep Paralysis", 66, Rarity.COMMON, mage.cards.s.SleepParalysis.class));
         cards.add(new SetCardInfo("Spectral Flight", 67, Rarity.COMMON, mage.cards.s.SpectralFlight.class));

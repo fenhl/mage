@@ -26,6 +26,10 @@ import mage.target.common.TargetCreaturePermanent;
 
 import java.util.UUID;
 
+/**
+ *
+ * @author jbfitz
+ */
 public final class KothFuryOfKuldotha extends CardImpl {
     static final FilterControlledPermanent filter = new FilterControlledPermanent(SubType.MOUNTAIN, "Mountain");
     static final FilterLandPermanent filterCount = new FilterLandPermanent("Mountain you control");
