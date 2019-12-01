@@ -138,6 +138,7 @@ public final class CustomCore2018 extends ExpansionSet {
         cards.add(new SetCardInfo("Innerflame Initiate", 129, Rarity.COMMON, mage.cards.i.InnerflameInitiate.class));
         cards.add(new SetCardInfo("Innerflame Master", 130, Rarity.UNCOMMON, mage.cards.i.InnerflameMaster.class));
         cards.add(new SetCardInfo("Ironhide Disciple", 131, Rarity.UNCOMMON, mage.cards.i.IronhideDisciple.class));
+        cards.add(new SetCardInfo("Koth, Fury of Kuldotha", 133, Rarity.MYTHIC, mage.cards.k.KothFuryOfKuldotha.class));
         cards.add(new SetCardInfo("Lava Axe", 134, Rarity.COMMON, mage.cards.l.LavaAxe.class));
         cards.add(new SetCardInfo("Linebreaker Giant", 135, Rarity.COMMON, mage.cards.l.LinebreakerGiant.class));
         cards.add(new SetCardInfo("Minotaur Skullcleaver", 137, Rarity.COMMON, mage.cards.m.MinotaurSkullcleaver.class));
