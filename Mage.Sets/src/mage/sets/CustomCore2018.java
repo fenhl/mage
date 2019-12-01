@@ -59,6 +59,7 @@ public final class CustomCore2018 extends ExpansionSet {
         cards.add(new SetCardInfo("Serra Angel", 35, Rarity.UNCOMMON, mage.cards.s.SerraAngel.class));
         cards.add(new SetCardInfo("Sheltering Light", 36, Rarity.COMMON, mage.cards.s.ShelteringLight.class));
         cards.add(new SetCardInfo("Sunfeather Swallow", 37, Rarity.COMMON, mage.cards.s.SunfeatherSwallow.class));
+        cards.add(new SetCardInfo("Vaen, Will of Law", 38, Rarity.MYTHIC, mage.cards.v.VaenWillOfLaw.class));
         cards.add(new SetCardInfo("Anticipate", 39, Rarity.COMMON, mage.cards.a.Anticipate.class));
         cards.add(new SetCardInfo("Auspicial Sphinx", 40, Rarity.RARE, mage.cards.a.AuspicialSphinx.class));
         cards.add(new SetCardInfo("Cloaked Siren", 42, Rarity.COMMON, mage.cards.c.CloakedSiren.class));
