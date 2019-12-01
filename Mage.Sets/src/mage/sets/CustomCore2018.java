@@ -51,6 +51,7 @@ public final class CustomCore2018 extends ExpansionSet {
         cards.add(new SetCardInfo("Pacifism", 26, Rarity.COMMON, mage.cards.p.Pacifism.class));
         cards.add(new SetCardInfo("Raise the Alarm", 28, Rarity.COMMON, mage.cards.r.RaiseTheAlarm.class));
         cards.add(new SetCardInfo("Repel the Darkness", 29, Rarity.COMMON, mage.cards.r.RepelTheDarkness.class));
+        cards.add(new SetCardInfo("Seal of Judgment", 32, Rarity.UNCOMMON, mage.cards.s.SealOfJudgment.class));
         cards.add(new SetCardInfo("Seeker of the Way", 33, Rarity.UNCOMMON, mage.cards.s.SeekerOfTheWay.class));
         cards.add(new SetCardInfo("Serene Meditation", 34, Rarity.COMMON, mage.cards.s.SereneMeditation.class));
         cards.add(new SetCardInfo("Serra Angel", 35, Rarity.UNCOMMON, mage.cards.s.SerraAngel.class));
@@ -76,6 +77,7 @@ public final class CustomCore2018 extends ExpansionSet {
         cards.add(new SetCardInfo("Mind Control", 59, Rarity.RARE, mage.cards.m.MindControl.class));
         cards.add(new SetCardInfo("Mnemonic Wall", 61, Rarity.COMMON, mage.cards.m.MnemonicWall.class));
         cards.add(new SetCardInfo("Negate", 62, Rarity.COMMON, mage.cards.n.Negate.class));
+        cards.add(new SetCardInfo("Overwhelming Portents", 63, Rarity.UNCOMMON, mage.cards.o.OverwhelmingPortents.class));
         cards.add(new SetCardInfo("Sensory Deprivation", 65, Rarity.COMMON, mage.cards.s.SensoryDeprivation.class));
         cards.add(new SetCardInfo("Sleep Paralysis", 66, Rarity.COMMON, mage.cards.s.SleepParalysis.class));
         cards.add(new SetCardInfo("Spectral Flight", 67, Rarity.COMMON, mage.cards.s.SpectralFlight.class));
@@ -84,6 +86,7 @@ public final class CustomCore2018 extends ExpansionSet {
         cards.add(new SetCardInfo("Tigal, Grandmaster", 70, Rarity.RARE, mage.cards.t.TigalGrandmaster.class));
         cards.add(new SetCardInfo("Turn to Frog", 71, Rarity.UNCOMMON, mage.cards.t.TurnToFrog.class));
         cards.add(new SetCardInfo("Wall of Frost", 72, Rarity.UNCOMMON, mage.cards.w.WallOfFrost.class));
+        cards.add(new SetCardInfo("Wash Away", 73, Rarity.UNCOMMON, mage.cards.w.WashAway.class));
         cards.add(new SetCardInfo("Water Servant", 74, Rarity.UNCOMMON, mage.cards.w.WaterServant.class));
         cards.add(new SetCardInfo("Welkin Tern", 76, Rarity.COMMON, mage.cards.w.WelkinTern.class));
         cards.add(new SetCardInfo("Altar's Reap", 77, Rarity.COMMON, mage.cards.a.AltarsReap.class));
@@ -110,6 +113,7 @@ public final class CustomCore2018 extends ExpansionSet {
         cards.add(new SetCardInfo("Raise Dead", 104, Rarity.COMMON, mage.cards.r.RaiseDead.class));
         cards.add(new SetCardInfo("Sengir Vampire", 105, Rarity.UNCOMMON, mage.cards.s.SengirVampire.class));
         cards.add(new SetCardInfo("Shadowcloak Vampire", 106, Rarity.COMMON, mage.cards.s.ShadowcloakVampire.class));
+        cards.add(new SetCardInfo("Siphon Essence", 107, Rarity.UNCOMMON, mage.cards.s.SiphonEssence.class));
         cards.add(new SetCardInfo("Sorin's Thirst", 109, Rarity.COMMON, mage.cards.s.SorinsThirst.class));
         cards.add(new SetCardInfo("Vengeful Sadist", 113, Rarity.COMMON, mage.cards.v.VengefulSadist.class));
         cards.add(new SetCardInfo("Zof Shade", 114, Rarity.COMMON, mage.cards.z.ZofShade.class));
@@ -140,6 +144,7 @@ public final class CustomCore2018 extends ExpansionSet {
         cards.add(new SetCardInfo("Tormenting Voice", 148, Rarity.COMMON, mage.cards.t.TormentingVoice.class));
         cards.add(new SetCardInfo("Trumpet Blast", 149, Rarity.COMMON, mage.cards.t.TrumpetBlast.class));
         cards.add(new SetCardInfo("Volcanic Dragon", 150, Rarity.UNCOMMON, mage.cards.v.VolcanicDragon.class));
+        cards.add(new SetCardInfo("Wake of Flames", 151, Rarity.UNCOMMON, mage.cards.w.WakeOfFlames.class));
         cards.add(new SetCardInfo("Acidic Slime", 153, Rarity.UNCOMMON, mage.cards.a.AcidicSlime.class));
         cards.add(new SetCardInfo("Barkskin", 155, Rarity.COMMON, mage.cards.b.Barkskin.class));
         cards.add(new SetCardInfo("Bond Beetle", 156, Rarity.COMMON, mage.cards.b.BondBeetle.class));
@@ -158,6 +163,7 @@ public final class CustomCore2018 extends ExpansionSet {
         cards.add(new SetCardInfo("Kalonian Tusker", 171, Rarity.UNCOMMON, mage.cards.k.KalonianTusker.class));
         cards.add(new SetCardInfo("Mosshide Baloth", 172, Rarity.COMMON, mage.cards.m.MosshideBaloth.class));
         cards.add(new SetCardInfo("Naturalize", 173, Rarity.COMMON, mage.cards.n.Naturalize.class));
+        cards.add(new SetCardInfo("Nature's Majesty", 174, Rarity.UNCOMMON, mage.cards.n.NaturesMajesty.class));
         cards.add(new SetCardInfo("Obstinate Baloth", 175, Rarity.RARE, mage.cards.o.ObstinateBaloth.class));
         cards.add(new SetCardInfo("Plummet", 176, Rarity.COMMON, mage.cards.p.Plummet.class));
         cards.add(new SetCardInfo("Prey Upon", 177, Rarity.COMMON, mage.cards.p.PreyUpon.class));
@@ -168,6 +174,7 @@ public final class CustomCore2018 extends ExpansionSet {
         cards.add(new SetCardInfo("Stalking Spider", 184, Rarity.UNCOMMON, mage.cards.s.StalkingSpider.class));
         cards.add(new SetCardInfo("Sylvan Primalist", 185, Rarity.COMMON, mage.cards.s.SylvanPrimalist.class));
         cards.add(new SetCardInfo("Titanic Growth", 187, Rarity.COMMON, mage.cards.t.TitanicGrowth.class));
+        cards.add(new SetCardInfo("Vicious Instinct", 188, Rarity.UNCOMMON, mage.cards.v.ViciousInstinct.class));
         cards.add(new SetCardInfo("Wrathvine", 189, Rarity.UNCOMMON, mage.cards.w.Wrathvine.class));
         cards.add(new SetCardInfo("Arcane Discharge", 192, Rarity.UNCOMMON, mage.cards.a.ArcaneDischarge.class));
         cards.add(new SetCardInfo("Consuming Horde", 194, Rarity.UNCOMMON, mage.cards.c.ConsumingHorde.class));
