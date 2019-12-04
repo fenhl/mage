@@ -132,6 +132,7 @@ public final class CustomCore2018 extends ExpansionSet {
         cards.add(new SetCardInfo("Borderland Marauder", 118, Rarity.COMMON, mage.cards.b.BorderlandMarauder.class));
         cards.add(new SetCardInfo("Brimstone Volley", 119, Rarity.COMMON, mage.cards.b.BrimstoneVolley.class));
         cards.add(new SetCardInfo("Calamitous Ruin", 121, Rarity.UNCOMMON, mage.cards.c.CalamitousRuin.class));
+        cards.add(new SetCardInfo("Final Flame", 122, Rarity.RARE, mage.cards.f.FinalFlame.class));
         cards.add(new SetCardInfo("Flameblast", 123, Rarity.COMMON, mage.cards.f.Flameblast.class));
         cards.add(new SetCardInfo("Goblin Pyromaniac", 124, Rarity.COMMON, mage.cards.g.GoblinPyromaniac.class));
         cards.add(new SetCardInfo("Goblin Ragemonger", 152, Rarity.RARE, mage.cards.g.GoblinRagemonger.class));
