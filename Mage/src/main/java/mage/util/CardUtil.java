@@ -3,19 +3,24 @@ package mage.util;
 import mage.MageObject;
 import mage.Mana;
 import mage.abilities.Ability;
-import mage.abilities.ActivatedAbility;
 import mage.abilities.SpellAbility;
 import mage.abilities.costs.VariableCost;
 import mage.abilities.costs.mana.*;
 import mage.cards.Card;
 import mage.constants.EmptyNames;
 import mage.filter.Filter;
+import mage.game.CardState;
 import mage.game.Game;
 import mage.game.permanent.Permanent;
 import mage.game.permanent.token.Token;
 import mage.util.functions.CopyTokenFunction;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -490,20 +495,6 @@ public final class CardUtil {
     }
 
     /**
-     * Returns if the ability is used to check which cards are playable on hand.
-     * (Issue #457)
-     *
-     * @param ability - ability to check
-     * @return
-     */
-    public static boolean isCheckPlayableMode(Ability ability) {
-        if (ability instanceof ActivatedAbility) {
-            return ((ActivatedAbility) ability).isCheckPlayableMode();
-        }
-        return false;
-    }
-
-    /**
      * Adds tags to mark the additional info of a card (e.g. blue font color)
      *
      * @param text text body
@@ -560,12 +551,13 @@ public final class CardUtil {
     }
 
     /**
-     * Face down cards and their copy tokens don't have names and that's "empty" names is not equals
+     * Face down cards and their copy tokens don't have names and that's "empty"
+     * names is not equals
      */
     public static boolean haveSameNames(String name1, String name2, Boolean ignoreMtgRuleForEmptyNames) {
         if (ignoreMtgRuleForEmptyNames) {
             // simple compare for tests and engine
-            return name1 != null && name2 != null && name1.equals(name2);
+            return name1 != null && name1.equals(name2);
         } else {
             // mtg logic compare for game (empty names can't be same)
             return !haveEmptyName(name1) && !haveEmptyName(name2) && name1.equals(name2);
@@ -586,5 +578,68 @@ public final class CardUtil {
 
     public static boolean haveEmptyName(MageObject object) {
         return object == null || haveEmptyName(object.getName());
+    }
+
+    public static UUID getMainCardId(Game game, UUID objectId) {
+        Card card = game.getCard(objectId);
+        return card != null ? card.getMainCard().getId() : objectId;
+    }
+
+    public static String urlEncode(String data) {
+        if (data.isEmpty()) {
+            return "";
+        }
+
+        try {
+            return URLEncoder.encode(data, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            return "";
+        }
+    }
+
+    public static String urlDecode(String encodedData) {
+        if (encodedData.isEmpty()) {
+            return "";
+        }
+
+        try {
+            return URLDecoder.decode(encodedData, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            return "";
+        }
+    }
+
+    /**
+     * Checks if a card had a given ability depending their historic cardState
+     *
+     * @param ability   the ability that is checked
+     * @param cardState the historic cardState (from LKI)
+     * @param cardId    the id of the card
+     * @param game
+     * @return
+     */
+    public static boolean cardHadAbility(Ability ability, CardState cardState, UUID cardId, Game game) {
+        Card card = game.getCard(cardId);
+        if (card != null) {
+            if (cardState != null) {
+                if (cardState.getAbilities().contains(ability)) { // Check other abilities (possibly given after lost of abilities)
+                    return true;
+                }
+                if (cardState.hasLostAllAbilities()) {
+                    return false; // Not allowed to check abilities of original card
+                }
+            }
+            return card.getAbilities().contains(ability); // check if the original card has the ability
+        }
+        return false;
+    }
+
+    public static List<String> concatManaSymbols(String delimeter, List<String> mana1, List<String> mana2) {
+        List<String> res = new ArrayList<>(mana1);
+        if (res.size() > 0 && mana2.size() > 0 && delimeter != null && !delimeter.isEmpty()) {
+            res.add(delimeter);
+        }
+        res.addAll(mana2);
+        return res;
     }
 }

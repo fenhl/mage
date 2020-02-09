@@ -73,18 +73,36 @@ class AnyColorLandsProduceManaEffect extends ManaEffect {
     }
 
     @Override
-    public boolean apply(Game game, Ability source) {
-        Player controller = game.getPlayer(source.getControllerId());
-        if (controller != null) {
-            checkToFirePossibleEvents(getMana(game, source), game, source);
-            controller.getManaPool().addMana(getMana(game, source), game, source);
-            return true;
+    public List<Mana> getNetMana(Game game, Ability source) {
+        int manaAmount = getManaAmount(game, source);
+        List<Mana> netManas = new ArrayList<>();
+        Mana types = getManaTypes(game, source);
+        if (types.getRed() > 0) {
+            netManas.add(Mana.RedMana(manaAmount));
         }
-        return false;
+        if (types.getGreen() > 0) {
+            netManas.add(Mana.GreenMana(manaAmount));
+        }
+        if (types.getBlue() > 0) {
+            netManas.add(Mana.BlueMana(manaAmount));
+        }
+        if (types.getWhite() > 0) {
+            netManas.add(Mana.WhiteMana(manaAmount));
+        }
+        if (types.getBlack() > 0) {
+            netManas.add(Mana.BlackMana(manaAmount));
+        }
+        if (types.getColorless() > 0) {
+            netManas.add(Mana.ColorlessMana(manaAmount));
+        }
+        if (types.getAny() > 0) {
+            netManas.add(Mana.AnyMana(manaAmount));
+        }
+        return netManas;
     }
 
     @Override
-    public Mana produceMana(boolean netMana, Game game, Ability source) {
+    public Mana produceMana(Game game, Ability source) {
         int manaAmount = getManaAmount(game, source);
         Mana mana = new Mana();
         Mana types = getManaTypes(game, source);
@@ -148,35 +166,6 @@ class AnyColorLandsProduceManaEffect extends ManaEffect {
             }
         }
         return mana;
-    }
-
-    @Override
-    public List<Mana> getNetMana(Game game, Ability source) {
-        int manaAmount = getManaAmount(game, source);
-        List<Mana> netManas = new ArrayList<>();
-        Mana types = getManaTypes(game, source);
-        if (types.getRed() > 0) {
-            netManas.add(new Mana(manaAmount, 0, 0, 0, 0, 0, 0, 0));
-        }
-        if (types.getGreen() > 0) {
-            netManas.add(new Mana(0, manaAmount, 0, 0, 0, 0, 0, 0));
-        }
-        if (types.getBlue() > 0) {
-            netManas.add(new Mana(0, 0, manaAmount, 0, 0, 0, 0, 0));
-        }
-        if (types.getWhite() > 0) {
-            netManas.add(new Mana(0, 0, 0, manaAmount, 0, 0, 0, 0));
-        }
-        if (types.getBlack() > 0) {
-            netManas.add(new Mana(0, 0, 0, 0, manaAmount, 0, 0, 0));
-        }
-        if (types.getColorless() > 0) {
-            netManas.add(new Mana(0, 0, 0, 0, 0, 0, 0, manaAmount));
-        }
-        if (types.getAny() > 0) {
-            netManas.add(new Mana(0, 0, 0, 0, 0, 0, manaAmount, 0));
-        }
-        return netManas;
     }
 
     @Override

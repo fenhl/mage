@@ -1,6 +1,5 @@
 package mage.cards.s;
 
-import java.util.UUID;
 import mage.MageInt;
 import mage.Mana;
 import mage.abilities.Ability;
@@ -27,8 +26,10 @@ import mage.game.permanent.Permanent;
 import mage.game.permanent.token.TokenImpl;
 import mage.players.Player;
 
+import java.util.List;
+import java.util.UUID;
+
 /**
- *
  * @author LevelX2
  */
 public final class SasayaOrochiAscendant extends CardImpl {
@@ -130,19 +131,12 @@ class SasayasEssenceManaEffect extends ManaEffect {
     }
 
     @Override
-    public boolean apply(Game game, Ability source) {
-        Player controller = game.getPlayer(source.getControllerId());
-        if (controller != null) {
-            checkToFirePossibleEvents(getMana(game, source), game, source);
-            controller.getManaPool().addMana(getMana(game, source), game, source);
-            return true;
-
-        }
-        return false;
+    public List<Mana> getNetMana(Game game, Ability source) {
+        return null;
     }
 
     @Override
-    public Mana produceMana(boolean netMana, Game game, Ability source) {
+    public Mana produceMana(Game game, Ability source) {
         Player controller = game.getPlayer(source.getControllerId());
         Mana mana = (Mana) this.getValue("mana");
         Permanent permanent = game.getPermanent(getTargetPointer().getFirst(game, source));
@@ -214,5 +208,4 @@ class SasayasEssenceManaEffect extends ManaEffect {
         }
         return null;
     }
-
 }

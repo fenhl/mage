@@ -42,6 +42,7 @@ import java.util.concurrent.*;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
+import java.util.stream.Collectors;
 import java.util.zip.GZIPOutputStream;
 
 /**
@@ -49,8 +50,8 @@ import java.util.zip.GZIPOutputStream;
  */
 public class GameController implements GameCallback {
 
-    private static final int GAME_TIMEOUTS_CHECK_JOINING_STATUS_EVERY_SECS = 15; // checks and inform players about joining status
-    private static final int GAME_TIMEOUTS_CANCEL_PLAYER_GAME_JOINING_AFTER_INACTIVE_SECS = 4 * 60; // leave player from game if it don't join and inactive on server
+    private static final int GAME_TIMEOUTS_CHECK_JOINING_STATUS_EVERY_SECS = 10; // checks and inform players about joining status
+    private static final int GAME_TIMEOUTS_CANCEL_PLAYER_GAME_JOINING_AFTER_INACTIVE_SECS = 2 * 60; // leave player from game if it don't join and inactive on server
 
     private static final ExecutorService gameExecutor = ThreadExecutor.instance.getGameExecutor();
     private static final Logger logger = Logger.getLogger(GameController.class);
@@ -200,13 +201,13 @@ public class GameController implements GameCallback {
                                 if (event.getChoices() != null && !event.getChoices().isEmpty()) {
                                     objectName = event.getChoices().iterator().next();
                                 }
-                                chooseAbility(event.getPlayerId(), objectName, event.getAbilities());
+                                chooseAbility(event.getPlayerId(), objectName, event.getAbilities(), event.getMessage());
                                 break;
                             case CHOOSE_PILE:
                                 choosePile(event.getPlayerId(), event.getMessage(), event.getPile1(), event.getPile2());
                                 break;
                             case CHOOSE_MODE:
-                                chooseMode(event.getPlayerId(), event.getModes());
+                                chooseMode(event.getPlayerId(), event.getModes(), event.getMessage());
                                 break;
                             case CHOOSE_CHOICE:
                                 chooseChoice(event.getPlayerId(), event.getChoice());
@@ -235,7 +236,7 @@ public class GameController implements GameCallback {
 
     /**
      * We create a timer that will run every 250 ms individually for a player
-     * decreasing his internal game counter. Later on this counter is used to
+     * decreasing their internal game counter. Later on this counter is used to
      * get time left to play the whole match.
      * <p>
      * What we also do here is passing Action to PriorityTimer that is the
@@ -323,26 +324,34 @@ public class GameController implements GameCallback {
     }
 
     private void sendInfoAboutPlayersNotJoinedYet() {
-        // runs every 15 secs untill all players join
+        // runs every 5 secs untill all players join
         for (Player player : game.getPlayers().values()) {
             if (!player.hasLeft() && player.isHuman()) {
                 Optional<User> requestedUser = getUserByPlayerId(player.getId());
                 if (requestedUser.isPresent()) {
                     User user = requestedUser.get();
-                    if (!user.isConnected()) {
-                        if (gameSessions.get(player.getId()) == null) {
-                            // join the game because player has not joined are was removed because of disconnect
-                            user.removeConstructing(player.getId());
-                            GameManager.instance.joinGame(game.getId(), user.getId());
-                            logger.debug("Player " + player.getName() + " (disconnected) has joined gameId: " + game.getId());
+                    // TODO: workaround to fix not started games in tourneys, need to find out real reason
+                    if (gameSessions.get(player.getId()) == null) {
+                        // join the game because player has not joined or was removed because of disconnect
+                        user.removeConstructing(player.getId());
+                        GameManager.instance.joinGame(game.getId(), user.getId());
+                        logger.warn("Forced join of player " + player.getName() + " (" + user.getUserState() + ") to gameId: " + game.getId());
+                        if (user.isConnected()) {
+                            logger.warn("Send forced game start event for player " + player.getName() + " in gameId: " + game.getId());
+                            user.ccGameStarted(game.getId(), player.getId());
                         }
-                        ChatManager.instance.broadcast(chatId, player.getName(), user.getPingInfo() + " is pending to join the game", MessageColor.BLUE, true, ChatMessage.MessageType.STATUS, null);
-                        if (user.getSecondsDisconnected() > GAME_TIMEOUTS_CANCEL_PLAYER_GAME_JOINING_AFTER_INACTIVE_SECS) {
-                            // TODO: 2019.04.22 - if user playing another game on server but not joining (that's the reason?), then that's check will never trigger
-                            // Cancel player join possibility lately after 4 minutes
-                            logger.debug("Player " + player.getName() + " - canceled game (after 240 seconds) gameId: " + game.getId());
-                            player.leave();
-                        }
+
+                        ChatManager.instance.broadcast(chatId, player.getName(), user.getPingInfo()
+                                        + " is forced to join the game (waiting ends after "
+                                        + GAME_TIMEOUTS_CANCEL_PLAYER_GAME_JOINING_AFTER_INACTIVE_SECS + " secs)",
+                                MessageColor.BLUE, true, ChatMessage.MessageType.STATUS, null);
+                    }
+
+                    if (!user.isConnected() && user.getSecondsDisconnected() > GAME_TIMEOUTS_CANCEL_PLAYER_GAME_JOINING_AFTER_INACTIVE_SECS) {
+                        // Cancel player join possibility lately
+                        logger.debug("Player " + player.getName() + " - canceled joining game (after "
+                                + user.getSecondsDisconnected() + " secs of inactivity) gameId: " + game.getId());
+                        player.leave();
                     }
                 } else if (!player.hasLeft()) {
                     logger.debug("Player " + player.getName() + " canceled game (no user) gameId: " + game.getId());
@@ -753,16 +762,16 @@ public class GameController implements GameCallback {
 
     }
 
-    private synchronized void chooseAbility(UUID playerId, final String objectName, final List<? extends Ability> choices) throws MageException {
-        perform(playerId, playerId1 -> getGameSession(playerId1).chooseAbility(new AbilityPickerView(objectName, choices)));
+    private synchronized void chooseAbility(UUID playerId, final String objectName, final List<? extends Ability> choices, String message) throws MageException {
+        perform(playerId, playerId1 -> getGameSession(playerId1).chooseAbility(new AbilityPickerView(objectName, choices, message)));
     }
 
     private synchronized void choosePile(UUID playerId, final String message, final List<? extends Card> pile1, final List<? extends Card> pile2) throws MageException {
         perform(playerId, playerId1 -> getGameSession(playerId1).choosePile(message, new CardsView(pile1), new CardsView(pile2)));
     }
 
-    private synchronized void chooseMode(UUID playerId, final Map<UUID, String> modes) throws MageException {
-        perform(playerId, playerId1 -> getGameSession(playerId1).chooseAbility(new AbilityPickerView(modes)));
+    private synchronized void chooseMode(UUID playerId, final Map<UUID, String> modes, final String message) throws MageException {
+        perform(playerId, playerId1 -> getGameSession(playerId1).chooseAbility(new AbilityPickerView(modes, message)));
     }
 
     private synchronized void chooseChoice(UUID playerId, final Choice choice) throws MageException {
@@ -1179,6 +1188,29 @@ public class GameController implements GameCallback {
         return player != null ? player.getName() : "-";
     }
 
+    public String getPingsInfo() {
+        List<String> usersInfo = new ArrayList<>();
+        for (Map.Entry<UUID, UUID> entry : userPlayerMap.entrySet()) {
+            Optional<User> user = UserManager.instance.getUser(entry.getKey());
+            user.ifPresent(u -> usersInfo.add("* " + u.getName() + ": " + u.getPingInfo()));
+        }
+        Collections.sort(usersInfo);
+        usersInfo.add(0, "Players ping:");
+
+        List<String> watchersinfo = new ArrayList<>();
+        for (Map.Entry<UUID, GameSessionWatcher> entry : watchers.entrySet()) {
+            Optional<User> user = UserManager.instance.getUser(entry.getValue().userId);
+            user.ifPresent(u -> watchersinfo.add("* " + u.getName() + ": " + u.getPingInfo()));
+        }
+        Collections.sort(watchersinfo);
+        if (watchersinfo.size() > 0) {
+            watchersinfo.add(0, "Watchers ping:");
+        }
+
+        usersInfo.addAll(watchersinfo);
+        return String.join("<br>", usersInfo);
+    }
+
     public String attemptToFixGame() {
         // try to fix disconnects
 
@@ -1189,6 +1221,14 @@ public class GameController implements GameCallback {
         if (state == null) {
             return "";
         }
+
+        logger.warn("FIX command was called for game " + game.getId() + " - players: " +
+                game.getPlayerList().stream()
+                        .map(game::getPlayer)
+                        .filter(Objects::nonNull)
+                        .map(p -> p.getName() + (p.isInGame() ? " (play)" : " (out)"))
+                        .collect(Collectors.joining(", ")));
+
         StringBuilder sb = new StringBuilder();
         sb.append("<br/>Game State:<br/><font size=-2>");
         sb.append(state);
@@ -1196,11 +1236,15 @@ public class GameController implements GameCallback {
 
         Player activePlayer = game.getPlayer(state.getActivePlayerId());
 
+        List<String> fixActions = new ArrayList<>(); // for logs info
+
         // fix active
         sb.append("<br>Checking active player: " + getName(activePlayer));
         if (activePlayer != null && activePlayer.hasLeft()) {
+            fixActions.add("active player");
             sb.append("<br>Found disconnected player! Concede...");
             activePlayer.concede(game);
+            activePlayer.leave(); // abort any wait response actions
 
             Phase currentPhase = game.getPhase();
             if (currentPhase != null) {
@@ -1217,10 +1261,12 @@ public class GameController implements GameCallback {
         sb.append("<br>Checking choosing player: " + getName(game.getPlayer(state.getChoosingPlayerId())));
         if (state.getChoosingPlayerId() != null) {
             if (game.getPlayer(state.getChoosingPlayerId()).hasLeft()) {
+                fixActions.add("choosing player");
                 sb.append("<br>Found disconnected player! Concede...");
                 Player p = game.getPlayer(state.getChoosingPlayerId());
                 if (p != null) {
                     p.concede(game);
+                    p.leave(); // abort any wait response actions
                 }
                 Phase currentPhase = game.getPhase();
                 if (currentPhase != null && !fixedAlready) {
@@ -1235,14 +1281,15 @@ public class GameController implements GameCallback {
         }
 
         // fix lost priority
+        Player p = game.getPlayer(state.getPriorityPlayerId());
         sb.append("<br>Checking priority player: " + getName(game.getPlayer(state.getPriorityPlayerId())));
-        if (state.getPriorityPlayerId() != null) {
-            if (game.getPlayer(state.getPriorityPlayerId()).hasLeft()) {
+        if (p != null) {
+            if (p.hasLeft()) {
+                fixActions.add("priority player");
                 sb.append("<br>Found disconnected player! Concede...");
-                Player p = game.getPlayer(state.getPriorityPlayerId());
-                if (p != null) {
-                    p.concede(game);
-                }
+                p.concede(game);
+                p.leave(); // abort any wait response actions
+
                 Phase currentPhase = game.getPhase();
                 if (currentPhase != null && !fixedAlready) {
                     currentPhase.getStep().skipStep(game, state.getActivePlayerId());
@@ -1250,7 +1297,6 @@ public class GameController implements GameCallback {
                     sb.append("<br>Forcibly passing the phase!");
                 }
             }
-            sb.append(game.getPlayer(state.getPriorityPlayerId()).getName());
             sb.append("</font>");
         }
 
@@ -1264,6 +1310,7 @@ public class GameController implements GameCallback {
             sb.append(",,,GetDelay?=");
             sb.append((int) futureTimeout.getDelay(TimeUnit.SECONDS));
             if ((int) futureTimeout.getDelay(TimeUnit.SECONDS) < 25) {
+                fixActions.add("future timeout");
                 PassAbility pass = new PassAbility();
                 game.endTurn(pass);
                 sb.append("<br>Forcibly passing the turn!");
@@ -1272,6 +1319,12 @@ public class GameController implements GameCallback {
             sb.append("Not using future Timeout!");
         }
         sb.append("</font>");
+
+        if (fixActions.isEmpty()) {
+            fixActions.add("none actions");
+        }
+        logger.warn("FIX command result for game " + game.getId() + ": " + fixActions.stream().collect(Collectors.joining(", ")));
+
         return sb.toString();
     }
 }

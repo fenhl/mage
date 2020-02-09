@@ -1,4 +1,3 @@
-
 package mage.abilities.effects.common.counter;
 
 import java.util.ArrayList;
@@ -32,7 +31,7 @@ public class AddCountersSourceEffect extends OneShotEffect {
     }
 
     public AddCountersSourceEffect(Counter counter, boolean informPlayers) {
-        this(counter, new StaticValue(0), informPlayers);
+        this(counter, StaticValue.get(0), informPlayers);
     }
 
     public AddCountersSourceEffect(Counter counter, DynamicValue amount, boolean informPlayers) {
@@ -96,7 +95,9 @@ public class AddCountersSourceEffect extends OneShotEffect {
                 if (permanent == null && source.getAbilityType() == AbilityType.STATIC) {
                     permanent = game.getPermanentEntering(source.getSourceId());
                 }
-                if (permanent != null) {
+                if (permanent != null
+                        && (source.getSourceObjectZoneChangeCounter() == 0 // from static ability
+                        || source.getSourceObjectZoneChangeCounter() == permanent.getZoneChangeCounter(game))) { // prevent to add counters to later source objects
                     if (counter != null) {
                         Counter newCounter = counter.copy();
                         int countersToAdd = amount.calculate(game, source, this);

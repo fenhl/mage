@@ -19,7 +19,6 @@ import mage.constants.Outcome;
 import mage.constants.Zone;
 import mage.filter.FilterCard;
 import mage.filter.predicate.Predicates;
-import mage.filter.predicate.mageobject.CardTypePredicate;
 import mage.game.Game;
 import mage.game.permanent.Permanent;
 import mage.players.Player;
@@ -60,7 +59,7 @@ class ChromeMoxEffect extends OneShotEffect {
     private static final FilterCard filter = new FilterCard("nonartifact, nonland card");
 
     static {
-        filter.add(Predicates.not(Predicates.or(new CardTypePredicate(CardType.LAND), new CardTypePredicate(CardType.ARTIFACT))));
+        filter.add(Predicates.not(Predicates.or(CardType.LAND.getPredicate(), CardType.ARTIFACT.getPredicate())));
     }
 
     public ChromeMoxEffect() {
@@ -123,19 +122,6 @@ class ChromeMoxManaEffect extends ManaEffect {
     }
 
     @Override
-    public boolean apply(Game game, Ability source) {
-        Player controller = game.getPlayer(source.getControllerId());
-        if (controller != null) {
-            Mana mana = getMana(game, source);
-            checkToFirePossibleEvents(mana, game, source);
-            controller.getManaPool().addMana(mana, game, source);
-            return true;
-
-        }
-        return false;
-    }
-
-    @Override
     public List<Mana> getNetMana(Game game, Ability source) {
         List<Mana> netMana = new ArrayList<>();
         Permanent permanent = game.getPermanent(source.getSourceId());
@@ -167,7 +153,7 @@ class ChromeMoxManaEffect extends ManaEffect {
     }
 
     @Override
-    public Mana produceMana(boolean netMana, Game game, Ability source) {
+    public Mana produceMana(Game game, Ability source) {
         Permanent permanent = game.getPermanent(source.getSourceId());
         Player player = game.getPlayer(source.getControllerId());
         if (permanent != null && player != null) {
@@ -206,24 +192,28 @@ class ChromeMoxManaEffect extends ManaEffect {
                         }
                         switch (choice.getChoice()) {
                             case "Black":
-                                player.getManaPool().addMana(Mana.BlackMana(1), game, source);
+                                //player.getManaPool().addMana(Mana.BlackMana(1), game, source);
+                                mana.add(Mana.BlackMana(1));
                                 break;
                             case "Blue":
-                                player.getManaPool().addMana(Mana.BlueMana(1), game, source);
+                                //player.getManaPool().addMana(Mana.BlueMana(1), game, source);
+                                mana.add(Mana.BlueMana(1));
                                 break;
                             case "Red":
-                                player.getManaPool().addMana(Mana.RedMana(1), game, source);
+                                //player.getManaPool().addMana(Mana.RedMana(1), game, source);
+                                mana.add(Mana.RedMana(1));
                                 break;
                             case "Green":
-                                player.getManaPool().addMana(Mana.GreenMana(1), game, source);
+                                //player.getManaPool().addMana(Mana.GreenMana(1), game, source);
+                                mana.add(Mana.GreenMana(1));
                                 break;
                             case "White":
-                                player.getManaPool().addMana(Mana.WhiteMana(1), game, source);
+                                //player.getManaPool().addMana(Mana.WhiteMana(1), game, source);
+                                mana.add(Mana.WhiteMana(1));
                                 break;
                             default:
                                 break;
                         }
-
                     }
                     return mana;
                 }

@@ -1,5 +1,8 @@
 package mage.constants;
 
+import mage.MageObject;
+import mage.filter.predicate.Predicate;
+import mage.game.Game;
 import mage.util.SubTypeList;
 
 import java.util.Arrays;
@@ -40,6 +43,7 @@ public enum SubType {
     EQUIPMENT("Equipment", SubTypeSet.ArtifactType),
     FOOD("Food", SubTypeSet.ArtifactType),
     FORTIFICATION("Fortification", SubTypeSet.ArtifactType),
+    GOLD("Gold", SubTypeSet.ArtifactType),
     TREASURE("Treasure", SubTypeSet.ArtifactType),
     VEHICLE("Vehicle", SubTypeSet.ArtifactType),
     // 205.3m : Creatures and tribals share their lists of subtypes; these subtypes are called creature types.
@@ -112,6 +116,7 @@ public enum SubType {
     // D
     DATHOMIRIAN("Dathomirian", SubTypeSet.CreatureType, true), // Star Wars
     DAUTHI("Dauthi", SubTypeSet.CreatureType),
+    DEMIGOD("Demigod", SubTypeSet.CreatureType),
     DEMON("Demon", SubTypeSet.CreatureType),
     DESERTER("Deserter", SubTypeSet.CreatureType),
     DEVIL("Devil", SubTypeSet.CreatureType),
@@ -336,6 +341,7 @@ public enum SubType {
     SURRAKAR("Surrakar", SubTypeSet.CreatureType),
     SURVIVOR("Survivor", SubTypeSet.CreatureType),
     // T
+    TENTACLE("Tentacle", SubTypeSet.CreatureType),
     TETRAVITE("Tetravite", SubTypeSet.CreatureType),
     THALAKOS("Thalakos", SubTypeSet.CreatureType),
     THOPTER("Thopter", SubTypeSet.CreatureType),
@@ -388,6 +394,7 @@ public enum SubType {
     ASHIOK("Ashiok", SubTypeSet.PlaneswalkerType),
     AURRA("Aurra", SubTypeSet.PlaneswalkerType, true), // Star Wars
     BOLAS("Bolas", SubTypeSet.PlaneswalkerType),
+    CALIX("Calix", SubTypeSet.PlaneswalkerType),
     CHANDRA("Chandra", SubTypeSet.PlaneswalkerType),
     DACK("Dack", SubTypeSet.PlaneswalkerType),
     DARETTI("Daretti", SubTypeSet.PlaneswalkerType),
@@ -443,7 +450,30 @@ public enum SubType {
     YANLING("Yanling", SubTypeSet.PlaneswalkerType),
     YODA("Yoda", SubTypeSet.PlaneswalkerType, true);  // Star Wars
 
+    public static class SubTypePredicate implements Predicate<MageObject> {
+
+        private final SubType subtype;
+
+        private SubTypePredicate(SubType subtype) {
+            this.subtype = subtype;
+        }
+
+
+        @Override
+        public boolean apply(MageObject input, Game game) {
+            return input.hasSubtype(subtype, game);
+        }
+
+        @Override
+        public String toString() {
+            return "Subtype(" + subtype + ')';
+        }
+    }
+
     private final SubTypeSet subTypeSet;
+    private final String description;
+    private final boolean customSet;
+    private final SubTypePredicate predicate;
 
     SubType(String description, SubTypeSet subTypeSet) {
         this(description, subTypeSet, false);
@@ -453,19 +483,20 @@ public enum SubType {
         this.description = description;
         this.subTypeSet = subTypeSet;
         this.customSet = customSet;
+        this.predicate = new SubTypePredicate(this);
     }
 
     public String getDescription() {
         return description;
     }
 
-    private final String description;
-
-    private final boolean customSet;
-
     @Override
     public String toString() {
         return description;
+    }
+
+    public SubTypePredicate getPredicate() {
+        return predicate;
     }
 
     public static SubType fromString(String value) {

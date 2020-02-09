@@ -17,7 +17,6 @@ import mage.constants.*;
 import mage.filter.FilterPermanent;
 import mage.filter.common.FilterCreaturePermanent;
 import mage.filter.common.FilterLandPermanent;
-import mage.filter.predicate.mageobject.SupertypePredicate;
 import mage.game.Game;
 import mage.game.events.GameEvent;
 import mage.game.events.GameEvent.EventType;
@@ -35,7 +34,7 @@ public final class GauntletOfPower extends CardImpl {
     private static final FilterLandPermanent filter = new FilterLandPermanent("a basic land");
 
     static {
-        filter.add(new SupertypePredicate(SuperType.BASIC));
+        filter.add(SuperType.BASIC.getPredicate());
     }
 
     public GauntletOfPower(UUID ownerId, CardSetInfo setInfo) {
@@ -180,20 +179,16 @@ class GauntletOfPowerEffectEffect2 extends ManaEffect {
     }
 
     @Override
-    public boolean apply(Game game, Ability source) {
+    public Player getPlayer(Game game, Ability source) {
         Permanent land = game.getPermanentOrLKIBattlefield(getTargetPointer().getFirst(game, source));
         if (land != null) {
-            Player player = game.getPlayer(land.getControllerId());
-            if (player != null) {
-                player.getManaPool().addMana(getMana(game, source), game, source);
-                return true;
-            }
+            return game.getPlayer(land.getControllerId());
         }
-        return false;
+        return null;
     }
 
     @Override
-    public Mana produceMana(boolean netMana, Game game, Ability source) {
+    public Mana produceMana(Game game, Ability source) {
         Permanent land = game.getPermanentOrLKIBattlefield(getTargetPointer().getFirst(game, source));
         if (land != null) {
             Mana mana = (Mana) getValue("mana");

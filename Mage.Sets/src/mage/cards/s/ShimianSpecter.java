@@ -19,7 +19,6 @@ import mage.constants.Zone;
 import mage.filter.FilterCard;
 import mage.filter.common.FilterNonlandCard;
 import mage.filter.predicate.Predicates;
-import mage.filter.predicate.mageobject.CardTypePredicate;
 import mage.filter.predicate.mageobject.NamePredicate;
 import mage.game.Game;
 import mage.players.Player;
@@ -61,7 +60,7 @@ class ShimianSpecterEffect extends OneShotEffect {
     private static final FilterCard filter = new FilterCard("nonland card");
 
     static {
-        filter.add(Predicates.not(new CardTypePredicate(CardType.LAND)));
+        filter.add(Predicates.not(CardType.LAND.getPredicate()));
     }
 
     public ShimianSpecterEffect() {
@@ -122,7 +121,7 @@ class ShimianSpecterEffect extends OneShotEffect {
             }
 
             // search cards in Library
-            // If the player has no nonland cards in their hand, you can still search that player's library and have him or her shuffle it.
+            // If the player has no nonland cards in their hand, you can still search that player's library and have that player shuffle it.
             if (chosenCard != null || controller.chooseUse(outcome, "Search library anyway?", source, game)) {
                 TargetCardInLibrary targetCardsLibrary = new TargetCardInLibrary(0, Integer.MAX_VALUE, filterNamedCards);
                 controller.searchLibrary(targetCardsLibrary, source, game, targetPlayer.getId());
