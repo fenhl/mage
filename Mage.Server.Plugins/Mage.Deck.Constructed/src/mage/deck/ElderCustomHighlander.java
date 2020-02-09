@@ -15,16 +15,19 @@ public class ElderCustomHighlander extends Constructed {
     public ElderCustomHighlander() {
         super("Elder Custom Highlander");
         setCodes.addAll(CustomEternal.makeLegalSets());
-        setCodes.add("VST");
         setCodes.add("DHM");
+        setCodes.add("SRC");
+        banned.add("Ashkal Pillarstone");
+        banned.add("Belit, Tel'tor Emissary");
         banned.add("Clean Slate");
         banned.add("Hatseket, Great Archivist");
         banned.add("Iun, World Reborn");
-        banned.add("Karn, Heart of Guilt");
         banned.add("Rawaya, the Wanderer");
         banned.add("Seize Tomorrow");
+        banned.add("Shape Reality");
         banned.add("Sobki, World Severer");
         banned.add("Travelling Stargazer");
+        banned.add("Treasure Room of Akhamesses");
     }
 
     @Override
@@ -42,7 +45,7 @@ public class ElderCustomHighlander extends Constructed {
         boolean valid = true;
         FilterMana colorIdentity = new FilterMana();
 
-        if (deck.getCards().size() + deck.getSideboard().size() != 100) {
+        if (deck.getCards().size() != 100) {
             invalid.put("Deck", "Must contain " + 100 + " cards: has " + (deck.getCards().size() + deck.getSideboard().size()) + " cards");
             valid = false;
         }
@@ -59,8 +62,11 @@ public class ElderCustomHighlander extends Constructed {
             }
         }
 
-        if (deck.getSideboard().size() != 1 && deck.getSideboard().size() != 11) {
-            invalid.put("Commander", "Sideboard must contain only the commander, or the commander and exactly 10 sideboard cards");
+        if (deck.getSideboard().size() < 1) {
+            invalid.put("Deck", "Sideboard must contain the commander");
+            valid = false;
+        } else if (deck.getSideboard().size() > 11) {
+            invalid.put("Deck", "Sideboard may only contain up to 10 cards other than the commander");
             valid = false;
         } else {
             Set<String> commanderNames = new HashSet<>();
