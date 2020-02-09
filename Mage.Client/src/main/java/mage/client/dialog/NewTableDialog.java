@@ -639,7 +639,7 @@ public class NewTableDialog extends MageDialog {
             case "Variant Magic - MTGO 1v1 Commander":
             case "Variant Magic - Centurion Commander":
             case "Variant Magic - Penny Dreadful Commander":
-            case "Elder Cockatrice Highlander":
+            case "Elder Custom Highlander":
                 if (!options.getGameType().startsWith("Commander")) {
                     JOptionPane.showMessageDialog(MageFrame.getDesktop(), "Deck type Commander needs also a Commander game type", "Error", JOptionPane.ERROR_MESSAGE);
                     return false;
@@ -695,7 +695,7 @@ public class NewTableDialog extends MageDialog {
                         && !options.getDeckType().equals("Variant Magic - Centurion Commander")
                         && !options.getDeckType().equals("Variant Magic - Freeform Commander")
                         && !options.getDeckType().equals("Variant Magic - Penny Dreadful Commander")
-                        && !options.getDeckType().equals("Elder Cockatrice Highlander")) {
+                        && !options.getDeckType().equals("Elder Custom Highlander")) {
                     JOptionPane.showMessageDialog(MageFrame.getDesktop(), "Deck type Commander needs also a Commander game type", "Error", JOptionPane.ERROR_MESSAGE);
                     return false;
                 }

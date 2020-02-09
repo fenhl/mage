@@ -11,9 +11,9 @@ import java.util.*;
 /**
  * @author Fenhl
  */
-public class ElderCockatriceHighlander extends Constructed {
-    public ElderCockatriceHighlander() {
-        super("Elder Cockatrice Highlander");
+public class ElderCustomHighlander extends Constructed {
+    public ElderCustomHighlander() {
+        super("Elder Custom Highlander");
         setCodes.addAll(CustomEternal.makeLegalSets());
         setCodes.add("VST");
         setCodes.add("DHM");
