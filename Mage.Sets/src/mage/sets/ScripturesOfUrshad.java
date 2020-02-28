@@ -28,9 +28,14 @@ public final class ScripturesOfUrshad extends ExpansionSet {
         this.ratioBoosterMythic = 8;
 
         //TODO cards
+        cards.add(new SetCardInfo("Forest", 262, Rarity.LAND, mage.cards.basiclands.Forest.class, FULL_ART_BFZ));
         cards.add(new SetCardInfo("Golden Age", 59, Rarity.RARE, mage.cards.g.GoldenAge.class));
         cards.add(new SetCardInfo("Imperator Namuzzar", 204, Rarity.RARE, mage.cards.i.ImperatorNamuzzar.class));
+        cards.add(new SetCardInfo("Island", 259, Rarity.LAND, mage.cards.basiclands.Island.class, FULL_ART_BFZ));
         cards.add(new SetCardInfo("Master of Marble Row", 26, Rarity.MYTHIC, mage.cards.m.MasterOfMarbleRow.class));
+        cards.add(new SetCardInfo("Mountain", 261, Rarity.LAND, mage.cards.basiclands.Mountain.class, FULL_ART_BFZ));
+        cards.add(new SetCardInfo("Plains", 258, Rarity.LAND, mage.cards.basiclands.Plains.class, FULL_ART_BFZ));
         cards.add(new SetCardInfo("Sunblessed Orator", 220, Rarity.UNCOMMON, mage.cards.s.SunblessedOrator.class));
+        cards.add(new SetCardInfo("Swamp", 260, Rarity.LAND, mage.cards.basiclands.Swamp.class, FULL_ART_BFZ));
     }
 }
