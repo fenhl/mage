@@ -35,6 +35,7 @@ public final class Rakoa extends ExpansionSet {
         cards.add(new SetCardInfo("Smelt", 149, Rarity.COMMON, mage.cards.s.Smelt.class));
         cards.add(new SetCardInfo("Sure Strike", 150, Rarity.COMMON, mage.cards.s.SureStrike.class));
         cards.add(new SetCardInfo("Volcanic Dragon", 155, Rarity.UNCOMMON, mage.cards.v.VolcanicDragon.class));
+        cards.add(new SetCardInfo("Dryad Pummeler", 165, Rarity.COMMON, mage.cards.d.DryadPummeler.class));
         cards.add(new SetCardInfo("Farseek", 167, Rarity.UNCOMMON, mage.cards.f.Farseek.class));
         cards.add(new SetCardInfo("Spawning Grounds", 188, Rarity.RARE, mage.cards.s.SpawningGrounds.class));
         cards.add(new SetCardInfo("Titanic Growth", 189, Rarity.COMMON, mage.cards.t.TitanicGrowth.class));
