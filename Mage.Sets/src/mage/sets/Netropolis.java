@@ -1,7 +1,5 @@
 package mage.sets;
 
-
-import com.sun.org.apache.bcel.internal.generic.LAND;
 import mage.cards.ExpansionSet;
 import mage.constants.Rarity;
 import mage.constants.SetType;

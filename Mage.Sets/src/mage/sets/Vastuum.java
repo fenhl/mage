@@ -30,6 +30,7 @@ public final class Vastuum extends ExpansionSet {
         cards.add(new SetCardInfo("Isolation Zone", 15, Rarity.COMMON, mage.cards.i.IsolationZone.class));
         cards.add(new SetCardInfo("Seize the Initiative", 32, Rarity.COMMON, mage.cards.s.SeizeTheInitiative.class));
         cards.add(new SetCardInfo("Essence Scatter", 46, Rarity.COMMON, mage.cards.e.EssenceScatter.class));
+        cards.add(new SetCardInfo("Unprecedented Genius", 77, Rarity.MYTHIC, mage.cards.u.UnprecedentedGenius.class));
         cards.add(new SetCardInfo("Blood Feud", 120, Rarity.UNCOMMON, mage.cards.b.BloodFeud.class));
         cards.add(new SetCardInfo("Bloodrage Brawler", 121, Rarity.UNCOMMON, mage.cards.b.BloodrageBrawler.class));
         cards.add(new SetCardInfo("Market Festival", 180, Rarity.COMMON, mage.cards.m.MarketFestival.class));
