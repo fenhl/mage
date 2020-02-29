@@ -39,6 +39,16 @@ public final class Eralou extends ExpansionSet {
         cards.add(new SetCardInfo("Wild Instincts", 206, Rarity.COMMON, mage.cards.w.WildInstincts.class));
         cards.add(new SetCardInfo("Gilded Lotus", 231, Rarity.RARE, mage.cards.g.GildedLotus.class));
         cards.add(new SetCardInfo("Prophetic Prism", 234, Rarity.COMMON, mage.cards.p.PropheticPrism.class));
+        cards.add(new SetCardInfo("Blessed Mausoleum", 239, Rarity.UNCOMMON, mage.cards.b.BlessedMausoleum.class));
+        cards.add(new SetCardInfo("Dangerous Territory", 240, Rarity.UNCOMMON, mage.cards.d.DangerousTerritory.class));
+        cards.add(new SetCardInfo("Eerie Bayou", 241, Rarity.UNCOMMON, mage.cards.e.EerieBayou.class));
+        cards.add(new SetCardInfo("Forlorn Ruin", 242, Rarity.UNCOMMON, mage.cards.f.ForlornRuin.class));
+        cards.add(new SetCardInfo("Lakeside Park", 243, Rarity.UNCOMMON, mage.cards.l.LakesidePark.class));
+        cards.add(new SetCardInfo("Mushroom Lagoon", 244, Rarity.UNCOMMON, mage.cards.m.MushroomLagoon.class));
+        cards.add(new SetCardInfo("Prayer Hall", 245, Rarity.UNCOMMON, mage.cards.p.PrayerHall.class));
+        cards.add(new SetCardInfo("Ritzy Parlor", 246, Rarity.UNCOMMON, mage.cards.r.RitzyParlor.class));
+        cards.add(new SetCardInfo("Sunlit Plaza", 248, Rarity.UNCOMMON, mage.cards.s.SunlitPlaza.class));
+        cards.add(new SetCardInfo("Vacated Bar", 249, Rarity.UNCOMMON, mage.cards.v.VacatedBar.class));
         cards.add(new SetCardInfo("Plains", 250, Rarity.LAND, mage.cards.basiclands.Plains.class));
         cards.add(new SetCardInfo("Island", 251, Rarity.LAND, mage.cards.basiclands.Island.class));
         cards.add(new SetCardInfo("Swamp", 252, Rarity.LAND, mage.cards.basiclands.Swamp.class));
