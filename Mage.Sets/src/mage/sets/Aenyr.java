@@ -30,6 +30,7 @@ public final class Aenyr extends ExpansionSet {
 
         cards.add(new SetCardInfo("Blood Artist", 49, Rarity.UNCOMMON, mage.cards.b.BloodArtist.class));
         cards.add(new SetCardInfo("Ultimate Price", 66, Rarity.UNCOMMON, mage.cards.u.UltimatePrice.class));
+        cards.add(new SetCardInfo("Kirsus Mongrel", 79, Rarity.COMMON, mage.cards.k.KirsusMongrel.class));
         cards.add(new SetCardInfo("Satyr Wayfinder", 106, Rarity.COMMON, mage.cards.s.SatyrWayfinder.class));
         cards.add(new SetCardInfo("Lyss, Duskwood Seer", 151, Rarity.RARE, mage.cards.l.LyssDuskwoodSeer.class));
         cards.add(new SetCardInfo("Thundersong Trumpeter", 185, Rarity.COMMON, mage.cards.t.ThundersongTrumpeter.class));
