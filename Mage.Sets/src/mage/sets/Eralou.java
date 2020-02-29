@@ -31,6 +31,7 @@ public final class Eralou extends ExpansionSet {
         cards.add(new SetCardInfo("Smite the Monstrous", 29, Rarity.COMMON, mage.cards.s.SmiteTheMonstrous.class));
         cards.add(new SetCardInfo("Solemn Offering", 30, Rarity.UNCOMMON, mage.cards.s.SolemnOffering.class));
         cards.add(new SetCardInfo("Divination", 55, Rarity.COMMON, mage.cards.d.Divination.class));
+        cards.add(new SetCardInfo("Marshcroaker Drake", 67, Rarity.UNCOMMON, mage.cards.m.MarshcroakerDrake.class));
         cards.add(new SetCardInfo("Negate", 68, Rarity.COMMON, mage.cards.n.Negate.class));
         cards.add(new SetCardInfo("Opt", 69, Rarity.COMMON, mage.cards.o.Opt.class));
         cards.add(new SetCardInfo("Blazing Volley", 129, Rarity.COMMON, mage.cards.b.BlazingVolley.class));
