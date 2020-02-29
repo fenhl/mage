@@ -229,7 +229,7 @@ public final class CustomCore2018 extends ExpansionSet {
         cards.add(new SetCardInfo("Tormod's Crypt", 231, Rarity.UNCOMMON, mage.cards.t.TormodsCrypt.class));
         cards.add(new SetCardInfo("Cinder Barrens", 233, Rarity.UNCOMMON, mage.cards.c.CinderBarrens.class));
         cards.add(new SetCardInfo("Dragonskull Summit", 234, Rarity.RARE, mage.cards.d.DragonskullSummit.class));
-        cards.add(new SetCardInfo("Drowned Catacombs", 235, Rarity.RARE, mage.cards.d.DrownedCatacomb.class));
+        cards.add(new SetCardInfo("Drowned Catacomb", 235, Rarity.RARE, mage.cards.d.DrownedCatacomb.class));
         cards.add(new SetCardInfo("Forsaken Sanctuary", 236, Rarity.UNCOMMON, mage.cards.f.ForsakenSanctuary.class));
         cards.add(new SetCardInfo("Foul Orchard", 237, Rarity.UNCOMMON, mage.cards.f.FoulOrchard.class));
         cards.add(new SetCardInfo("Glacial Fortress", 238, Rarity.RARE, mage.cards.g.GlacialFortress.class));

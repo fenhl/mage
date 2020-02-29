@@ -27,15 +27,29 @@ public final class ScripturesOfUrshad extends ExpansionSet {
         this.numBoosterRare = 1;
         this.ratioBoosterMythic = 8;
 
-        //TODO cards
-        cards.add(new SetCardInfo("Forest", 262, Rarity.LAND, mage.cards.basiclands.Forest.class, FULL_ART_BFZ));
-        cards.add(new SetCardInfo("Golden Age", 59, Rarity.RARE, mage.cards.g.GoldenAge.class));
-        cards.add(new SetCardInfo("Imperator Namuzzar", 204, Rarity.RARE, mage.cards.i.ImperatorNamuzzar.class));
-        cards.add(new SetCardInfo("Island", 259, Rarity.LAND, mage.cards.basiclands.Island.class, FULL_ART_BFZ));
+        cards.add(new SetCardInfo("Divine Verdict", 7, Rarity.COMMON, mage.cards.d.DivineVerdict.class));
+        cards.add(new SetCardInfo("Inspired Charge", 21, Rarity.COMMON, mage.cards.i.InspiredCharge.class));
         cards.add(new SetCardInfo("Master of Marble Row", 26, Rarity.MYTHIC, mage.cards.m.MasterOfMarbleRow.class));
-        cards.add(new SetCardInfo("Mountain", 261, Rarity.LAND, mage.cards.basiclands.Mountain.class, FULL_ART_BFZ));
-        cards.add(new SetCardInfo("Plains", 258, Rarity.LAND, mage.cards.basiclands.Plains.class, FULL_ART_BFZ));
+        cards.add(new SetCardInfo("Solemn Offering", 37, Rarity.COMMON, mage.cards.s.SolemnOffering.class));
+        cards.add(new SetCardInfo("Golden Age", 59, Rarity.RARE, mage.cards.g.GoldenAge.class));
+        cards.add(new SetCardInfo("Spell Pierce", 78, Rarity.COMMON, mage.cards.s.SpellPierce.class));
+        cards.add(new SetCardInfo("Act of Treason", 125, Rarity.COMMON, mage.cards.a.ActOfTreason.class));
+        cards.add(new SetCardInfo("Shatter", 155, Rarity.COMMON, mage.cards.s.Shatter.class));
+        cards.add(new SetCardInfo("Shock", 156, Rarity.COMMON, mage.cards.s.Shock.class));
+        cards.add(new SetCardInfo("Sure Strike", 160, Rarity.COMMON, mage.cards.s.SureStrike.class));
+        cards.add(new SetCardInfo("Grapple with the Past", 175, Rarity.COMMON, mage.cards.g.GrappleWithThePast.class));
+        cards.add(new SetCardInfo("Harrow", 176, Rarity.UNCOMMON, mage.cards.h.Harrow.class));
+        cards.add(new SetCardInfo("Pierce the Sky", 188, Rarity.COMMON, mage.cards.p.PierceTheSky.class));
+        cards.add(new SetCardInfo("Imperator Namuzzar", 204, Rarity.RARE, mage.cards.i.ImperatorNamuzzar.class));
         cards.add(new SetCardInfo("Sunblessed Orator", 220, Rarity.UNCOMMON, mage.cards.s.SunblessedOrator.class));
+        cards.add(new SetCardInfo("Manalith", 235, Rarity.COMMON, mage.cards.m.Manalith.class));
+        cards.add(new SetCardInfo("Evolving Wilds", 249, Rarity.COMMON, mage.cards.e.EvolvingWilds.class));
+        cards.add(new SetCardInfo("Mana Confluence", 254, Rarity.RARE, mage.cards.m.ManaConfluence.class));
+        cards.add(new SetCardInfo("Rupture Spire", 256, Rarity.COMMON, mage.cards.r.RuptureSpire.class));
+        cards.add(new SetCardInfo("Plains", 258, Rarity.LAND, mage.cards.basiclands.Plains.class, FULL_ART_BFZ));
+        cards.add(new SetCardInfo("Island", 259, Rarity.LAND, mage.cards.basiclands.Island.class, FULL_ART_BFZ));
         cards.add(new SetCardInfo("Swamp", 260, Rarity.LAND, mage.cards.basiclands.Swamp.class, FULL_ART_BFZ));
+        cards.add(new SetCardInfo("Mountain", 261, Rarity.LAND, mage.cards.basiclands.Mountain.class, FULL_ART_BFZ));
+        cards.add(new SetCardInfo("Forest", 262, Rarity.LAND, mage.cards.basiclands.Forest.class, FULL_ART_BFZ));
     }
 }
