@@ -517,7 +517,7 @@ public class ComputerPlayer extends PlayerImpl implements Player {
             if (outcome.isGood()) {
                 // good
                 Cards cards = new CardsImpl(target.possibleTargets(sourceId, getId(), game));
-                ArrayList<Card> cardsInHand = new ArrayList<>(cards.getCards(game));
+                List<Card> cardsInHand = new ArrayList<>(cards.getCards(game));
                 while (!target.isChosen()
                         && !target.possibleTargets(sourceId, getId(), game).isEmpty()
                         && target.getMaxNumberOfTargets() > target.getTargets().size()) {
@@ -1389,10 +1389,12 @@ public class ComputerPlayer extends PlayerImpl implements Player {
     public boolean playMana(Ability ability, ManaCost unpaid, String promptText, Game game) {
         payManaMode = true;
         currentUnpaidMana = unpaid;
-        boolean result = playManaHandling(ability, unpaid, game);
-        currentUnpaidMana = null;
-        payManaMode = false;
-        return result;
+        try {
+            return playManaHandling(ability, unpaid, game);
+        } finally {
+            currentUnpaidMana = null;
+            payManaMode = false;
+        }
     }
 
     protected boolean playManaHandling(Ability ability, ManaCost unpaid, final Game game) {
@@ -1793,7 +1795,7 @@ public class ComputerPlayer extends PlayerImpl implements Player {
             abilityControllerId = target.getAbilityController();
         }
 
-        ArrayList<Card> cardChoices = new ArrayList<>(cards.getCards(target.getFilter(), game));
+        List<Card> cardChoices = new ArrayList<>(cards.getCards(target.getFilter(), game));
         while (!target.doneChosing()) {
             Card card = pickTarget(abilityControllerId, cardChoices, outcome, target, source, game);
             if (card != null) {
@@ -1824,7 +1826,7 @@ public class ComputerPlayer extends PlayerImpl implements Player {
             abilityControllerId = target.getAbilityController();
         }
 
-        ArrayList<Card> cardChoices = new ArrayList<>(cards.getCards(target.getFilter(), game));
+        List<Card> cardChoices = new ArrayList<>(cards.getCards(target.getFilter(), game));
         while (!target.doneChosing()) {
             Card card = pickTarget(abilityControllerId, cardChoices, outcome, target, null, game);
             if (card != null) {

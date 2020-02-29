@@ -226,7 +226,7 @@ public class GameController implements GameCallback {
         );
         joinWaitingExecutor.scheduleAtFixedRate(() -> {
             try {
-                sendInfoAboutPlayersNotJoinedYet();
+                sendInfoAboutPlayersNotJoinedYetAndTryToFixIt();
             } catch (Exception ex) {
                 logger.fatal("Send info about player not joined yet:", ex);
             }
@@ -323,27 +323,44 @@ public class GameController implements GameCallback {
         }
     }
 
-    private void sendInfoAboutPlayersNotJoinedYet() {
+    private void sendInfoAboutPlayersNotJoinedYetAndTryToFixIt() {
         // runs every 5 secs untill all players join
         for (Player player : game.getPlayers().values()) {
-            if (!player.hasLeft() && player.isHuman()) {
+            if (player.isInGame() && player.isHuman()) {
                 Optional<User> requestedUser = getUserByPlayerId(player.getId());
                 if (requestedUser.isPresent()) {
                     User user = requestedUser.get();
                     // TODO: workaround to fix not started games in tourneys, need to find out real reason
                     if (gameSessions.get(player.getId()) == null) {
                         // join the game because player has not joined or was removed because of disconnect
+                        String problemPlayerFixes;
                         user.removeConstructing(player.getId());
                         GameManager.instance.joinGame(game.getId(), user.getId());
                         logger.warn("Forced join of player " + player.getName() + " (" + user.getUserState() + ") to gameId: " + game.getId());
                         if (user.isConnected()) {
-                            logger.warn("Send forced game start event for player " + player.getName() + " in gameId: " + game.getId());
-                            user.ccGameStarted(game.getId(), player.getId());
+                            // init game session, see reconnect()
+                            GameSessionPlayer session = gameSessions.get(player.getId());
+                            if (session != null) {
+                                problemPlayerFixes = "re-send start game event";
+                                logger.warn("Send forced game start event for player " + player.getName() + " in gameId: " + game.getId());
+                                user.ccGameStarted(session.getGameId(), player.getId());
+                                session.init();
+                                GameManager.instance.sendPlayerString(session.getGameId(), user.getId(), "");
+                            } else {
+                                problemPlayerFixes = "leave on broken game session";
+                                logger.error("Can't find game session for forced join, leave it: player " + player.getName() + " in gameId: " + game.getId());
+                                player.leave();
+                            }
+                        } else {
+                            problemPlayerFixes = "leave on disconnected";
+                            logger.warn("User disconnected, leave him after forced join: player " + player.getName() + " in gameId: " + game.getId());
+                            player.leave();
                         }
 
                         ChatManager.instance.broadcast(chatId, player.getName(), user.getPingInfo()
                                         + " is forced to join the game (waiting ends after "
-                                        + GAME_TIMEOUTS_CANCEL_PLAYER_GAME_JOINING_AFTER_INACTIVE_SECS + " secs)",
+                                        + GAME_TIMEOUTS_CANCEL_PLAYER_GAME_JOINING_AFTER_INACTIVE_SECS
+                                        + " secs, applied fixes: " + problemPlayerFixes + ")",
                                 MessageColor.BLUE, true, ChatMessage.MessageType.STATUS, null);
                     }
 
@@ -1185,7 +1202,7 @@ public class GameController implements GameCallback {
     }
 
     private String getName(Player player) {
-        return player != null ? player.getName() : "-";
+        return player != null ? player.getName() : "none";
     }
 
     public String getPingsInfo() {
@@ -1211,7 +1228,19 @@ public class GameController implements GameCallback {
         return String.join("<br>", usersInfo);
     }
 
-    public String attemptToFixGame() {
+    private String asGood(String text) {
+        return "<font color='green'><b>" + text + "</b></font>";
+    }
+
+    private String asBad(String text) {
+        return "<font color='red'><b>" + text + "</b></font>";
+    }
+
+    private String asWarning(String text) {
+        return "<font color='aqua'><b>" + text + "</b></font>";
+    }
+
+    public String attemptToFixGame(User user) {
         // try to fix disconnects
 
         if (game == null) {
@@ -1222,7 +1251,7 @@ public class GameController implements GameCallback {
             return "";
         }
 
-        logger.warn("FIX command was called for game " + game.getId() + " - players: " +
+        logger.warn("FIX command was called by " + user.getName() + " for game " + game.getId() + " - players: " +
                 game.getPlayerList().stream()
                         .map(game::getPlayer)
                         .filter(Objects::nonNull)
@@ -1230,100 +1259,136 @@ public class GameController implements GameCallback {
                         .collect(Collectors.joining(", ")));
 
         StringBuilder sb = new StringBuilder();
-        sb.append("<br/>Game State:<br/><font size=-2>");
-        sb.append(state);
+        sb.append("<font color='red'>FIX command called by " + user.getName() + "</font>");
+        sb.append("<font size='-2'>"); // font resize start for all next logs
+        sb.append("<br>Game ID: " + game.getId());
+
+        // pings info
+        sb.append("<br>");
+        sb.append(getPingsInfo());
+
         boolean fixedAlready = false;
-
-        Player activePlayer = game.getPlayer(state.getActivePlayerId());
-
         List<String> fixActions = new ArrayList<>(); // for logs info
 
         // fix active
-        sb.append("<br>Checking active player: " + getName(activePlayer));
-        if (activePlayer != null && activePlayer.hasLeft()) {
-            fixActions.add("active player");
-            sb.append("<br>Found disconnected player! Concede...");
-            activePlayer.concede(game);
-            activePlayer.leave(); // abort any wait response actions
+        Player playerActive = game.getPlayer(state.getActivePlayerId());
+        sb.append("<br>Fixing active player: " + getName(playerActive));
+        if (playerActive != null && !playerActive.canRespond()) {
+            fixActions.add("active player fix");
 
+            sb.append("<br><font color='red'>WARNING, active player can't respond.</font>");
+            sb.append("<br>Try to concede...");
+            playerActive.concede(game);
+            playerActive.leave(); // abort any wait response actions
+            sb.append(" (" + asWarning("OK") + ", concede done)");
+
+            sb.append("<br>Try to skip step...");
             Phase currentPhase = game.getPhase();
             if (currentPhase != null) {
                 currentPhase.getStep().skipStep(game, state.getActivePlayerId());
-                sb.append("<br>Forcibly passing the phase!");
                 fixedAlready = true;
+                sb.append(" (" + asWarning("OK") + ", skip step done)");
             } else {
-                sb.append("<br>Current phase null");
+                sb.append(" (" + asBad("FAIL") + ", step is null)");
             }
-            sb.append("<br>Active player has left");
+        } else {
+            sb.append(playerActive != null ? " (" + asGood("OK") + ", can respond)" : " (" + asGood("OK") + ", no player)");
         }
 
         // fix lost choosing dialog
-        sb.append("<br>Checking choosing player: " + getName(game.getPlayer(state.getChoosingPlayerId())));
-        if (state.getChoosingPlayerId() != null) {
-            if (game.getPlayer(state.getChoosingPlayerId()).hasLeft()) {
-                fixActions.add("choosing player");
-                sb.append("<br>Found disconnected player! Concede...");
-                Player p = game.getPlayer(state.getChoosingPlayerId());
-                if (p != null) {
-                    p.concede(game);
-                    p.leave(); // abort any wait response actions
-                }
+        Player choosingPlayer = game.getPlayer(state.getChoosingPlayerId());
+        sb.append("<br>Fixing choosing player: " + getName(choosingPlayer));
+        if (choosingPlayer != null && !choosingPlayer.canRespond()) {
+            fixActions.add("choosing player fix");
+
+            sb.append("<br><font color='red'>WARNING, choosing player can't respond.</font>");
+            sb.append("<br>Try to concede...");
+            choosingPlayer.concede(game);
+            choosingPlayer.leave(); // abort any wait response actions
+            sb.append(" (" + asWarning("OK") + ", concede done)");
+
+            sb.append("<br>Try to skip step...");
+            if (fixedAlready) {
+                sb.append(" (OK, already skipped before)");
+            } else {
                 Phase currentPhase = game.getPhase();
-                if (currentPhase != null && !fixedAlready) {
-                    currentPhase.getStep().endStep(game, state.getActivePlayerId());
+                if (currentPhase != null) {
+                    currentPhase.getStep().skipStep(game, state.getActivePlayerId());
                     fixedAlready = true;
-                    sb.append("<br>Forcibly passing the phase!");
-                } else if (currentPhase == null) {
-                    sb.append("<br>Current phase null");
+                    sb.append(" (" + asWarning("OK") + ", skip step done)");
+                } else {
+                    sb.append(" (" + asBad("FAIL") + ", step is null)");
                 }
-                sb.append("<br>Choosing player has left");
             }
+        } else {
+            sb.append(choosingPlayer != null ? " (" + asGood("OK") + ", can respond)" : " (" + asGood("OK") + ", no player)");
         }
 
         // fix lost priority
-        Player p = game.getPlayer(state.getPriorityPlayerId());
-        sb.append("<br>Checking priority player: " + getName(game.getPlayer(state.getPriorityPlayerId())));
-        if (p != null) {
-            if (p.hasLeft()) {
-                fixActions.add("priority player");
-                sb.append("<br>Found disconnected player! Concede...");
-                p.concede(game);
-                p.leave(); // abort any wait response actions
+        Player priorityPlayer = game.getPlayer(state.getPriorityPlayerId());
+        sb.append("<br>Fixing priority player: " + getName(priorityPlayer));
+        if (priorityPlayer != null && !priorityPlayer.canRespond()) {
+            fixActions.add("priority player fix");
 
+            sb.append("<br><font color='red'>WARNING, priority player can't respond.</font>");
+            sb.append("<br>Try to concede...");
+            priorityPlayer.concede(game);
+            priorityPlayer.leave(); // abort any wait response actions
+            sb.append(" (" + asWarning("OK") + ", concede done)");
+
+            sb.append("<br>Try to skip step...");
+            if (fixedAlready) {
+                sb.append(" (" + asWarning("OK") + ", already skipped before)");
+            } else {
                 Phase currentPhase = game.getPhase();
-                if (currentPhase != null && !fixedAlready) {
+                if (currentPhase != null) {
                     currentPhase.getStep().skipStep(game, state.getActivePlayerId());
                     fixedAlready = true;
-                    sb.append("<br>Forcibly passing the phase!");
+                    sb.append(" (" + asWarning("OK") + ", skip step done)");
+                } else {
+                    sb.append(" (" + asBad("FAIL") + ", step is null)");
                 }
             }
-            sb.append("</font>");
+        } else {
+            sb.append(priorityPlayer != null ? " (" + asGood("OK") + ", can respond)" : " (" + asGood("OK") + ", no player)");
         }
 
         // fix timeout
-        sb.append("<br>Checking Future Timeout: ");
+        sb.append("<br>Fixing future timeout: ");
         if (futureTimeout != null) {
-            sb.append("Cancelled?=");
-            sb.append(futureTimeout.isCancelled());
-            sb.append(",,,Done?=");
-            sb.append(futureTimeout.isDone());
-            sb.append(",,,GetDelay?=");
-            sb.append((int) futureTimeout.getDelay(TimeUnit.SECONDS));
-            if ((int) futureTimeout.getDelay(TimeUnit.SECONDS) < 25) {
-                fixActions.add("future timeout");
+            sb.append("cancelled?=" + futureTimeout.isCancelled());
+            sb.append("...done?=" + futureTimeout.isDone());
+            int delay = (int) futureTimeout.getDelay(TimeUnit.SECONDS);
+            sb.append("...getDelay?=" + delay);
+            if (delay < 25) {
+                fixActions.add("future timeout fix");
+
+                sb.append("<br><font color='red'>WARNING, future timeout delay < 25</font>");
+                sb.append("<br>Try to pass...");
                 PassAbility pass = new PassAbility();
                 game.endTurn(pass);
-                sb.append("<br>Forcibly passing the turn!");
+                sb.append(" (" + asWarning("OK") + ", pass done)");
+            } else {
+                sb.append(" (" + asGood("OK") + ", delay > 25)");
             }
         } else {
-            sb.append("Not using future Timeout!");
+            sb.append(" (" + asGood("OK") + ", timeout is not using)");
         }
-        sb.append("</font>");
 
+        // TODO: fix non started game (send game started event to user?)
+
+        // ALL DONE
         if (fixActions.isEmpty()) {
-            fixActions.add("none actions");
+            fixActions.add("none");
         }
-        logger.warn("FIX command result for game " + game.getId() + ": " + fixActions.stream().collect(Collectors.joining(", ")));
+        String appliedFixes = fixActions.stream().collect(Collectors.joining(", "));
+        sb.append("<br>Applied fixes: " + appliedFixes);
+        sb.append("</font>"); // font resize end
+        sb.append("<br>");
+
+        logger.warn("FIX command result for game " + game.getId() + ": " + appliedFixes);
+
+        System.out.println(sb.toString());
 
         return sb.toString();
     }
