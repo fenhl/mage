@@ -16,7 +16,11 @@ import mage.game.permanent.token.ZombieMutantToken;
 
 import java.util.UUID;
 
-public class IrradiatedAmalgam extends CardImpl {
+/**
+ *
+ * @author Fenhl
+ */
+public final class IrradiatedAmalgam extends CardImpl {
     public IrradiatedAmalgam(UUID ownerId, CardSetInfo setInfo) {
         super(ownerId, setInfo, new CardType[]{CardType.CREATURE}, "{B}{G}");
         this.subtype.add(SubType.ZOMBIE);
@@ -33,4 +37,9 @@ public class IrradiatedAmalgam extends CardImpl {
         ability.addCost(new SacrificeSourceCost());
         this.addAbility(ability);
     }
+
+    public IrradiatedAmalgam(final IrradiatedAmalgam card) { super(card); }
+
+    @Override
+    public IrradiatedAmalgam copy() { return new IrradiatedAmalgam(this); }
 }
