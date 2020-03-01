@@ -44,6 +44,7 @@ public final class ScripturesOfUrshad extends ExpansionSet {
         cards.add(new SetCardInfo("Harrow", 176, Rarity.UNCOMMON, mage.cards.h.Harrow.class));
         cards.add(new SetCardInfo("Pierce the Sky", 188, Rarity.COMMON, mage.cards.p.PierceTheSky.class));
         cards.add(new SetCardInfo("Imperator Namuzzar", 204, Rarity.RARE, mage.cards.i.ImperatorNamuzzar.class));
+        cards.add(new SetCardInfo("Anku the Primordial", 205, Rarity.MYTHIC, mage.cards.a.AnkuThePrimordial.class));
         cards.add(new SetCardInfo("Sunblessed Orator", 220, Rarity.UNCOMMON, mage.cards.s.SunblessedOrator.class));
         cards.add(new SetCardInfo("Manalith", 235, Rarity.COMMON, mage.cards.m.Manalith.class));
         cards.add(new SetCardInfo("Evolving Wilds", 249, Rarity.COMMON, mage.cards.e.EvolvingWilds.class));
