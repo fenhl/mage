@@ -34,6 +34,7 @@ public final class HollowsOfLordran extends ExpansionSet {
         cards.add(new SetCardInfo("Pillar of Flame", 156, Rarity.COMMON, mage.cards.p.PillarOfFlame.class));
         cards.add(new SetCardInfo("Quelaag, Chaos Witch", 160, Rarity.RARE, mage.cards.q.QuelaagChaosWitch.class));
         cards.add(new SetCardInfo("Giant Growth", 188, Rarity.COMMON, mage.cards.g.GiantGrowth.class));
+        cards.add(new SetCardInfo("Mushroom Family", 201, Rarity.UNCOMMON, mage.cards.m.MushroomFamily.class));
         cards.add(new SetCardInfo("Sentinel Spider", 207, Rarity.COMMON, mage.cards.s.SentinelSpider.class));
         cards.add(new SetCardInfo("Evolving Wilds", 243, Rarity.COMMON, mage.cards.e.EvolvingWilds.class));
         cards.add(new SetCardInfo("Plains", 250, Rarity.LAND, mage.cards.basiclands.Plains.class));
