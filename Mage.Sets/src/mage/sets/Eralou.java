@@ -38,6 +38,7 @@ public final class Eralou extends ExpansionSet {
         cards.add(new SetCardInfo("Fervent Strike", 145, Rarity.COMMON, mage.cards.f.FerventStrike.class));
         cards.add(new SetCardInfo("Artisan's Sorrow", 170, Rarity.COMMON, mage.cards.a.ArtisansSorrow.class));
         cards.add(new SetCardInfo("Wild Instincts", 206, Rarity.COMMON, mage.cards.w.WildInstincts.class));
+        cards.add(new SetCardInfo("Erollin, Eccentric Collector", 215, Rarity.MYTHIC, mage.cards.e.ErollinEccentricCollector.class));
         cards.add(new SetCardInfo("Gilded Lotus", 231, Rarity.RARE, mage.cards.g.GildedLotus.class));
         cards.add(new SetCardInfo("Prophetic Prism", 234, Rarity.COMMON, mage.cards.p.PropheticPrism.class));
         cards.add(new SetCardInfo("Blessed Mausoleum", 239, Rarity.UNCOMMON, mage.cards.b.BlessedMausoleum.class));
