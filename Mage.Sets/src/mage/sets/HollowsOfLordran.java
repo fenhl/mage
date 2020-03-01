@@ -28,6 +28,7 @@ public final class HollowsOfLordran extends ExpansionSet {
         this.ratioBoosterMythic = 8;
 
         cards.add(new SetCardInfo("Arrest", 1, Rarity.COMMON, mage.cards.a.Arrest.class));
+        cards.add(new SetCardInfo("Big Hat Logan", 46, Rarity.RARE, mage.cards.b.BigHatLogan.class));
         cards.add(new SetCardInfo("Cancel", 48, Rarity.COMMON, mage.cards.c.Cancel.class));
         cards.add(new SetCardInfo("Essence Scatter", 61, Rarity.COMMON, mage.cards.e.EssenceScatter.class));
         cards.add(new SetCardInfo("Duress", 98, Rarity.COMMON, mage.cards.d.Duress.class));
