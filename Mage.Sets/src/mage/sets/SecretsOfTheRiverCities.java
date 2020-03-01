@@ -36,6 +36,7 @@ public final class SecretsOfTheRiverCities extends ExpansionSet {
         cards.add(new SetCardInfo("Exsanguinate", 91, Rarity.UNCOMMON, mage.cards.e.Exsanguinate.class));
         cards.add(new SetCardInfo("Murder", 107, Rarity.UNCOMMON, mage.cards.m.Murder.class));
         cards.add(new SetCardInfo("Act on Impulse", 123, Rarity.UNCOMMON, mage.cards.a.ActOnImpulse.class));
+        cards.add(new SetCardInfo("Fleeting Options", 138, Rarity.UNCOMMON, mage.cards.f.FleetingOptions.class));
         cards.add(new SetCardInfo("Epic Confrontation", 170, Rarity.COMMON, mage.cards.e.EpicConfrontation.class));
         cards.add(new SetCardInfo("Henry, River Cities Mayor", 212, Rarity.MYTHIC, mage.cards.h.HenryRiverCitiesMayor.class));
         cards.add(new SetCardInfo("Coveted Jewel", 228, Rarity.RARE, mage.cards.c.CovetedJewel.class));
