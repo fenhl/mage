@@ -35,10 +35,12 @@ public final class Dreamscape extends ExpansionSet {
         cards.add(new SetCardInfo("Sleep", 74, Rarity.UNCOMMON, mage.cards.s.Sleep.class));
         cards.add(new SetCardInfo("Think Twice", 78, Rarity.COMMON, mage.cards.t.ThinkTwice.class));
         cards.add(new SetCardInfo("Cloaked Phobia", 83, Rarity.COMMON, mage.cards.c.CloakedPhobia.class));
+        cards.add(new SetCardInfo("Plague with Distress", 107, Rarity.UNCOMMON, mage.cards.p.PlagueWithDistress.class));
         cards.add(new SetCardInfo("Shambling Ghoul", 114, Rarity.COMMON, mage.cards.s.ShamblingGhoul.class));
         cards.add(new SetCardInfo("Hysteria Mori", 142, Rarity.COMMON, mage.cards.h.HysteriaMori.class));
         cards.add(new SetCardInfo("Abundant Growth", 162, Rarity.COMMON, mage.cards.a.AbundantGrowth.class));
         cards.add(new SetCardInfo("Shimmerhide Rhino", 186, Rarity.COMMON, mage.cards.s.ShimmerhideRhino.class));
+        cards.add(new SetCardInfo("Whispering Bashe", 198, Rarity.COMMON, mage.cards.w.WhisperingBashe.class));
         cards.add(new SetCardInfo("Yemma's Mandate", 201, Rarity.RARE, mage.cards.y.YemmasMandate.class));
         cards.add(new SetCardInfo("Dreamsteel Servitor", 230, Rarity.COMMON, mage.cards.d.DreamsteelServitor.class));
         cards.add(new SetCardInfo("Plains", 251, Rarity.LAND, mage.cards.basiclands.Plains.class));

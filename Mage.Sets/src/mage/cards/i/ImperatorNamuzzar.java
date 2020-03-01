@@ -1,6 +1,7 @@
 package mage.cards.i;
 
 import mage.MageInt;
+import mage.abilities.Ability;
 import mage.abilities.common.EntersBattlefieldAbility;
 import mage.abilities.common.SimpleStaticAbility;
 import mage.abilities.condition.common.CivilizedCondition;
@@ -42,9 +43,11 @@ public final class ImperatorNamuzzar extends CardImpl {
         this.addAbility(new EntersBattlefieldAbility(new SearchLibraryPutInHandEffect(new TargetCardInLibrary(filter))));
 
         //Civilized - Lammasu you control get +2/+2 as long as you control an artifact, a creature, and an enchantment.
-        this.addAbility(new SimpleStaticAbility(Zone.BATTLEFIELD, new ConditionalContinuousEffect(
+        Ability ability = new SimpleStaticAbility(Zone.BATTLEFIELD, new ConditionalContinuousEffect(
                 new BoostControlledEffect(2, 2, Duration.WhileOnBattlefield, filter2), CivilizedCondition.instance,
-                "<i>Civilized</i> &mdash; Lammasu you control get +2/+2 as long as you control an artifact, a creature, and an enchantment.")));
+                "<i>Civilized</i> &mdash; Lammasu you control get +2/+2 as long as you control an artifact, a creature, and an enchantment."));
+        ability.setAbilityWord(AbilityWord.CIVILIZED);
+        this.addAbility(ability);
     }
 
     public ImperatorNamuzzar(final ImperatorNamuzzar card) {
