@@ -107,6 +107,7 @@ public enum CounterType {
     POISON("poison"),
     PRESSURE("pressure"),
     PREY("prey"),
+    PROGRESS("progress"),
     PUPA("pupa"),
     RESEARCH("research"),
     REPAIR("repair"),

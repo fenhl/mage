@@ -34,6 +34,7 @@ public final class ScripturesOfUrshad extends ExpansionSet {
         cards.add(new SetCardInfo("Golden Age", 59, Rarity.RARE, mage.cards.g.GoldenAge.class));
         cards.add(new SetCardInfo("Spell Pierce", 78, Rarity.COMMON, mage.cards.s.SpellPierce.class));
         cards.add(new SetCardInfo("Act of Treason", 125, Rarity.COMMON, mage.cards.a.ActOfTreason.class));
+        cards.add(new SetCardInfo("Currency", 135, Rarity.RARE, mage.cards.c.Currency.class));
         cards.add(new SetCardInfo("Shatter", 155, Rarity.COMMON, mage.cards.s.Shatter.class));
         cards.add(new SetCardInfo("Shock", 156, Rarity.COMMON, mage.cards.s.Shock.class));
         cards.add(new SetCardInfo("Sure Strike", 160, Rarity.COMMON, mage.cards.s.SureStrike.class));
