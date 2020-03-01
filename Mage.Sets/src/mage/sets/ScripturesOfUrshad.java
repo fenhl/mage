@@ -31,6 +31,8 @@ public final class ScripturesOfUrshad extends ExpansionSet {
         cards.add(new SetCardInfo("Inspired Charge", 21, Rarity.COMMON, mage.cards.i.InspiredCharge.class));
         cards.add(new SetCardInfo("Master of Marble Row", 26, Rarity.MYTHIC, mage.cards.m.MasterOfMarbleRow.class));
         cards.add(new SetCardInfo("Solemn Offering", 37, Rarity.COMMON, mage.cards.s.SolemnOffering.class));
+        cards.add(new SetCardInfo("Ekebram the Scholar", "53a", Rarity.MYTHIC, mage.cards.e.EkebramChroniclerOfAges.class));
+        cards.add(new SetCardInfo("Ekebram, Chronicler of Ages", "53b", Rarity.MYTHIC, mage.cards.e.EkebramChroniclerOfAges.class));
         cards.add(new SetCardInfo("Golden Age", 59, Rarity.RARE, mage.cards.g.GoldenAge.class));
         cards.add(new SetCardInfo("Spell Pierce", 78, Rarity.COMMON, mage.cards.s.SpellPierce.class));
         cards.add(new SetCardInfo("Act of Treason", 125, Rarity.COMMON, mage.cards.a.ActOfTreason.class));
